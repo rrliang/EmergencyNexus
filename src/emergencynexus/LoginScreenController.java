@@ -25,6 +25,6 @@ public class LoginScreenController {
 
     @FXML
     void registerClicked(MouseEvent event) {
-
+        System.out.println("register!");
     }
 }
