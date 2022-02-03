@@ -12,10 +12,9 @@ public class EmergencyNexus extends Application{
     }
     
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(new File("C:\\EmergencyNexus\\src\\emergencynexus\\loginScreen.fxml").toURI().toURL());
-        Parent root = loader.load();
-        stage.setScene(new Scene(root, 300, 250));
-        stage.setTitle("Demo v2");
+        Parent root = FXMLLoader.load(getClass().getResource("loginScreen.fxml"));;
+        stage.setScene(new Scene(root));
+        stage.setTitle("Emergency Nexus");
         stage.show();
     }
 }
