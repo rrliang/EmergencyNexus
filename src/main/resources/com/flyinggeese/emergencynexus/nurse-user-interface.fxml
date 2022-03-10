@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="480.0" prefWidth="915.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.flyinggeese.emergencynexus.NurseUserInterfaceController">
+  <children>
+    <MenuBar prefHeight="0.0" prefWidth="873.0" VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane dividerPositions="0.2505567928730512, 0.8363028953229399" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane>
+          <children>
+            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Master" textAlignment="CENTER" wrapText="false">
+              <font>
+                <Font size="18.0" fx:id="x1" />
+              </font>
+              <textFill>
+                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+              </textFill>
+            </Label>
+                  <Button mnemonicParsing="false" prefHeight="120.0" prefWidth="222.0" text="Create Patient Visit Form" />
+                  <Button layoutY="120.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="222.0" text="Create Patient Information Form" />
+                  <Button layoutY="240.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="222.0" text="Access Patient File" />
+                  <Button layoutY="360.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="222.0" text="Access Record" />
+          </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="480.0" prefWidth="485.0">
+          <content>
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="594.0" prefWidth="509.0">
+              <children>
+                <Label alignment="CENTER" font="$x1" layoutX="36.0" layoutY="15.0" style="&#10;" text="Patient Name: " textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                        <Label alignment="CENTER" layoutX="36.0" layoutY="53.0" style="&#10;" text="Visit Date: " textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x11" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
+                           </textFill>
+                        </Label>
+                        <TextField layoutX="200.0" layoutY="16.0" />
+                        <Label alignment="CENTER" layoutX="36.0" layoutY="93.0" style="&#10;" text="Symptoms: " textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x111" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x211" />
+                           </textFill>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="49.0" layoutY="128.0" style="&#10;" text="My ... hurts" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="14.0" fx:id="x1111" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111" />
+                           </textFill>
+                        </Label>
+                        <ChoiceBox layoutX="199.0" layoutY="126.0" prefWidth="150.0" />
+                        <Label alignment="CENTER" layoutX="49.0" layoutY="165.0" style="&#10;" text="I feel:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="14.0" fx:id="x11111" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111" />
+                           </textFill>
+                        </Label>
+                        <ChoiceBox layoutX="199.0" layoutY="163.0" prefWidth="150.0" />
+                        <Label alignment="CENTER" layoutX="49.0" layoutY="204.0" style="&#10;" text="I can't:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="14.0" fx:id="x111111" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111" />
+                           </textFill>
+                        </Label>
+                        <ChoiceBox layoutX="199.0" layoutY="202.0" prefWidth="150.0" />
+                        <Label alignment="CENTER" layoutX="33.0" layoutY="248.0" style="&#10;" text="Blood pressure:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x112" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x212" />
+                           </textFill>
+                        </Label>
+                        <TextField layoutX="200.0" layoutY="249.0" />
+                        <Label alignment="CENTER" layoutX="33.0" layoutY="289.0" style="&#10;" text="Admission status:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x1121" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x2121" />
+                           </textFill>
+                        </Label>
+                        <RadioButton layoutX="200.0" layoutY="294.0" mnemonicParsing="false" text="Yes" />
+                        <RadioButton layoutX="256.0" layoutY="294.0" mnemonicParsing="false" text="No" />
+                        <DatePicker layoutX="200.0" layoutY="54.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Label alignment="CENTER" layoutX="119.0" layoutY="328.0" style="&#10;" text="Check-in: " textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="14.0" fx:id="x11112" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x21112" />
+                           </textFill>
+                        </Label>
+                        <DatePicker layoutX="200.0" layoutY="325.0" prefHeight="25.0" prefWidth="93.0" />
+                        <Label alignment="CENTER" layoutX="304.0" layoutY="327.0" style="&#10;" text="Check-out: " textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="14.0" fx:id="x111121" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x211121" />
+                           </textFill>
+                        </Label>
+                        <DatePicker layoutX="392.0" layoutY="325.0" prefHeight="25.0" prefWidth="93.0" />
+                        <Label alignment="CENTER" layoutX="75.0" layoutY="364.0" style="&#10;" text="Room number:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="14.0" fx:id="x111122" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x211122" />
+                           </textFill>
+                        </Label>
+                        <TextField layoutX="200.0" layoutY="362.0" />
+                        <Label alignment="CENTER" layoutX="33.0" layoutY="400.0" style="&#10;" text="Primary physician:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x11211" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x21211" />
+                           </textFill>
+                        </Label>
+                        <TextField layoutX="201.0" layoutY="401.0" />
+                        <Label alignment="CENTER" layoutX="35.0" layoutY="438.0" style="&#10;" text="IV administration:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x11212" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x21212" />
+                           </textFill>
+                        </Label>
+                        <RadioButton layoutX="200.0" layoutY="443.0" mnemonicParsing="false" text="Yes" />
+                        <RadioButton layoutX="267.0" layoutY="443.0" mnemonicParsing="false" text="No" />
+                        <Label alignment="CENTER" layoutX="105.0" layoutY="481.0" style="&#10;" text="Saline [mG]:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="14.0" fx:id="x111123" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x211123" />
+                           </textFill>
+                        </Label>
+                        <TextField layoutX="200.0" layoutY="479.0" />
+                        <Label alignment="CENTER" layoutX="27.0" layoutY="521.0" style="&#10;" text="Given Medications:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x1122" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x2122" />
+                           </textFill>
+                        </Label>
+                        <ChoiceBox layoutX="201.0" layoutY="522.0" prefWidth="150.0" />
+                        <Label alignment="CENTER" layoutX="55.0" layoutY="567.0" style="&#10;" text="Injections given:" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x11221" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x21221" />
+                           </textFill>
+                        </Label>
+                        <ChoiceBox layoutX="201.0" layoutY="568.0" prefWidth="150.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <AnchorPane prefHeight="516.0" prefWidth="148.0">
+          <children>
+            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Button layoutY="87.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="148.0" text="Save Form" />
+                  <Button layoutY="-4.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="148.0" text="Save in Drafts" />
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="912.0" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="83.0" prefWidth="776.0" HBox.hgrow="ALWAYS" />
+        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>
