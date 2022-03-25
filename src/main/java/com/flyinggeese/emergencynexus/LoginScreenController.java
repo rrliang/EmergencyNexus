@@ -1,8 +1,9 @@
 package com.flyinggeese.emergencynexus;
 
 import java.io.IOException;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,21 +28,43 @@ public class LoginScreenController {
     private TextField loginUsername;
 
     @FXML
-    void checkLogin(ActionEvent event) throws IOException {
-        if (loginUsername.getText().equals("rrliang") && loginPassword.getText().equals("123")) {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("nurse-user-interface.fxml"));
-            /*
-             * if "fx:controller" is not set in fxml
-             * fxmlLoader.setController(NewWindowController);
-             */
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Nurse Interface");
-            stage.setScene(scene);
-            stage.show();
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+    void checkLogin(ActionEvent event) throws IOException, SQLException {
+        ConnectToDatabase db = new ConnectToDatabase();
+        db.makeJDBCConnection();
+        String searchQuery = "SELECT * FROM users WHERE username = ? AND password = ?";
+
+        PreparedStatement smt = db.getConnection().prepareStatement(searchQuery);
+        smt.setString(1, loginUsername.getText());
+        smt.setString(2, loginPassword.getText());
+        try(ResultSet resultSet = smt.executeQuery()) {
+            if (resultSet.next()) {
+                String accountType = resultSet.getString("typeofaccount");
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                Stage stage = new Stage();
+                switch(accountType) {
+                    case "doctor":
+                        fxmlLoader.setLocation(getClass().getResource("nurse-user-interface.fxml"));
+                        stage.setTitle("Practitioner Interface");
+                        break;
+                    case "nurse":
+                        fxmlLoader.setLocation(getClass().getResource("practitioner-user-interface.fxml"));
+                        stage.setTitle("Nurse Interface");
+                        break;
+                    case "admin":
+                        fxmlLoader.setLocation(getClass().getResource("sysadmin-user-interface.fxml"));
+                        stage.setTitle("System Admin Interface");
+                        break;
+                    default:
+                        System.out.println("This user is in the system, but does not have a type of account");
+                        break;
+                }
+                Scene scene = new Scene(fxmlLoader.load());
+                stage.setScene(scene);
+                stage.show();
+                ((Node)(event.getSource())).getScene().getWindow().hide();
+            }
         }
+
     }
 
     @FXML
@@ -54,7 +77,7 @@ public class LoginScreenController {
          */
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         Stage stage = new Stage();
-        stage.setTitle("New Window");
+        stage.setTitle("Account help");
         stage.setScene(scene);
         stage.show();
         ((Node)(event.getSource())).getScene().getWindow().hide();
