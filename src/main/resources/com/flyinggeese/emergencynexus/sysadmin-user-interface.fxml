@@ -45,7 +45,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.SysAdminController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.SysAdminController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -106,7 +106,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111" />
                                        </textFill>
                                     </Label>
-                                    <Label alignment="CENTER" layoutX="236.0" layoutY="342.0" style="&#10;" text="First name: " textAlignment="CENTER" wrapText="false">
+                                    <Label alignment="CENTER" layoutX="221.0" layoutY="343.0" style="&#10;" text="Full name:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x11111" />
                                        </font>
@@ -114,26 +114,8 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111" />
                                        </textFill>
                                     </Label>
-                                    <TextField fx:id="createAccountFirstNameTextField" layoutX="355.0" layoutY="343.0" prefHeight="26.0" prefWidth="194.0" />
-                                    <Label alignment="CENTER" layoutX="231.0" layoutY="412.0" style="&#10;" text="Middle name: " textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x111111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField fx:id="createAccountMiddleNameTextField" layoutX="356.0" layoutY="412.0" prefHeight="26.0" prefWidth="194.0" />
-                                    <Label alignment="CENTER" layoutX="237.0" layoutY="475.0" style="&#10;" text="Last name: " textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x1111111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField fx:id="createAccountLastNameTextField" layoutX="355.0" layoutY="476.0" prefHeight="26.0" prefWidth="194.0" />
-                                    <Label alignment="CENTER" layoutX="229.0" layoutY="542.0" style="&#10;" text="Home address:" textAlignment="CENTER" wrapText="false">
+                                    <TextField fx:id="createAccountFullNameTextField" layoutX="355.0" layoutY="343.0" prefHeight="26.0" prefWidth="194.0" />
+                                    <Label alignment="CENTER" layoutX="219.0" layoutY="396.0" style="&#10;" text="Home address:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x11111111" />
                                        </font>
@@ -141,8 +123,8 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111" />
                                        </textFill>
                                     </Label>
-                                    <TextField fx:id="createAccountHomeAddressTextField" layoutX="356.0" layoutY="543.0" prefHeight="26.0" prefWidth="194.0" />
-                                    <Label alignment="CENTER" layoutX="221.0" layoutY="583.0" style="&#10;" text="Phone number:" textAlignment="CENTER" wrapText="false">
+                                    <TextField fx:id="createAccountHomeAddressTextField" layoutX="356.0" layoutY="396.0" prefHeight="26.0" prefWidth="194.0" />
+                                    <Label alignment="CENTER" layoutX="221.0" layoutY="448.0" style="&#10;" text="Phone number:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x111111111" />
                                        </font>
@@ -150,7 +132,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111" />
                                        </textFill>
                                     </Label>
-                                    <TextField fx:id="createAccountPhoneNumberTextField" layoutX="356.0" layoutY="583.0" prefHeight="26.0" prefWidth="194.0" />
+                                    <TextField fx:id="createAccountPhoneNumberTextField" layoutX="356.0" layoutY="448.0" prefHeight="26.0" prefWidth="194.0" />
                                     <Button fx:id="createAccountSubmitButton" layoutX="703.0" layoutY="14.0" mnemonicParsing="false" onAction="#createAccountSubmitButtonClicked" text="Submit" />
                                     <Button fx:id="createAccountSaveDraftButton" layoutX="669.0" layoutY="53.0" mnemonicParsing="false" onAction="#createAccountSaveDraftButtonClicked" text="Save in drafts" />
                                  </children>
