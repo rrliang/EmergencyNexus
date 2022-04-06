@@ -62,77 +62,81 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="771.0">
                                  <children>
-                                    <Label alignment="CENTER" layoutX="161.0" layoutY="38.0" style="&#10;" text="Type of account:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x1111111111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111111" />
-                                       </textFill>
-                                    </Label>
-                                    <ChoiceBox fx:id="createAccounttypeOfAccountChoiceBox" layoutX="351.0" layoutY="39.0" prefHeight="26.0" prefWidth="194.0" />
-                                    <Label alignment="CENTER" layoutX="161.0" layoutY="92.0" style="&#10;" text="Account email:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x1" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField fx:id="createAccountEmailTextField" layoutX="351.0" layoutY="93.0" prefHeight="26.0" prefWidth="195.0" />
-                                    <Label alignment="CENTER" layoutX="161.0" layoutY="151.0" style="&#10;" text="Account username: " textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x11" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField fx:id="createAccountUsernameTextField" layoutX="351.0" layoutY="152.0" prefHeight="26.0" prefWidth="194.0" />
-                                    <Label alignment="CENTER" layoutX="162.0" layoutY="221.0" style="&#10;" text="Account password: " textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x211" />
-                                       </textFill>
-                                    </Label>
-                                    <PasswordField fx:id="createAccountPasswordTextField" layoutX="351.0" layoutY="222.0" prefHeight="26.0" prefWidth="195.0" />
-                                    <Label alignment="CENTER" layoutX="162.0" layoutY="292.0" style="&#10;" text="Account holder's: " textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x1111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111" />
-                                       </textFill>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="221.0" layoutY="343.0" style="&#10;" text="Full name:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x11111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField fx:id="createAccountFullNameTextField" layoutX="355.0" layoutY="343.0" prefHeight="26.0" prefWidth="194.0" />
-                                    <Label alignment="CENTER" layoutX="219.0" layoutY="396.0" style="&#10;" text="Home address:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x11111111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField fx:id="createAccountHomeAddressTextField" layoutX="356.0" layoutY="396.0" prefHeight="26.0" prefWidth="194.0" />
-                                    <Label alignment="CENTER" layoutX="221.0" layoutY="448.0" style="&#10;" text="Phone number:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x111111111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField fx:id="createAccountPhoneNumberTextField" layoutX="356.0" layoutY="448.0" prefHeight="26.0" prefWidth="194.0" />
+                                    <VBox layoutX="35.0" layoutY="27.0" prefHeight="635.0" prefWidth="658.0">
+                                       <children>
+                                          <Label alignment="CENTER" style="&#10;" text="Type of account:" textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x1111111111" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111111" />
+                                             </textFill>
+                                          </Label>
+                                          <ChoiceBox fx:id="createAccounttypeOfAccountChoiceBox" prefHeight="26.0" prefWidth="194.0" />
+                                          <Label alignment="CENTER" style="&#10;" text="Account email:" textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x1" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                                             </textFill>
+                                          </Label>
+                                          <TextField fx:id="createAccountEmailTextField" prefHeight="26.0" prefWidth="195.0" />
+                                          <Label alignment="CENTER" style="&#10;" text="Account username: " textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x11" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
+                                             </textFill>
+                                          </Label>
+                                          <TextField fx:id="createAccountUsernameTextField" prefHeight="26.0" prefWidth="194.0" />
+                                          <Label alignment="CENTER" style="&#10;" text="Account password: " textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x111" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x211" />
+                                             </textFill>
+                                          </Label>
+                                          <PasswordField fx:id="createAccountPasswordTextField" prefHeight="26.0" prefWidth="195.0" />
+                                          <Label alignment="CENTER" style="&#10;" text="Account holder's: " textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x1111" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111" />
+                                             </textFill>
+                                          </Label>
+                                          <Label alignment="CENTER" style="&#10;" text="Full name:" textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x11111" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111" />
+                                             </textFill>
+                                          </Label>
+                                          <TextField fx:id="createAccountFullNameTextField" prefHeight="26.0" prefWidth="194.0" />
+                                          <Label alignment="CENTER" style="&#10;" text="Home address:" textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x11111111" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111" />
+                                             </textFill>
+                                          </Label>
+                                          <TextField fx:id="createAccountHomeAddressTextField" prefHeight="26.0" prefWidth="194.0" />
+                                          <Label alignment="CENTER" style="&#10;" text="Phone number:" textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x111111111" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111" />
+                                             </textFill>
+                                          </Label>
+                                          <TextField fx:id="createAccountPhoneNumberTextField" prefHeight="26.0" prefWidth="194.0" />
+                                       </children>
+                                    </VBox>
                                     <Button fx:id="createAccountSubmitButton" layoutX="703.0" layoutY="14.0" mnemonicParsing="false" onAction="#createAccountSubmitButtonClicked" text="Submit" />
                                     <Button fx:id="createAccountSaveDraftButton" layoutX="669.0" layoutY="53.0" mnemonicParsing="false" onAction="#createAccountSaveDraftButtonClicked" text="Save in drafts" />
                                  </children>
