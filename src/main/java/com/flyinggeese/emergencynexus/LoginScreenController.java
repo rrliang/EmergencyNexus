@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,7 +42,7 @@ public class LoginScreenController {
                 String accountType = resultSet.getString("typeofaccount");
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 Stage stage = new Stage();
-                switch(accountType) {
+                switch(accountType.toLowerCase()) {
                     case "doctor":
                         fxmlLoader.setLocation(getClass().getResource("nurse-user-interface.fxml"));
                         stage.setTitle("Practitioner Interface");

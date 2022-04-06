@@ -11,7 +11,7 @@ public class ConnectToDatabase {
 
     public void makeJDBCConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Congrats - Seems your MySQL JDBC Driver Registered!");
         } catch (ClassNotFoundException e) {
             System.out.println("Sorry, couldn't found JDBC driver. Make sure you have added JDBC Maven Dependency Correctly");
@@ -21,7 +21,8 @@ public class ConnectToDatabase {
 
         try {
             // DriverManager: The basic service for managing a set of JDBC drivers.
-            crunchifyConn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/emergency_nexus?user=root?autoReconnect=true&useSSL=false", "root", "");
+//            jdbc:mysql://127.0.0.1:3306/?user=root
+            crunchifyConn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/emergency_nexus?user=emergencynexusclient?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false", "emergencynexusclient", "password");
 
             if (crunchifyConn != null) {
                 System.out.println("Connection Successful! Enjoy. Now it's time to push data");
