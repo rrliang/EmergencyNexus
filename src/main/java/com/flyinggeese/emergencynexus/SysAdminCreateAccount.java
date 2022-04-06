@@ -1,5 +1,6 @@
 package com.flyinggeese.emergencynexus;
 
+import javafx.scene.control.Alert;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,8 +13,9 @@ public class SysAdminCreateAccount {
     private String holderFullName;
     private String holderHomeAddress;
     private String holderPhoneNumber;
+    private ConnectToDatabase db = new ConnectToDatabase();
 
-    public SysAdminCreateAccount() {
+    public SysAdminCreateAccount() throws SQLException {
 
     }
 
@@ -28,7 +30,6 @@ public class SysAdminCreateAccount {
     }
 
     public void addAccountToDatabase() throws SQLException {
-        ConnectToDatabase db = new ConnectToDatabase();
         db.makeJDBCConnection();
         String insertQuery = "INSERT INTO users (typeofaccount,fullname,companyemail,homeaddress,phonenumber,username,password) VALUES (?,?,?,?,?,?,?)";
 
@@ -41,7 +42,10 @@ public class SysAdminCreateAccount {
         smt.setString(6, accountUsername);
         smt.setString(7, accountPassword);
         smt.executeUpdate();
-        System.out.println("Successfully created new user");
+
+        Alert accountCreated = new Alert(Alert.AlertType.CONFIRMATION);
+        accountCreated.setContentText("Successfully created new user!");
+        accountCreated.showAndWait();
     }
 
     public String getTypeOfAccount() {
@@ -99,7 +103,4 @@ public class SysAdminCreateAccount {
     public void setHolderPhoneNumber(String holderPhoneNumber) {
         this.holderPhoneNumber = holderPhoneNumber;
     }
-
-
-
 }

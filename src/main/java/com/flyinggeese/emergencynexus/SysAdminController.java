@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -44,6 +41,19 @@ public class SysAdminController implements Initializable {
     private Button createAccountSaveDraftButton;
 
     private ArrayList<Object> draftList;
+    private ConnectToDatabase db = new ConnectToDatabase();
+
+    private boolean checkIfExists(String accountEmail) throws SQLException {
+        String checkQuery = "SELECT EXISTS(SELECT 1 FROM users WHERE companyemail = ?)";
+        PreparedStatement smt = db.getConnection().prepareStatement(checkQuery);
+        smt.setString(1, accountEmail);
+        ResultSet rs = smt.executeQuery();
+        if (rs.next()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     @FXML
     void createAccountSaveDraftButtonClicked(ActionEvent event) {
@@ -56,20 +66,28 @@ public class SysAdminController implements Initializable {
 
     @FXML
     void createAccountSubmitButtonClicked(ActionEvent event) throws SQLException {
-        ConnectToDatabase db = new ConnectToDatabase();
         db.makeJDBCConnection();
-        String insertQuery = "INSERT INTO users (typeofaccount,fullname,companyemail,homeaddress,phonenumber,username,password) VALUES (?,?,?,?,?,?,?)";
+        if(checkIfExists(createAccountEmailTextField.getText())) {
+            Alert accountCreated = new Alert(Alert.AlertType.CONFIRMATION);
+            accountCreated.setContentText("ERR: Account with that email already exists.");
+            accountCreated.showAndWait();
+        } else {
+            String insertQuery = "INSERT INTO users (typeofaccount,fullname,companyemail,homeaddress,phonenumber,username,password) VALUES (?,?,?,?,?,?,?)";
 
-        PreparedStatement smt = db.getConnection().prepareStatement(insertQuery);
-        smt.setString(1, (String) createAccounttypeOfAccountChoiceBox.getValue());
-        smt.setString(2, createAccountFullNameTextField.getText());
-        smt.setString(3, createAccountEmailTextField.getText());
-        smt.setString(4, createAccountHomeAddressTextField.getText());
-        smt.setString(5, createAccountPhoneNumberTextField.getText());
-        smt.setString(6, createAccountUsernameTextField.getText());
-        smt.setString(7, createAccountPasswordTextField.getText());
-        smt.executeUpdate();
-        System.out.println("Successfully created new user");
+            PreparedStatement smt = db.getConnection().prepareStatement(insertQuery);
+            smt.setString(1, (String) createAccounttypeOfAccountChoiceBox.getValue());
+            smt.setString(2, createAccountFullNameTextField.getText());
+            smt.setString(3, createAccountEmailTextField.getText());
+            smt.setString(4, createAccountHomeAddressTextField.getText());
+            smt.setString(5, createAccountPhoneNumberTextField.getText());
+            smt.setString(6, createAccountUsernameTextField.getText());
+            smt.setString(7, createAccountPasswordTextField.getText());
+            smt.executeUpdate();
+
+            Alert accountCreated = new Alert(Alert.AlertType.CONFIRMATION);
+            accountCreated.setContentText("Successfully created new user!");
+            accountCreated.showAndWait();
+        }
     }
 
     @Override
