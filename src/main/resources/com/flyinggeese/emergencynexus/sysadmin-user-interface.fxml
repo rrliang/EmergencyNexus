@@ -39,6 +39,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -58,11 +60,11 @@
               <tabs>
                 <Tab text="Create Account">
                      <content>
-                        <ScrollPane prefHeight="525.0" prefWidth="772.0">
+                        <ScrollPane prefHeight="495.0" prefWidth="776.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="771.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="455.0" prefWidth="771.0">
                                  <children>
-                                    <VBox layoutX="35.0" layoutY="27.0" prefHeight="635.0" prefWidth="658.0">
+                                    <VBox layoutX="35.0" layoutY="27.0" prefHeight="432.0" prefWidth="658.0">
                                        <children>
                                           <Label alignment="CENTER" style="&#10;" text="Type of account:" textAlignment="CENTER" wrapText="false">
                                              <font>
@@ -72,7 +74,7 @@
                                                 <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111111" />
                                              </textFill>
                                           </Label>
-                                          <ChoiceBox fx:id="createAccounttypeOfAccountChoiceBox" prefHeight="26.0" prefWidth="194.0" />
+                                          <ChoiceBox fx:id="createAccountTypeOfAccountChoiceBox" prefHeight="26.0" prefWidth="194.0" />
                                           <Label alignment="CENTER" style="&#10;" text="Account email:" textAlignment="CENTER" wrapText="false">
                                              <font>
                                                 <Font size="18.0" fx:id="x1" />
@@ -153,10 +155,40 @@
                   </Tab>
                   <Tab text="View Accounts">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane prefHeight="525.0" prefWidth="772.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="771.0">
+                                       <children>
+                                          <TableView layoutY="44.0" prefHeight="510.0" prefWidth="756.0">
+                                            <columns>
+                                                <TableColumn fx:id="viewAccountsTypeColumn" minWidth="0.0" prefWidth="75.0" text="Type" />
+                                              <TableColumn fx:id="viewAccountFullNameColumn" prefWidth="125.0" text="Full name" />
+                                              <TableColumn fx:id="viewAccountsEmailColumn" prefWidth="176.0" text="Email" />
+                                                <TableColumn fx:id="viewAccountsUsernameColumn" prefWidth="111.0" text="Username" />
+                                                <TableColumn fx:id="viewAccountsPasswordColumn" prefWidth="83.0" text="Password" />
+                                                <TableColumn fx:id="viewAccountsAddressColumn" prefWidth="86.0" text="Address" />
+                                                <TableColumn fx:id="viewAccountsPhoneColumn" prefWidth="99.0" text="Phone" />
+                                            </columns>
+                                          </TableView>
+                                          <Button fx:id="viewAccountsUpdateButton" layoutX="656.0" layoutY="-3.0" mnemonicParsing="false" onAction="#viewAccountsUpdateClicked" prefHeight="48.0" prefWidth="106.0" text="Update" />
+                                          <TextField fx:id="viewAccountsSearchText" layoutX="14.0" layoutY="11.0" onKeyReleased="#viewAccountsSearchBarKeyReleased" prefHeight="14.0" prefWidth="414.0" promptText="Search" />
+                                          <Button fx:id="viewAccountsClearButton" layoutX="436.0" layoutY="11.0" mnemonicParsing="false" onAction="#viewAccountsClearButtonClicked" text="Clear" />
+                                          <Button fx:id="viewAccountsShowPasswordButton" layoutX="536.0" layoutY="-3.0" mnemonicParsing="false" onAction="#viewAccountsShowPasswordClicked" prefHeight="48.0" prefWidth="120.0" text="Show passwords" textAlignment="CENTER" wrapText="true" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children></AnchorPane>
                     </content>
                   </Tab>
                   <Tab text="Drafts">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Tickets">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
