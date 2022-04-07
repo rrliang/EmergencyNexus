@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `visit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `visit` (
-  `idvisit` int NOT NULL,
+  `idvisit` int NOT NULL AUTO_INCREMENT,
   `patient` int NOT NULL,
   `dateofvisit` date DEFAULT NULL,
   `symptomsmyhurt` varchar(45) DEFAULT NULL,
@@ -66,4 +66,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-24 16:03:07
+-- Dump completed on 2022-04-07 15:46:20

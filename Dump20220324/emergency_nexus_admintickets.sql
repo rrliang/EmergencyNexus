@@ -16,34 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `admintickets`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `admintickets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `idusers` int NOT NULL AUTO_INCREMENT,
-  `typeofaccount` varchar(45) DEFAULT NULL,
-  `fullname` varchar(45) DEFAULT NULL,
-  `companyemail` varchar(45) DEFAULT NULL,
-  `homeaddress` varchar(45) DEFAULT NULL,
-  `phonenumber` varchar(45) DEFAULT NULL,
+CREATE TABLE `admintickets` (
+  `idadmintickets` int NOT NULL AUTO_INCREMENT,
+  `user` int NOT NULL,
+  `accountemail` varchar(45) NOT NULL,
   `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idusers`),
-  UNIQUE KEY `idusers_UNIQUE` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=12345691 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `issue` varchar(45) DEFAULT NULL,
+  `status` binary(1) NOT NULL,
+  PRIMARY KEY (`idadmintickets`,`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `admintickets`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (12345670,'doctor','Greg Man','gman@nexus.org','124 fjfj eh','123-4-4-4','gman','menty'),(12345678,'admin','admin account','admin@nexus.org','1233 3jklfj j','1928-483-28','admin','nexus'),(12345679,'nurse','Harley Quinzel','hquinzel@nexus.org','123 Crime Allety','12=4-34=5','hquin','puddin'),(12345680,'Nurse','Jenny Benny','jben@nexus.org','1234 Skid Rd.','938-342-3421','jben','password1234'),(12345681,'Doctor','doctor octor','dococ@nexus.org','24 man hatten','838-949-2394','dococ','wow'),(12345685,'Doctor','bruh','bruh@nexus.org','bruh','bruh','bruh','bruh'),(12345688,NULL,'f','f','f','f','f','f');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `admintickets` WRITE;
+/*!40000 ALTER TABLE `admintickets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `admintickets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `patients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `patients` (
-  `idpatients` int NOT NULL,
+  `idpatients` int NOT NULL AUTO_INCREMENT,
   `fullname` varchar(45) DEFAULT NULL,
   `dateofbirth` date DEFAULT NULL,
   `phonenumber` varchar(45) DEFAULT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE `patients` (
   `sexualactivity` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idpatients`),
   UNIQUE KEY `idpatients_UNIQUE` (`idpatients`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1111112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,4 +78,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-24 16:03:07
+-- Dump completed on 2022-04-07 15:46:20
