@@ -1,7 +1,11 @@
-.button{
+.button {
 	-fx-background-color: #f23545;
 	-fx-text-fill: white;
 	-fx-border-color: white;
+}
+
+.button:pressed {
+    -fx-background-color: #d1303e;
 }
 
 .root {
