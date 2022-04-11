@@ -1,10 +1,18 @@
 package com.flyinggeese.emergencynexus;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.control.ChoiceBox;
 
-public class NurseUserInterfaceController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class NurseUserInterfaceController implements Initializable {
 
     @FXML
     private Font x1;
@@ -108,4 +116,26 @@ public class NurseUserInterfaceController {
     @FXML
     private Color x4;
 
+    @FXML
+    private TextField firstName, lastName;
+    @FXML
+    private ChoiceBox<String> feeling, symptoms;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        //PATIENT VISIT FORM CHOICE BOXES
+
+        ObservableList<String> s = FXCollections.observableArrayList();
+        s.addAll("Good", "Okay", "Bad", "Terrible");
+        feeling.setItems(s);
+        feeling.setValue("Okay");
+
+        ObservableList<String> hurt = FXCollections.observableArrayList();
+        hurt.addAll("Head", "Shoulders", "Chest", "Arms", "Hips", "Legs", "Knees", "Feet");
+        symptoms.setItems(hurt);
+        symptoms.setValue("Head");
+
+
+    }
 }
