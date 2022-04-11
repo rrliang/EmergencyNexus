@@ -48,7 +48,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@test.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.SysAdminController">
+<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@test.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.SysAdminController">
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="499.0" prefWidth="718.0" VBox.vgrow="ALWAYS">
             <children>
@@ -172,7 +172,7 @@
                                                 </VBox>
                                                 <Button fx:id="createAccountSubmitButton" layoutX="701.0" mnemonicParsing="false" onAction="#createAccountSubmitButtonClicked" text="Submit" />
                                                 <Button fx:id="createAccountSaveDraftButton" layoutX="599.0" mnemonicParsing="false" onAction="#createAccountSaveDraftButtonClicked" text="Save in drafts" />
-                                    <Button fx:id="createAccountClearChangesButton" layoutX="478.0" mnemonicParsing="false" onAction="#createAccountClearChangesButtonClicked" text="Clear all changes" />
+                                                <Button fx:id="createAccountClearChangesButton" layoutX="478.0" mnemonicParsing="false" onAction="#createAccountClearChangesButtonClicked" text="Clear all changes" />
                                             </children>
                                         </AnchorPane>
                                     </content>
@@ -180,183 +180,189 @@
                             </content>
                         </Tab>
                         <Tab fx:id="editAccountTab" text="Edit Account">
-                     <content>
-                        <ScrollPane prefHeight="524.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="772.0">
-                                 <children>
-                                    <VBox layoutX="30.0" layoutY="28.0" prefHeight="462.0" prefWidth="594.0">
-                                       <children>
-                                          <Label alignment="CENTER" style="&#10;" text="Account to be edited:" textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x11111111111" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111111" />
-                                             </textFill>
-                                          </Label>
-                                          <HBox prefHeight="222.0" prefWidth="594.0">
-                                             <children>
-                                                <ChoiceBox fx:id="editAccountsChoiceBox" prefHeight="25.0" prefWidth="194.0" />
-                                                <TextField fx:id="editAccountsTextField" prefHeight="25.0" prefWidth="370.0" />
-                                             </children>
-                                          </HBox>
-                                          <Label fx:id="editAccountTypeLabel" alignment="CENTER" style="&#10;" text="Type of account:" textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x11111111112" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111112" />
-                                             </textFill>
-                                          </Label>
-                                          <ChoiceBox fx:id="editAccountTypeOfAccountChoiceBox" prefHeight="26.0" prefWidth="194.0" />
-                                          <Label fx:id="editAccountEmailLabel" alignment="CENTER" style="&#10;" text="Account email:" textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x12" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x22" />
-                                             </textFill>
-                                          </Label>
-                                          <TextField fx:id="editAccountEmailTextField" prefHeight="26.0" prefWidth="195.0" />
-                                          <Label fx:id="editAccountUsernameLabel" alignment="CENTER" style="&#10;" text="Account username: " textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x112" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x212" />
-                                             </textFill>
-                                          </Label>
-                                          <TextField fx:id="editAccountUsernameTextField" prefHeight="26.0" prefWidth="194.0" />
-                                          <Label fx:id="editAccountPasswordLabel" alignment="CENTER" style="&#10;" text="Account password: " textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x1112" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2112" />
-                                             </textFill>
-                                          </Label>
-                                          <PasswordField fx:id="editAccountPasswordTextField" prefHeight="26.0" prefWidth="195.0" />
-                                          <Label fx:id="editAccountHoldersLabel" alignment="CENTER" style="&#10;" text="Account holder's: " textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x11112" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21112" />
-                                             </textFill>
-                                          </Label>
-                                          <Label fx:id="editAccountNameLabel" alignment="CENTER" style="&#10;" text="Full name:" textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x111111" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111" />
-                                             </textFill>
-                                          </Label>
-                                          <TextField fx:id="editAccountFullNameTextField" prefHeight="26.0" prefWidth="194.0" />
-                                          <Label fx:id="editAccountAddressLabel" alignment="CENTER" style="&#10;" text="Home address:" textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x111111112" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111112" />
-                                             </textFill>
-                                          </Label>
-                                          <TextField fx:id="editAccountHomeAddressTextField" prefHeight="26.0" prefWidth="194.0" />
-                                          <Label fx:id="editAccountNumberLabel" alignment="CENTER" style="&#10;" text="Phone number:" textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x1111111112" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111112" />
-                                             </textFill>
-                                          </Label>
-                                          <TextField fx:id="editAccountPhoneNumberTextField" prefHeight="26.0" prefWidth="194.0" />
-                                       </children>
-                                    </VBox>
-                                    <Button fx:id="editAccountSubmitButton" layoutX="602.0" mnemonicParsing="false" onAction="#editAccountSubmitButtonClicked" text="Submit" />
-                                    <Button fx:id="editAccountSaveDraftButton" layoutX="669.0" layoutY="1.0" mnemonicParsing="false" onAction="#editAccountSaveDraftButtonClicked" text="Save in drafts" />
-                                    <Button fx:id="editAccountSelectAccountButton" layoutX="602.0" layoutY="54.0" mnemonicParsing="false" onAction="#editAccountSelectAccountButtonClicked" prefHeight="19.0" prefWidth="155.0" text="Select Account To Edit" wrapText="true" />
-                                    <Button fx:id="editAccountDiscardChangesButton" layoutX="469.0" mnemonicParsing="false" onAction="#editAccountDiscardChangesButtonClicked" text="Discard all changes" />
-                                    <Button fx:id="editAccountNewUserButton" layoutX="388.0" mnemonicParsing="false" onAction="#editAccountNewUserButtonClicked" text="New user" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
-                     </content></Tab>
+                            <content>
+                                <ScrollPane prefHeight="524.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="772.0">
+                                            <children>
+                                                <VBox layoutX="30.0" layoutY="28.0" prefHeight="462.0" prefWidth="594.0">
+                                                    <children>
+                                                        <Label alignment="CENTER" style="&#10;" text="Account to be edited:" textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x11111111111" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111111" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <HBox prefHeight="222.0" prefWidth="594.0">
+                                                            <children>
+                                                                <ChoiceBox fx:id="editAccountsChoiceBox" prefHeight="25.0" prefWidth="194.0" />
+                                                                <TextField fx:id="editAccountsTextField" prefHeight="25.0" prefWidth="370.0" />
+                                                            </children>
+                                                        </HBox>
+                                                        <Label fx:id="editAccountTypeLabel" alignment="CENTER" style="&#10;" text="Type of account:" textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x11111111112" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111112" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <ChoiceBox fx:id="editAccountTypeOfAccountChoiceBox" prefHeight="26.0" prefWidth="194.0" />
+                                                        <Label fx:id="editAccountEmailLabel" alignment="CENTER" style="&#10;" text="Account email:" textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x12" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x22" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <TextField fx:id="editAccountEmailTextField" prefHeight="26.0" prefWidth="195.0" />
+                                                        <Label fx:id="editAccountUsernameLabel" alignment="CENTER" style="&#10;" text="Account username: " textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x112" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x212" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <TextField fx:id="editAccountUsernameTextField" prefHeight="26.0" prefWidth="194.0" />
+                                                        <Label fx:id="editAccountPasswordLabel" alignment="CENTER" style="&#10;" text="Account password: " textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x1112" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2112" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <PasswordField fx:id="editAccountPasswordTextField" prefHeight="26.0" prefWidth="195.0" />
+                                                        <Label fx:id="editAccountHoldersLabel" alignment="CENTER" style="&#10;" text="Account holder's: " textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x11112" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21112" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <Label fx:id="editAccountNameLabel" alignment="CENTER" style="&#10;" text="Full name:" textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x111111" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <TextField fx:id="editAccountFullNameTextField" prefHeight="26.0" prefWidth="194.0" />
+                                                        <Label fx:id="editAccountAddressLabel" alignment="CENTER" style="&#10;" text="Home address:" textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x111111112" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111112" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <TextField fx:id="editAccountHomeAddressTextField" prefHeight="26.0" prefWidth="194.0" />
+                                                        <Label fx:id="editAccountNumberLabel" alignment="CENTER" style="&#10;" text="Phone number:" textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x1111111112" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111112" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <TextField fx:id="editAccountPhoneNumberTextField" prefHeight="26.0" prefWidth="194.0" />
+                                                    </children>
+                                                </VBox>
+                                                <Button fx:id="editAccountSubmitButton" layoutX="602.0" mnemonicParsing="false" onAction="#editAccountSubmitButtonClicked" text="Submit" />
+                                                <Button fx:id="editAccountSaveDraftButton" layoutX="669.0" layoutY="1.0" mnemonicParsing="false" onAction="#editAccountSaveDraftButtonClicked" text="Save in drafts" />
+                                                <Button fx:id="editAccountSelectAccountButton" layoutX="602.0" layoutY="54.0" mnemonicParsing="false" onAction="#editAccountSelectAccountButtonClicked" prefHeight="19.0" prefWidth="155.0" text="Select Account To Edit" wrapText="true" />
+                                                <Button fx:id="editAccountDiscardChangesButton" layoutX="469.0" mnemonicParsing="false" onAction="#editAccountDiscardChangesButtonClicked" text="Discard all changes" />
+                                                <Button fx:id="editAccountNewUserButton" layoutX="388.0" mnemonicParsing="false" onAction="#editAccountNewUserButtonClicked" text="New user" />
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </ScrollPane>
+                            </content></Tab>
                         <Tab fx:id="deleteAccountTab" text="Delete Account">
-                     <content>
-                        <ScrollPane prefHeight="526.0" prefWidth="772.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="776.0">
-                                 <children>
-                                    <VBox layoutX="30.0" layoutY="40.0" prefHeight="109.0" prefWidth="594.0">
-                                       <children>
-                                          <Label alignment="CENTER" style="&#10;" text="Account to be deleted:" textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x111111111111" />
-                                             </font>
-                                             <textFill>
-                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111111" />
-                                             </textFill>
-                                          </Label>
-                                          <HBox prefHeight="109.0" prefWidth="589.0">
-                                             <children>
-                                                <ChoiceBox fx:id="deleteAccountsChoiceBox" prefHeight="25.0" prefWidth="194.0" />
-                                                <TextField fx:id="deleteAccountsTextField" prefHeight="25.0" prefWidth="399.0" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <Button fx:id="deleteAccountsDeleteButton" layoutX="641.0" layoutY="65.0" mnemonicParsing="false" onAction="#deleteAccountsDeleteButtonClicked" prefHeight="27.0" prefWidth="89.0" text="Delete" />
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </ScrollPane>
-                     </content>
+                            <content>
+                                <ScrollPane prefHeight="526.0" prefWidth="772.0">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="776.0">
+                                            <children>
+                                                <VBox layoutX="30.0" layoutY="40.0" prefHeight="109.0" prefWidth="594.0">
+                                                    <children>
+                                                        <Label alignment="CENTER" style="&#10;" text="Account to be deleted:" textAlignment="CENTER" wrapText="false">
+                                                            <font>
+                                                                <Font size="18.0" fx:id="x111111111111" />
+                                                            </font>
+                                                            <textFill>
+                                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111111" />
+                                                            </textFill>
+                                                        </Label>
+                                                        <HBox prefHeight="109.0" prefWidth="589.0">
+                                                            <children>
+                                                                <ChoiceBox fx:id="deleteAccountsChoiceBox" prefHeight="25.0" prefWidth="194.0" />
+                                                                <TextField fx:id="deleteAccountsTextField" prefHeight="25.0" prefWidth="399.0" />
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <Button fx:id="deleteAccountsDeleteButton" layoutX="641.0" layoutY="65.0" mnemonicParsing="false" onAction="#deleteAccountsDeleteButtonClicked" prefHeight="27.0" prefWidth="89.0" text="Delete" />
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </ScrollPane>
+                            </content>
                         </Tab>
                         <Tab fx:id="draftsTab" text="Drafts">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <ScrollPane prefHeight="526.0" prefWidth="772.0">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="771.0">
-                                       <children>
-                                          <TableView fx:id="draftsTableView" onMousePressed="#draftsTableViewClicked" prefHeight="530.0" prefWidth="642.0">
-                                            <columns>
-                                              <TableColumn fx:id="draftsTypeCol" prefWidth="132.79998171329498" text="Type" />
-                                              <TableColumn fx:id="draftsTimeCol" prefWidth="227.199951171875" text="Timestamp" />
-                                                <TableColumn fx:id="draftsNameCol" prefWidth="281.6000671386719" text="Name" />
-                                            </columns>
-                                          </TableView>
-                                          <Button fx:id="draftUpdateButton" layoutX="651.0" mnemonicParsing="false" onAction="#draftUpdateButtonClicked" prefHeight="27.0" prefWidth="99.0" text="Update" />
-                                          <Button fx:id="draftOpenButton" layoutX="651.0" layoutY="53.0" mnemonicParsing="false" onAction="#draftOpenButtonClicked" prefHeight="27.0" prefWidth="98.0" text="Open" />
-                                          <Button fx:id="draftDeleteButton" layoutX="651.0" layoutY="108.0" mnemonicParsing="false" onAction="#draftDeleteButtonClicked" prefHeight="27.0" prefWidth="98.0" text="Delete" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </ScrollPane>
-                           </children></AnchorPane>
+                                    <children>
+                                        <ScrollPane prefHeight="526.0" prefWidth="772.0">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="771.0">
+                                                    <children>
+                                                        <TableView fx:id="draftsTableView" onMousePressed="#draftsTableViewClicked" prefHeight="530.0" prefWidth="642.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="draftsTypeCol" prefWidth="132.79998171329498" text="Type" />
+                                                                <TableColumn fx:id="draftsTimeCol" prefWidth="227.199951171875" text="Timestamp" />
+                                                                <TableColumn fx:id="draftsNameCol" prefWidth="281.6000671386719" text="Name" />
+                                                            </columns>
+                                                        </TableView>
+                                                        <Button fx:id="draftUpdateButton" layoutX="651.0" mnemonicParsing="false" onAction="#draftUpdateButtonClicked" prefHeight="27.0" prefWidth="99.0" text="Update" />
+                                                        <Button fx:id="draftOpenButton" layoutX="651.0" layoutY="53.0" mnemonicParsing="false" onAction="#draftOpenButtonClicked" prefHeight="27.0" prefWidth="98.0" text="Open" />
+                                                        <Button fx:id="draftDeleteButton" layoutX="651.0" layoutY="108.0" mnemonicParsing="false" onAction="#draftDeleteButtonClicked" prefHeight="27.0" prefWidth="98.0" text="Delete" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </ScrollPane>
+                                    </children></AnchorPane>
                             </content>
                         </Tab>
                         <Tab fx:id="ticketsTab" text="Tickets">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <ScrollPane prefHeight="528.0" prefWidth="772.0">
-                                 <content>
-                                    <TableView prefHeight="524.0" prefWidth="630.0">
-                                      <columns>
-                                        <TableColumn prefWidth="166.00000500679016" text="Email" />
-                                        <TableColumn minWidth="0.0" prefWidth="116.00001525878906" text="Username" />
-                                          <TableColumn prefWidth="298.6666564941406" text="Issue" />
-                                          <TableColumn prefWidth="46.66668701171875" text="Status" />
-                                      </columns>
-                                    </TableView>
-                                 </content>
-                              </ScrollPane>
-                           </children></AnchorPane>
+                                <ScrollPane prefHeight="528.0" prefWidth="772.0">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="772.0">
+                                            <children>
+                                                <TableView fx:id="ticketsTable" onMouseClicked="#ticketsTableClicked" prefHeight="524.0" prefWidth="613.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="ticketEmailCol" prefWidth="146.3999878168106" text="Email" />
+                                                        <TableColumn fx:id="ticketUsernameCol" minWidth="0.0" prefWidth="96.79998779296875" text="Username" />
+                                                        <TableColumn fx:id="ticketIssueCol" prefWidth="218.4000244140625" text="Issue" />
+                                                        <TableColumn fx:id="ticketStatusCol" prefWidth="66.40005493164062" text="Status" />
+                                          <TableColumn fx:id="ticketAdminCol" prefWidth="83.19997558593752" text="Admin" />
+                                                    </columns>
+                                                </TableView>
+                                    <Button fx:id="ticketsAssignButton" layoutX="630.0" layoutY="119.0" mnemonicParsing="false" onAction="#ticketsAssignButtonClicked" prefHeight="27.0" prefWidth="112.0" text="Assign to yourself" />
+                                    <Button fx:id="ticketCloseButton" layoutX="646.0" layoutY="158.0" mnemonicParsing="false" onAction="#ticketCloseButton" text="Close ticket" />
+                                    <Button fx:id="ticketDisplayClosedButton" layoutX="614.0" mnemonicParsing="false" onAction="#ticketDisplayClosedButtonClicked" prefHeight="46.0" prefWidth="143.0" text="Don't show closed tickets" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="ticketsUpdateButton" layoutX="615.0" layoutY="55.0" mnemonicParsing="false" onAction="#ticketsUpdateButtonClicked" prefHeight="27.0" prefWidth="142.0" text="Update" />
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </ScrollPane>
                             </content>
                         </Tab>
                     </tabs>
