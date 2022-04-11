@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `emergency_nexus` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `emergency_nexus`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: emergency_nexus
@@ -14,50 +16,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `patients`
---
-
-DROP TABLE IF EXISTS `patients`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `patients` (
-  `idpatients` int NOT NULL AUTO_INCREMENT,
-  `fullname` varchar(45) DEFAULT NULL,
-  `dateofbirth` date DEFAULT NULL,
-  `phonenumber` varchar(45) DEFAULT NULL,
-  `homeaddress` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `guardianname` varchar(45) DEFAULT NULL,
-  `guardianphonenumber` varchar(45) DEFAULT NULL,
-  `bloodtype` varchar(45) DEFAULT NULL,
-  `socialsecurity` varchar(45) DEFAULT NULL,
-  `healthinsuranceprovider` varchar(45) DEFAULT NULL,
-  `covidshot1date` date DEFAULT NULL,
-  `covidshot1type` varchar(45) DEFAULT NULL,
-  `covidshot2date` date DEFAULT NULL,
-  `covidshot2type` varchar(45) DEFAULT NULL,
-  `boosterdate` date DEFAULT NULL,
-  `boostertype` varchar(45) DEFAULT NULL,
-  `allergies` varchar(45) DEFAULT NULL,
-  `preexistingconditions` varchar(45) DEFAULT NULL,
-  `priormedications` varchar(45) DEFAULT NULL,
-  `historyofsubstance` varchar(45) DEFAULT NULL,
-  `height` double DEFAULT NULL,
-  `weight` double DEFAULT NULL,
-  `race` varchar(45) DEFAULT NULL,
-  `ethnicity` varchar(45) DEFAULT NULL,
-  `religion` varchar(45) DEFAULT NULL,
-  `pregnancy` varchar(45) DEFAULT NULL,
-  `assignedbirthsex` varchar(45) DEFAULT NULL,
-  `genderidentity` varchar(45) DEFAULT NULL,
-  `pronouns` varchar(45) DEFAULT NULL,
-  `sexualactivity` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idpatients`),
-  UNIQUE KEY `idpatients_UNIQUE` (`idpatients`)
-) ENGINE=InnoDB AUTO_INCREMENT=1111112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `patients`
@@ -78,4 +36,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-07 15:46:20
+-- Dump completed on 2022-04-11 19:17:39

@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `emergency_nexus` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `emergency_nexus`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: emergency_nexus
@@ -14,39 +16,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `visit`
---
-
-DROP TABLE IF EXISTS `visit`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `visit` (
-  `idvisit` int NOT NULL AUTO_INCREMENT,
-  `patient` int NOT NULL,
-  `dateofvisit` date DEFAULT NULL,
-  `symptomsmyhurt` varchar(45) DEFAULT NULL,
-  `symptomsifeel` varchar(45) DEFAULT NULL,
-  `symptomsicant` varchar(45) DEFAULT NULL,
-  `symptomsother` varchar(45) DEFAULT NULL,
-  `bloodpressure` varchar(45) DEFAULT NULL,
-  `admissionstatuscheckin` varchar(45) DEFAULT NULL,
-  `admissionstatuscheckout` varchar(45) DEFAULT NULL,
-  `admissionstatusroom` varchar(45) DEFAULT NULL,
-  `primaryphysician` int NOT NULL,
-  `amountofsaline` varchar(45) DEFAULT NULL,
-  `givenmedication` varchar(45) DEFAULT NULL,
-  `injectionsgiven` varchar(45) DEFAULT NULL,
-  `potentialdiagnosis` varchar(45) DEFAULT NULL,
-  `notesandobservations` varchar(45) DEFAULT NULL,
-  `docrequesttest` varchar(45) DEFAULT NULL,
-  `docdiagnosis` varchar(45) DEFAULT NULL,
-  `docdischargeinstructions` varchar(45) DEFAULT NULL,
-  `docnotesandobservations` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idvisit`,`patient`,`primaryphysician`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `visit`
@@ -66,4 +35,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-07 15:46:20
+-- Dump completed on 2022-04-11 19:17:39
