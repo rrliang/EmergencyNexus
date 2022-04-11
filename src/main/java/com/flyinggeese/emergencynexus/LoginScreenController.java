@@ -69,6 +69,7 @@ public class LoginScreenController {
                             scene = new Scene(fxmlLoader.load());
                             SysAdminController controller = fxmlLoader.getController();
                             controller.setPassword(loginPassword.getText());
+                            controller.setUsername(loginUsername.getText());
                             break;
                     }
                     scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));

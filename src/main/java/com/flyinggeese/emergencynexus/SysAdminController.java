@@ -26,10 +26,13 @@ import java.util.Date;
 
 public class SysAdminController implements Initializable {
 
-    private String password;
-    private boolean showPassword = true;
+    protected String password;
+    protected String username;
+    private boolean showPassword = true, showClosed = true;
     private UserAccounts editAccountUser;
     private boolean editAccountsEmailChanged, editAccountsUsernameChanged, editAccountsNameChanged = false;
+    ObservableList<UserAccounts> draftList;
+    private ConnectToDatabase db = new ConnectToDatabase();
 
     @FXML
     private TabPane tabPane;
@@ -111,13 +114,108 @@ public class SysAdminController implements Initializable {
     @FXML
     private TableColumn<UserAccounts, String> draftsTypeCol, draftsTimeCol, draftsNameCol;
 
+    //INSTANCE VARIABLES FOR TICKETS TAB
+    @FXML
+    private Button ticketDisplayClosedButton, ticketsAssignButton, ticketCloseButton, ticketsUpdateButton;
+
+    @FXML
+    private TableView<AdminTicket> ticketsTable;
+
+    @FXML
+    private TableColumn<AdminTicket, String> ticketEmailCol, ticketUsernameCol, ticketIssueCol, ticketStatusCol, ticketAdminCol;
+
 
     protected void setPassword(String password) {
         this.password = password;
     }
 
-    ObservableList<UserAccounts> draftList;
-    private ConnectToDatabase db = new ConnectToDatabase();
+    protected void setUsername(String username) {
+        this.username = username;
+    }
+
+
+    private void updateTicketTable(String extend) throws SQLException {
+        ObservableList<AdminTicket> tickets = FXCollections.observableArrayList();
+        ticketEmailCol.setCellValueFactory(new PropertyValueFactory<AdminTicket,String>("email"));
+        ticketUsernameCol.setCellValueFactory(new PropertyValueFactory<AdminTicket,String>("username"));
+        ticketIssueCol.setCellValueFactory(new PropertyValueFactory<AdminTicket,String>("issue"));
+        ticketStatusCol.setCellValueFactory(new PropertyValueFactory<AdminTicket,String>("status"));
+        ticketAdminCol.setCellValueFactory(new PropertyValueFactory<AdminTicket,String>("admin"));
+        String checkQuery = "SELECT * FROM admintickets" + extend;
+        PreparedStatement smt = db.getConnection().prepareStatement(checkQuery);
+        ResultSet rs = smt.executeQuery();
+        AdminTicket ticket;
+        while (rs.next()) {
+            int id = rs.getInt("idadmintickets");
+            String email = rs.getString("accountemail") == null ? "N/A" : rs.getString("accountemail");
+            String username = rs.getString("username") == null ? "N/A" : rs.getString("username");
+            String issue = rs.getString("issue");
+            String status = rs.getString("status");
+            String admin = rs.getString("assigned") == null ? "N/A" : rs.getString("assigned");
+            UserAccounts user;
+            ticket = new AdminTicket(id, email, username, issue, status, admin);
+            tickets.add(ticket);
+        }
+        ticketsTable.setItems(tickets);
+        ticketsTable.refresh();
+    }
+
+    @FXML
+    void ticketCloseButton(ActionEvent event) throws SQLException {
+        AdminTicket ticket = ticketsTable.getSelectionModel().getSelectedItem();
+        String status = "";
+        if (ticketCloseButton.getText().equals("Close ticket")) {
+            status = "closed";
+        } else {
+            status = "open";
+        }
+        String updateQuery = "UPDATE admintickets SET status = ? WHERE idadmintickets = ?";
+        PreparedStatement smt = db.getConnection().prepareStatement(updateQuery);
+        smt.setString(1, status);
+        smt.setInt(2, ticket.getId());
+        smt.executeUpdate();
+        updateTicketTable("");
+    }
+
+    @FXML
+    void ticketsUpdateButtonClicked(ActionEvent event) throws SQLException {
+        updateTicketTable("");
+    }
+
+    @FXML
+    void ticketDisplayClosedButtonClicked(ActionEvent event) throws SQLException {
+        if (showClosed) {
+            updateTicketTable(" WHERE status = 'open'");
+            ticketDisplayClosedButton.setText("Show closed tickets");
+            showClosed = false;
+        } else {
+            showClosed = true;
+            ticketDisplayClosedButton.setText("Don't show closed tickets");
+            updateTicketTable("");
+        }
+    }
+
+    @FXML
+    void ticketsAssignButtonClicked(ActionEvent event) throws SQLException {
+        AdminTicket ticket = ticketsTable.getSelectionModel().getSelectedItem();
+        String updateQuery = "UPDATE admintickets SET assigned = ? WHERE idadmintickets = ?";
+        PreparedStatement smt = db.getConnection().prepareStatement(updateQuery);
+        smt.setString(1, username);
+        smt.setInt(2, ticket.getId());
+        smt.executeUpdate();
+        updateTicketTable("");
+    }
+
+    @FXML
+    void ticketsTableClicked(MouseEvent event) {
+        AdminTicket ticket = ticketsTable.getSelectionModel().getSelectedItem();
+        if (ticket.getStatus().equals("open")) {
+            ticketCloseButton.setText("Close ticket");
+        } else {
+            ticketCloseButton.setText("Open ticket");
+        }
+    }
+
 
     private void updateDraftTable() {
         ObservableList<UserAccounts> accounts = FXCollections.observableArrayList();
@@ -160,9 +258,9 @@ public class SysAdminController implements Initializable {
         draftVisibility(true);
     }
 
-    private void draftVisibility(boolean visbility) {
-        draftOpenButton.setVisible(visbility);
-        draftDeleteButton.setVisible(visbility);
+    private void draftVisibility(boolean visibility) {
+        draftOpenButton.setVisible(visibility);
+        draftDeleteButton.setVisible(visibility);
     }
 
     private void setEditAccount(String choice, String text, String type, String email, String username, String password, String name, String address, String phone) {
@@ -677,6 +775,7 @@ public class SysAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         draftVisibility(false);
+
         draftList = FXCollections.observableArrayList();
         db.makeJDBCConnection();
         ObservableList<Object> accountList = FXCollections.observableArrayList();
@@ -696,6 +795,11 @@ public class SysAdminController implements Initializable {
         }
         try {
             editAccountUser = new UserAccounts();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            updateTicketTable("");
         } catch (SQLException e) {
             e.printStackTrace();
         }
