@@ -19,12 +19,10 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 public class SysAdminController implements Initializable {
 
@@ -54,7 +52,7 @@ public class SysAdminController implements Initializable {
             createAccountPhoneNumberTextField;
 
     @FXML
-    private Button createAccountSubmitButton, createAccountSaveDraftButton;
+    private Button createAccountSubmitButton, createAccountSaveDraftButton, createAccountClearChangesButton;
 
     @FXML
     private PasswordField createAccountPasswordTextField;
@@ -87,7 +85,7 @@ public class SysAdminController implements Initializable {
     private PasswordField editAccountPasswordTextField;
 
     @FXML
-    private Button editAccountSelectAccountButton, editAccountSubmitButton, editAccountSaveDraftButton;
+    private Button editAccountSelectAccountButton, editAccountSubmitButton, editAccountSaveDraftButton, editAccountDiscardChangesButton, editAccountNewUserButton;
 
     @FXML
     private Label editAccountTypeLabel, editAccountEmailLabel, editAccountUsernameLabel, editAccountPasswordLabel, editAccountHoldersLabel,
@@ -98,18 +96,176 @@ public class SysAdminController implements Initializable {
     private ChoiceBox<Object> deleteAccountsChoiceBox;
 
     @FXML
-    private TextField deleteAccountEmailTextField;
+    private TextField deleteAccountsTextField;
 
     @FXML
     private Button deleteAccountDeleteButton;
+
+    //INSTANCE VARIABLES FOR DRAFTS TAB
+    @FXML
+    private Button draftUpdateButton, draftOpenButton, draftDeleteButton;
+
+    @FXML
+    private TableView<UserAccounts> draftsTableView;
+
+    @FXML
+    private TableColumn<UserAccounts, String> draftsTypeCol, draftsTimeCol, draftsNameCol;
 
 
     protected void setPassword(String password) {
         this.password = password;
     }
 
-    private ArrayList<Object> draftList;
+    ObservableList<UserAccounts> draftList;
     private ConnectToDatabase db = new ConnectToDatabase();
+
+    private void updateDraftTable() {
+        ObservableList<UserAccounts> accounts = FXCollections.observableArrayList();
+        draftsTypeCol.setCellValueFactory(new PropertyValueFactory<UserAccounts,String>("typeOfDraft"));
+        draftsTimeCol.setCellValueFactory(new PropertyValueFactory<UserAccounts,String>("timeOfDraft"));
+        draftsNameCol.setCellValueFactory(new PropertyValueFactory<UserAccounts,String>("nameOfDraft"));
+        draftsTableView.setItems(draftList);
+    }
+
+    @FXML
+    void draftDeleteButtonClicked(ActionEvent event) {
+        UserAccounts user = draftsTableView.getSelectionModel().getSelectedItem();
+        draftList.remove(user);
+        updateDraftTable();
+    }
+
+    @FXML
+    void draftOpenButtonClicked(ActionEvent event) {
+        UserAccounts user = draftsTableView.getSelectionModel().getSelectedItem();
+        if (user.getTypeOfDraft().equals("Create")) {
+            setCreateAccount(user.getTypeOfAccount(), user.getAccountEmail(), user.getAccountUsername(), user.getAccountPassword(), user.getHolderFullName(),
+                    user.getHolderHomeAddress(), user.getHolderPhoneNumber());
+            tabPane.getSelectionModel().select(createAccountTab);
+        } else if (user.getTypeOfDraft().equals("Edit")) {
+            setEditAccount(user.getEditChoice(), user.getEditText(), user.getTypeOfAccount(), user.getAccountEmail(), user.getAccountUsername(),
+                    user.getAccountPassword(), user.getHolderFullName(), user.getHolderHomeAddress(), user.getHolderPhoneNumber());
+            setEditAccountVisibility(true);
+            tabPane.getSelectionModel().select(editAccountTab);
+        }
+
+    }
+
+    @FXML
+    void draftUpdateButtonClicked(ActionEvent event) {
+        updateDraftTable();
+    }
+
+    @FXML
+    void draftsTableViewClicked(MouseEvent event) {
+        draftVisibility(true);
+    }
+
+    private void draftVisibility(boolean visbility) {
+        draftOpenButton.setVisible(visbility);
+        draftDeleteButton.setVisible(visbility);
+    }
+
+    private void setEditAccount(String choice, String text, String type, String email, String username, String password, String name, String address, String phone) {
+        editAccountsChoiceBox.setValue(choice);
+        editAccountsTextField.setText(text);
+        editAccountTypeOfAccountChoiceBox.setValue(type);
+        editAccountEmailTextField.setText(email);
+        editAccountUsernameTextField.setText(username);
+        editAccountPasswordTextField.setText(password);
+        editAccountFullNameTextField.setText(name);
+        editAccountHomeAddressTextField.setText(address);
+        editAccountPhoneNumberTextField.setText(phone);
+    }
+
+    @FXML
+    void editAccountNewUserButtonClicked(ActionEvent event) {
+        setEditAccount("","","","","","","","","");
+        setEditAccountVisibility(false);
+    }
+
+    @FXML
+    void editAccountDiscardChangesButtonClicked(ActionEvent event) throws SQLException {
+        UserAccounts user = getAccountInformation(editAccountsChoiceBox.getValue().toString(), editAccountsTextField.getText());
+        if (editAccountTypeOfAccountChoiceBox.getValue().equals(user.getTypeOfAccount()) && editAccountFullNameTextField.getText().equals(user.getHolderFullName())
+                && editAccountEmailTextField.getText().equals(user.getAccountEmail()) && editAccountUsernameTextField.getText().equals(user.getAccountUsername())
+                && editAccountPasswordTextField.getText().equals(user.getAccountPassword()) && editAccountHomeAddressTextField.getText().equals(user.getHolderHomeAddress())
+                && editAccountPhoneNumberTextField.getText().equals(user.getHolderPhoneNumber())) {
+            Alert nothingInForm = new Alert(Alert.AlertType.CONFIRMATION);
+            nothingInForm.setContentText("ERR: Nothing has changed, nothing will be discarded.");
+            nothingInForm.showAndWait();
+        } else {
+            editAccountTypeOfAccountChoiceBox.setValue(user.getTypeOfAccount());
+            editAccountEmailTextField.setText(user.getAccountEmail());
+            editAccountUsernameTextField.setText(user.getAccountUsername());
+            editAccountPasswordTextField.setText(user.getAccountPassword());
+            editAccountFullNameTextField.setText(user.getHolderFullName());
+            editAccountHomeAddressTextField.setText(user.getHolderHomeAddress());
+            editAccountPhoneNumberTextField.setText(user.getHolderPhoneNumber());
+        }
+    }
+
+    @FXML
+    void createAccountClearChangesButtonClicked(ActionEvent event) {
+        setCreateAccount("","","","","", "","");
+    }
+
+    private void setCreateAccount(String type, String email, String username, String password, String name, String address, String phone) {
+        createAccountTypeOfAccountChoiceBox.setValue(type);
+        createAccountEmailTextField.setText(email);
+        createAccountUsernameTextField.setText(username);
+        createAccountPasswordTextField.setText(password);
+        createAccountFullNameTextField.setText(name);
+        createAccountHomeAddressTextField.setText(address);
+        createAccountPhoneNumberTextField.setText(phone);
+    }
+
+    private String checkIfEditEmailExists(String originalEmail, String emailAddress) throws SQLException {
+        String errMsg = "";
+        if (!originalEmail.equals(emailAddress)) {
+            String checkQuery = "SELECT * FROM users WHERE companyemail = ?";
+            PreparedStatement smt = db.getConnection().prepareStatement(checkQuery);
+            smt.setString(1, emailAddress);
+            ResultSet rs = smt.executeQuery();
+            while (rs.next()) {
+                if (editAccountsEmailChanged && emailAddress.equals(rs.getString("companyemail"))) {
+                    errMsg += "ERR: Account email " + emailAddress + " already has an existing account\n";
+                }
+            }
+        }
+        return errMsg;
+    }
+
+    private String checkIfEditUserExists(String originalUsername, String username) throws SQLException {
+        String errMsg = "";
+        if (!originalUsername.equals(username)) {
+            String checkQuery = "SELECT * FROM users WHERE username = ?";
+            PreparedStatement smt = db.getConnection().prepareStatement(checkQuery);
+            smt.setString(1, username);
+            ResultSet rs = smt.executeQuery();
+            while (rs.next()) {
+                if (editAccountsUsernameChanged && username.equals(rs.getString("companyemail"))) {
+                    errMsg += "ERR: Account username " + username + " already has an existing account\n";
+                }
+            }
+        }
+        return errMsg;
+    }
+
+    private String checkIfEditNameExists(String originalName, String name) throws SQLException {
+        String errMsg = "";
+        if (!originalName.equals(name)) {
+            String checkQuery = "SELECT * FROM users WHERE fullname = ?";
+            PreparedStatement smt = db.getConnection().prepareStatement(checkQuery);
+            smt.setString(1, name);
+            ResultSet rs = smt.executeQuery();
+            while (rs.next()) {
+                if (editAccountsNameChanged && name.equals(rs.getString("companyemail"))) {
+                    errMsg += "ERR: Account name " + name + " already has an existing account\n";
+                }
+            }
+        }
+        return errMsg;
+    }
 
     private String checkIfExists(String accountEmail, String username, String fullName) throws SQLException {
         String errMsg = "";
@@ -133,30 +289,70 @@ public class SysAdminController implements Initializable {
         return errMsg;
     }
 
-    private String checkIfEmpty() {
+    private String checkIfEmpty(Object type, String name, String email, String username, String password, String address, String phone) {
         String errorMessage = "";
-        if (createAccountTypeOfAccountChoiceBox.getValue() == null) {
+        if (type == null) {
             errorMessage += "ERR: Type of account not chosen.\n";
         }
-        if (createAccountFullNameTextField.getText() == "") {
+        if (name.equals("")) {
             errorMessage += "ERR: No name given.\n";
         }
-        if (createAccountEmailTextField.getText() == "") {
+        if (email.equals("")) {
             errorMessage += "ERR: No email given.\n";
         }
-        if (createAccountUsernameTextField.getText() == "") {
+        if (username.equals("")) {
             errorMessage += "ERR: No account username given.\n";
         }
-        if (createAccountPasswordTextField.getText() == "") {
+        if (password.equals("")) {
             errorMessage += "ERR: No account password given.\n";
         }
-        if (createAccountHomeAddressTextField.getText() == "") {
+        if (address.equals("")) {
             errorMessage += "ERR: No home address given.\n";
         }
-        if (createAccountPhoneNumberTextField.getText() == "") {
+        if (phone.equals("")) {
             errorMessage += "ERR: No phone number given.\n";
         }
         return errorMessage;
+    }
+
+    private void deleteAccountHelper(String accountChoice, String accountText) throws SQLException {
+        UserAccounts user;
+        if ((user = getAccountInformation(accountChoice, accountText)) == null) {
+            Alert accountCreated = new Alert(Alert.AlertType.CONFIRMATION);
+            accountCreated.setContentText("There is no account associated with that " + accountChoice + " to delete.");
+            accountCreated.showAndWait();
+        } else {
+            if (authenticatePassword("Enter the password associated with this admin account.")) {
+                try {
+                    switch(accountChoice) {
+                        case "Username":
+                            deleteAccountWithUser(accountText);
+                            break;
+                        case "Email":
+                            deleteAccountWithEmail(accountText);
+                            break;
+                        case "Full Name":
+                            deleteAccountWithName(accountText);
+                            break;
+                    }
+                    Alert successDelete = new Alert(Alert.AlertType.CONFIRMATION);
+                    successDelete.setContentText("The account associated with the" + accountChoice + " " + accountText + " successfully deleted.");
+                    successDelete.showAndWait();
+                    clearDelete();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Alert wrongPass = new Alert(Alert.AlertType.ERROR);
+                wrongPass.setContentText("ERR: Wrong password.");
+                wrongPass.showAndWait();
+            }
+        }
+    }
+
+    private void clearDelete() {
+        deleteAccountsChoiceBox.setValue("");
+        deleteAccountsTextField.setText("");
     }
 
     private void editAccountHelper(String accountChoice, String accountText) throws SQLException {
@@ -174,6 +370,9 @@ public class SysAdminController implements Initializable {
             editAccountHomeAddressTextField.setText(user.getHolderHomeAddress());
             editAccountPhoneNumberTextField.setText(user.getHolderPhoneNumber());
             setEditAccountVisibility(true);
+            editAccountsNameChanged = false;
+            editAccountsUsernameChanged = false;
+            editAccountsEmailChanged = false;
         }
     }
 
@@ -218,8 +417,11 @@ public class SysAdminController implements Initializable {
 
     @FXML
     void editAccountSubmitButtonClicked(ActionEvent event) throws SQLException {
-        String errMsg = "";
+        String errMsg = "", emptyText = "";
         UserAccounts user = getAccountInformation(editAccountsChoiceBox.getValue().toString(), editAccountsTextField.getText());
+        errMsg += checkIfEditEmailExists(user.getAccountEmail(), editAccountUser.getAccountEmail());
+        errMsg += checkIfEditUserExists(user.getAccountUsername(), editAccountUser.getAccountUsername());
+        errMsg += checkIfEditNameExists(user.getHolderFullName(), editAccountUser.getHolderFullName());
         if (editAccountTypeOfAccountChoiceBox.getValue().equals(user.getTypeOfAccount()) && editAccountFullNameTextField.getText().equals(user.getHolderFullName())
                 && editAccountEmailTextField.getText().equals(user.getAccountEmail()) && editAccountUsernameTextField.getText().equals(user.getAccountUsername())
                 && editAccountPasswordTextField.getText().equals(user.getAccountPassword()) && editAccountHomeAddressTextField.getText().equals(user.getHolderHomeAddress())
@@ -227,45 +429,49 @@ public class SysAdminController implements Initializable {
             Alert nothingInForm = new Alert(Alert.AlertType.CONFIRMATION);
             nothingInForm.setContentText("ERR: Nothing has been changed. Update will not be saved.");
             nothingInForm.showAndWait();
-        } else if (editAccountsEmailChanged || editAccountsUsernameChanged || editAccountsNameChanged) {
-            if ((errMsg = checkIfExists(editAccountUser.getAccountEmail(), editAccountUser.getAccountUsername(), editAccountUser.getHolderFullName())).length() != 0) {
+        } else if ((emptyText = checkIfEmpty(editAccountTypeOfAccountChoiceBox.getValue(), editAccountFullNameTextField.getText(),
+                editAccountEmailTextField.getText(), editAccountUsernameTextField.getText(), editAccountPasswordTextField.getText(),
+                editAccountHomeAddressTextField.getText(), editAccountPhoneNumberTextField.getText())).length() != 0) {
+            Alert blankSomething = new Alert(Alert.AlertType.CONFIRMATION);
+            blankSomething.setContentText(emptyText);
+            blankSomething.showAndWait();
+        } else if (errMsg.length() != 0) {
                 Alert accountAlreadyExists = new Alert(Alert.AlertType.CONFIRMATION);
                 accountAlreadyExists.setContentText(errMsg);
                 accountAlreadyExists.showAndWait();
-            } else {
-                String type = "";
-                switch (editAccountsChoiceBox.getValue().toString()) {
-                    case "Username":
-                        type = "WHERE (username = ?)";
-                        break;
-                    case "Email":
-                        type = "WHERE (companyemail = ?)";
-                        break;
-                    case "Full Name":
-                        type = "WHERE (fullname = ?)";
-                        break;
-                }
-                String updateQuery = "UPDATE users set typeofaccount = ? , fullname = ? , companyemail = ? , homeaddress = ? , phonenumber = ? , username = ? , password = ? " + type;
-
-                PreparedStatement smt = db.getConnection().prepareStatement(updateQuery);
-                smt.setString(1, editAccountUser.getTypeOfAccount());
-                smt.setString(2, editAccountUser.getHolderFullName());
-                smt.setString(3, editAccountUser.getAccountEmail());
-                smt.setString(4, editAccountUser.getHolderHomeAddress());
-                smt.setString(5, editAccountUser.getHolderPhoneNumber());
-                smt.setString(6, editAccountUser.getAccountUsername());
-                smt.setString(7, editAccountUser.getAccountPassword());
-                smt.setString(8, editAccountsTextField.getText());
-                if (smt.executeUpdate() != 0) {
-                    Alert accountUpdated = new Alert(Alert.AlertType.CONFIRMATION);
-                    accountUpdated.setContentText("Account with the " + editAccountsChoiceBox.getValue().toString().toLowerCase() + " " + editAccountsTextField.getText() + " was successfully updated.");
-                    accountUpdated.showAndWait();
-                }
+        } else {
+            String type = "";
+            switch (editAccountsChoiceBox.getValue().toString()) {
+                case "Username":
+                    type = "WHERE (username = ?)";
+                    break;
+                case "Email":
+                    type = "WHERE (companyemail = ?)";
+                    break;
+                case "Full Name":
+                    type = "WHERE (fullname = ?)";
+                    break;
             }
-            editAccountsChoiceBox.setValue(null);
-            editAccountsTextField.setText("");
-            setEditAccountVisibility(false);
-            updateTable();
+            String updateQuery = "UPDATE users set typeofaccount = ? , fullname = ? , companyemail = ? , homeaddress = ? , phonenumber = ? , username = ? , password = ? " + type;
+
+            PreparedStatement smt = db.getConnection().prepareStatement(updateQuery);
+            smt.setString(1, editAccountUser.getTypeOfAccount());
+            smt.setString(2, editAccountUser.getHolderFullName());
+            smt.setString(3, editAccountUser.getAccountEmail());
+            smt.setString(4, editAccountUser.getHolderHomeAddress());
+            smt.setString(5, editAccountUser.getHolderPhoneNumber());
+            smt.setString(6, editAccountUser.getAccountUsername());
+            smt.setString(7, editAccountUser.getAccountPassword());
+            smt.setString(8, editAccountsTextField.getText());
+            if (smt.executeUpdate() != 0) {
+                Alert accountUpdated = new Alert(Alert.AlertType.CONFIRMATION);
+                accountUpdated.setContentText("Account with the " + editAccountsChoiceBox.getValue().toString().toLowerCase() + " " + editAccountsTextField.getText() + " was successfully updated.");
+                accountUpdated.showAndWait();
+                editAccountsChoiceBox.setValue(null);
+                editAccountsTextField.setText("");
+                setEditAccountVisibility(false);
+                updateTable();
+            }
         }
     }
 
@@ -284,10 +490,20 @@ public class SysAdminController implements Initializable {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date date = new Date();
             editAccountUser.setTimeOfDraft(formatter.format(date));
-            draftList.add(editAccountUser);
-            Alert accountUpdated = new Alert(Alert.AlertType.CONFIRMATION);
-            accountUpdated.setContentText("Draft was successfully saved.");
-            accountUpdated.showAndWait();
+            editAccountUser.setNameOfDraft(nameDraft());
+            editAccountUser.setEditChoice((String) editAccountsChoiceBox.getValue());
+            editAccountUser.setEditText(editAccountsTextField.getText());
+            if (!checkDrafts(editAccountUser)) {
+                draftList.add(editAccountUser);
+                updateDraftTable();
+                Alert draftSaved = new Alert(Alert.AlertType.CONFIRMATION);
+                draftSaved.setContentText("Draft was successfully saved.");
+                draftSaved.showAndWait();
+            } else {
+                Alert nothingInForm = new Alert(Alert.AlertType.ERROR);
+                nothingInForm.setContentText("ERR: Draft already exists.");
+                nothingInForm.showAndWait();
+            }
         }
     }
 
@@ -308,18 +524,42 @@ public class SysAdminController implements Initializable {
         } else {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date date = new Date();
-            UserAccounts account = new UserAccounts((String) createAccountTypeOfAccountChoiceBox.getValue(),
+            String type = "";
+            try {
+                type = createAccountTypeOfAccountChoiceBox.getValue().toString();
+            } catch (NullPointerException e) {
+                type = "";
+            }
+
+            UserAccounts account = new UserAccounts(type,
                     createAccountFullNameTextField.getText(), createAccountEmailTextField.getText(),
                     createAccountUsernameTextField.getText(), createAccountPasswordTextField.getText(),
                     createAccountHomeAddressTextField.getText(), createAccountPhoneNumberTextField.getText(),
-                    "createAccount", formatter.format(date));
-            draftList.add(account);
+                    "Create", formatter.format(date), "");
+            if (!checkDrafts(account)) {
+                account.setNameOfDraft(nameDraft());
+                draftList.add(account);
+                updateDraftTable();
+                Alert draftSaved = new Alert(Alert.AlertType.CONFIRMATION);
+                draftSaved.setContentText("Draft was successfully saved.");
+                draftSaved.showAndWait();
+            } else {
+                Alert nothingInForm = new Alert(Alert.AlertType.ERROR);
+                nothingInForm.setContentText("ERR: Draft already exists.");
+                nothingInForm.showAndWait();
+            }
         }
+    }
+
+    private boolean checkDrafts (UserAccounts user) {
+        return draftList.contains(user);
     }
 
     @FXML
     void createAccountSubmitButtonClicked(ActionEvent event) throws SQLException {
-        String emptyMsg = checkIfEmpty();
+        String emptyMsg = checkIfEmpty(createAccountTypeOfAccountChoiceBox.getValue(), createAccountFullNameTextField.getText(),
+                createAccountEmailTextField.getText(), createAccountUsernameTextField.getText(), createAccountPasswordTextField.getText(),
+                createAccountHomeAddressTextField.getText(), createAccountPhoneNumberTextField.getText());
         String errMsg;
         if((errMsg = checkIfExists(createAccountEmailTextField.getText(), createAccountUsernameTextField.getText(), createAccountFullNameTextField.getText())).length() != 0) {
             Alert accountCreated = new Alert(Alert.AlertType.CONFIRMATION);
@@ -351,12 +591,28 @@ public class SysAdminController implements Initializable {
 
     @FXML
     void viewAccountsClearButtonClicked(ActionEvent event) {
-
+        //TODO
     }
 
     @FXML
     void viewAccountsSearchBarKeyReleased(KeyEvent event) {
         String searchText = viewAccountsSearchText.getText();
+    }
+
+    public String nameDraft () {
+        String name = "";
+        TextInputDialog dialog = new TextInputDialog("default name");
+
+        dialog.setTitle("Name this draft");
+        dialog.setHeaderText("Enter your name. This will be used to find this draft later on.");
+        dialog.setContentText("Name: ");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            name = result.get();
+        }
+        return name;
     }
 
     public boolean authenticatePassword(String headerText) {
@@ -420,6 +676,8 @@ public class SysAdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        draftVisibility(false);
+        draftList = FXCollections.observableArrayList();
         db.makeJDBCConnection();
         ObservableList<Object> accountList = FXCollections.observableArrayList();
         accountList.addAll("Admin", "Nurse", "Doctor");
@@ -519,6 +777,8 @@ public class SysAdminController implements Initializable {
         editAccountNumberLabel.setVisible(visibility);
         editAccountSubmitButton.setVisible(visibility);
         editAccountSaveDraftButton.setVisible(visibility);
+        editAccountDiscardChangesButton.setVisible(visibility);
+        editAccountNewUserButton.setVisible(visibility);
     }
 
     private void updateTable() throws SQLException {
@@ -551,17 +811,34 @@ public class SysAdminController implements Initializable {
             accounts.add(user);
         }
         viewAccountsTable.setItems(accounts);
+        viewAccountsTable.refresh();
     }
 
     @FXML
-    void deleteAccountsDeleteButtonClicked(ActionEvent event) {
-
+    void deleteAccountsDeleteButtonClicked(ActionEvent event) throws SQLException {
+        deleteAccountHelper(deleteAccountsChoiceBox.getValue().toString(), deleteAccountsTextField.getText());
     }
 
-    private void deleteAccount(String username) throws SQLException {
+    private void deleteAccountWithUser(String username) throws SQLException {
         String checkQuery = "DELETE FROM users WHERE username = ?";
         PreparedStatement smt = db.getConnection().prepareStatement(checkQuery);
         smt.setString(1, username);
+        smt.execute();
+        updateTable();
+    }
+
+    private void deleteAccountWithEmail(String email) throws SQLException {
+        String checkQuery = "DELETE FROM users WHERE companyemail = ?";
+        PreparedStatement smt = db.getConnection().prepareStatement(checkQuery);
+        smt.setString(1, email);
+        smt.execute();
+        updateTable();
+    }
+
+    private void deleteAccountWithName(String name) throws SQLException {
+        String checkQuery = "DELETE FROM users WHERE fullname = ?";
+        PreparedStatement smt = db.getConnection().prepareStatement(checkQuery);
+        smt.setString(1, name);
         smt.execute();
         updateTable();
     }
@@ -588,7 +865,7 @@ public class SysAdminController implements Initializable {
             delete.setOnAction((cmEvent) -> {
                 if (authenticatePassword("Enter the password associated with this admin account.")) {
                     try {
-                        deleteAccount(viewAccountsTable.getSelectionModel().getSelectedItem().getAccountUsername());
+                        deleteAccountWithUser(viewAccountsTable.getSelectionModel().getSelectedItem().getAccountUsername());
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
