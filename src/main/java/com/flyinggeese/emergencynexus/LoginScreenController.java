@@ -51,21 +51,27 @@ public class LoginScreenController {
                 } else {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     Stage stage = new Stage();
+                    Scene scene = null;
                     switch(accountType.toLowerCase()) {
                         case "doctor":
-                            fxmlLoader.setLocation(getClass().getResource("nurse-user-interface.fxml"));
+                            fxmlLoader.setLocation(getClass().getResource("practitioner-user-interface.fxml"));
                             stage.setTitle("Practitioner Interface");
+                            scene = new Scene(fxmlLoader.load());
                             break;
                         case "nurse":
-                            fxmlLoader.setLocation(getClass().getResource("practitioner-user-interface.fxml"));
+                            fxmlLoader.setLocation(getClass().getResource("nurse-user-interface.fxml"));
                             stage.setTitle("Nurse Interface");
+                            scene = new Scene(fxmlLoader.load());
                             break;
                         case "admin":
                             fxmlLoader.setLocation(getClass().getResource("sysadmin-user-interface.fxml"));
                             stage.setTitle("System Admin Interface");
+                            scene = new Scene(fxmlLoader.load());
+                            SysAdminController controller = fxmlLoader.getController();
+                            controller.setPassword(loginPassword.getText());
                             break;
                     }
-                    Scene scene = new Scene(fxmlLoader.load());
+                    scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));
                     stage.setScene(scene);
                     stage.show();
                     ((Node)(event.getSource())).getScene().getWindow().hide();
