@@ -31,6 +31,9 @@
 	-fx-border-color: white;
 }
 
+.button:pressed {
+    -fx-background-color: #d1303e;
+}
 
 .dropdown-content{
 	-fx-background-color: white;
