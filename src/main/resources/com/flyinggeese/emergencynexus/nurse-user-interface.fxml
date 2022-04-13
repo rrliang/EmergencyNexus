@@ -38,8 +38,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
@@ -57,26 +55,25 @@
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.NurseUserInterfaceController">
-  <children>
-    <MenuBar prefHeight="0.0" prefWidth="703.0" VBox.vgrow="NEVER">
-      <menus>
-            <Menu mnemonicParsing="false">
-               <graphic>
+   <children>
+      <HBox prefHeight="33.0" prefWidth="737.0" VBox.vgrow="NEVER">
+         <children>
+            <HBox fx:id="uniqueMenuButtonHbox" prefHeight="25.0" prefWidth="651.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="menuSaveDraftButton" mnemonicParsing="false" onAction="#menuSaveDraftButtonClicked" text="Save as draft" />
                   <Button fx:id="menuSubmitButton" mnemonicParsing="false" onAction="#menuSubmitButtonClicked" text="Submit" />
-               </graphic>
-            </Menu>
-        <Menu mnemonicParsing="false">
-               <graphic>
-                  <Button fx:id="menuSaveDraftButton" mnemonicParsing="false" onAction="#menuSaveDraftButtonClicked" text="Save in drafts" />
-               </graphic>
-        </Menu>
-            <Menu mnemonicParsing="false">
-               <graphic>
-                  <Button fx:id="menuSignOutButton" mnemonicParsing="false" onAction="#menuSignOutButtonClicked" prefHeight="25.0" prefWidth="69.0" text="Sign out" />
-               </graphic>
-            </Menu>
-      </menus>
-    </MenuBar>
+                  <Button fx:id="menuOpenFormButton" mnemonicParsing="false" onAction="#menuOpenFormButtonClicked" prefHeight="25.0" prefWidth="89.0" text="Open form" textAlignment="CENTER" />
+                  <Button fx:id="menuOnlyShowFormButton" mnemonicParsing="false" onAction="#menuOnlyShowFormButton" prefHeight="25.0" prefWidth="148.0" text="Only show my forms" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="menuDeleteButton" mnemonicParsing="false" onAction="#menuDeleteButtonClicked" prefHeight="25.0" prefWidth="64.0" text="Delete" />
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="78.0" HBox.hgrow="NEVER">
+               <children>
+                  <Button fx:id="menuSignOutButton" mnemonicParsing="false" onAction="#menuSignOutButtonClicked" prefHeight="33.0" prefWidth="76.0" text="Sign out" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
       <AnchorPane fx:id="overallAnchorPane" prefWidth="874.0" VBox.vgrow="ALWAYS">
          <children>
             <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="703.0" tabClosingPolicy="UNAVAILABLE">
@@ -279,7 +276,7 @@
                                                    </textFill>
                                                 </Label>
                                                 <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0">
-                                                  <items>
+                                                   <items>
                                                       <MenuItem mnemonicParsing="false">
                                                          <graphic>
                                                             <CheckBox fx:id="registerDrugAllergyCheck" text="Drug allergy">
@@ -289,12 +286,12 @@
                                                             </CheckBox>
                                                          </graphic>
                                                       </MenuItem>
-                                                    <MenuItem mnemonicParsing="false">
+                                                      <MenuItem mnemonicParsing="false">
                                                          <graphic>
                                                             <CheckBox fx:id="registerFoodAllergyCheck" mnemonicParsing="false" text="Food allergy" />
                                                          </graphic>
                                                       </MenuItem>
-                                                    <MenuItem mnemonicParsing="false">
+                                                      <MenuItem mnemonicParsing="false">
                                                          <graphic>
                                                             <CheckBox fx:id="registerInsectAllergyCheck" mnemonicParsing="false" text="Insect allergy" />
                                                          </graphic>
@@ -324,7 +321,7 @@
                                                             <TextField fx:id="registerOtherAllergyText" promptText="Other(s)" />
                                                          </graphic>
                                                       </MenuItem>
-                                                  </items>
+                                                   </items>
                                                 </MenuButton>
                                              </children>
                                           </HBox>
@@ -352,13 +349,13 @@
                                                    </textFill>
                                                 </Label>
                                                 <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0">
-                                                  <items>
-                                                    <MenuItem mnemonicParsing="false" text="Insulin">
+                                                   <items>
+                                                      <MenuItem mnemonicParsing="false" text="Insulin">
                                                          <graphic>
                                                             <CheckBox fx:id="registerInuslinCheck" mnemonicParsing="false" />
                                                          </graphic>
                                                       </MenuItem>
-                                                    <MenuItem mnemonicParsing="false" text="Antibiotics">
+                                                      <MenuItem mnemonicParsing="false" text="Antibiotics">
                                                          <graphic>
                                                             <CheckBox fx:id="registerAntibioticsCheck" mnemonicParsing="false" />
                                                          </graphic>
@@ -373,12 +370,12 @@
                                                             <CheckBox fx:id="registerIbuprofenCheck" mnemonicParsing="false" />
                                                          </graphic>
                                                       </MenuItem>
-                                                      <MenuItem mnemonicParsing="false" text="Naxolone">
+                                                      <MenuItem mnemonicParsing="false" text="Nalolxone">
                                                          <graphic>
                                                             <CheckBox fx:id="registerNaxCheck" mnemonicParsing="false" />
                                                          </graphic>
                                                       </MenuItem>
-                                                  </items>
+                                                   </items>
                                                 </MenuButton>
                                              </children>
                                           </HBox>
@@ -392,7 +389,25 @@
                                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111" />
                                                    </textFill>
                                                 </Label>
-                                                <ChoiceBox fx:id="registerSubstanceChoice" prefHeight="26.0" prefWidth="142.0" />
+                                                <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0">
+                                                  <items>
+                                                    <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerDrugHistoryCheck" mnemonicParsing="false" text="Recerational Drug Use" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerHistoryAlcoholCheck" mnemonicParsing="false" text="Alcohol" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerHistorySmokingCheck" mnemonicParsing="false" text="Smoking" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                  </items>
+                                                </MenuButton>
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="37.0" prefWidth="703.0" spacing="57.0">
@@ -1290,32 +1305,39 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                          <AnchorPane layoutX="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <AnchorPane layoutX="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="452.0" prefWidth="703.0" AnchorPane.rightAnchor="1.0">
                                  <children>
-                                    <TableView layoutY="30.0" prefHeight="424.0" prefWidth="584.0">
-                                      <columns>
-                                        <TableColumn prefWidth="217.0" text="Patient Name" />
-                                        <TableColumn prefWidth="365.0" text="Visit form" />
-                                      </columns>
+                                    <TableView layoutY="30.0" prefHeight="424.0" prefWidth="703.0">
+                                       <columns>
+                                          <TableColumn prefWidth="217.0" text="Patient Name" />
+                                          <TableColumn prefWidth="366.0" text="Visit form" />
+                                       </columns>
                                     </TableView>
                                     <TextField layoutX="5.0" layoutY="2.0" prefHeight="25.0" prefWidth="363.0" promptText="Patient name to look up" />
                                  </children>
                               </AnchorPane>
-                              <Button layoutX="591.0" layoutY="31.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="103.0" text="Open form" textAlignment="CENTER" />
-                              <Button layoutX="590.0" layoutY="76.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="104.0" text="Only show my forms" textAlignment="CENTER" wrapText="true" />
                               <Button layoutX="372.0" layoutY="2.0" mnemonicParsing="false" text="Clear search" />
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
                   <Tab fx:id="draftsTab" text="Drafts">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="draftsTableView" onMousePressed="#draftsTableViewClicked" prefHeight="530.0" prefWidth="703.0">
+                                 <columns>
+                                    <TableColumn fx:id="draftsTypeCol" prefWidth="181.0" text="Type" />
+                                    <TableColumn fx:id="draftsTimeCol" prefWidth="180.0" text="Timestamp" />
+                                    <TableColumn fx:id="draftsNameCol" prefWidth="281.6000671386719" text="Name" />
+                                 </columns>
+                              </TableView>
+                           </children></AnchorPane>
+                     </content>
                   </Tab>
                </tabs>
             </TabPane>
          </children>
       </AnchorPane>
-  </children>
+   </children>
 </VBox>
