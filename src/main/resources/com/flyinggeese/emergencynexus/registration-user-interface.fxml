@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -41,299 +42,377 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="703.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.NurseUserInterfaceController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.RegisterScreenController">
   <tabs>
     <Tab text="Registration Form">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <ScrollPane prefHeight="452.0" prefWidth="703.0">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="921.0" prefWidth="771.0">
-                           <children>
-                              <AnchorPane id="Content" layoutX="14.0" minHeight="-1.0" minWidth="-1.0" prefHeight="594.0" prefWidth="509.0">
+         <ScrollPane prefHeight="1054.0" prefWidth="740.0">
+            <content>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="987.0" prefWidth="703.0">
+                  <children>
+                     <VBox layoutY="10.0" prefHeight="1158.0" prefWidth="690.0" spacing="5.0" AnchorPane.leftAnchor="10.0">
+                        <children>
+                           <HBox prefHeight="39.0" prefWidth="703.0" spacing="60.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Full Name:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x1" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerNameText" prefHeight="26.0" prefWidth="230.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="41.0" prefWidth="703.0" spacing="40.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Date of Birth:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x113" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x213" />
+                                    </textFill>
+                                 </Label>
+                                 <DatePicker fx:id="registerBirthDateCalendar" prefHeight="26.0" prefWidth="126.0" />
+                                 <Label alignment="CENTER" style="&#10;" text="Phone Number:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x211" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerPhoneText" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="39.0" prefWidth="703.0" spacing="24.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Home Address:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x1131" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2131" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerAddressText" prefHeight="26.0" prefWidth="426.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="37.0" prefWidth="703.0" spacing="98.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Email:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x11311" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21311" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerEmailText" prefHeight="26.0" prefWidth="425.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="40.0" prefWidth="703.0" spacing="11.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Guardian Name: " textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x11" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerGuardianNameText" prefHeight="26.0" prefWidth="426.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="34.0" prefWidth="703.0" spacing="30.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Guardian Phone Number:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x1111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerGuardianPhoneText" prefHeight="26.0" prefWidth="201.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="35.0" prefWidth="703.0" spacing="54.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Blood Type:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x112" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x212" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerBloodTypeChoiceBox" prefHeight="26.0" prefWidth="143.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="38.0" prefWidth="703.0" spacing="11.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Health Insurance:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x121" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x221" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerInsuranceChoice" accessibleRole="CHECK_BOX" prefHeight="26.0" prefWidth="154.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="37.0" prefWidth="703.0" spacing="15.0">
+                              <children>
+                                 <Label alignment="CENTER" prefHeight="26.0" prefWidth="195.0" style="&#10;" text="COVID-19 Primary Vaccine:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="16.0" fx:id="x1132" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2132" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerCovidPrimaryVaccineChoice" prefHeight="26.0" prefWidth="139.0" />
+                                 <Label alignment="CENTER" prefHeight="26.0" prefWidth="166.0" style="&#10;" text="Primary Vaccine Date:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="16.0" fx:id="x1133" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2133" />
+                                    </textFill>
+                                 </Label>
+                                 <DatePicker fx:id="registerCovidPrimaryVaccineCalendar" prefHeight="26.0" prefWidth="126.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="34.0" prefWidth="703.0" spacing="6.0">
+                              <children>
+                                 <Label alignment="CENTER" prefHeight="26.0" prefWidth="211.0" style="&#10;" text="COVID-19 Secondary Vaccine:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="16.0" fx:id="x11321" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21321" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerCovidSecondaryVaccineChoice" prefHeight="26.0" prefWidth="137.0" />
+                                 <Label alignment="CENTER" prefHeight="26.0" prefWidth="178.0" style="&#10;" text="Secondary Vaccine Date:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="16.0" fx:id="x11331" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21331" />
+                                    </textFill>
+                                 </Label>
+                                 <DatePicker fx:id="registerCovidSecondaryVaccineCalendar" prefHeight="26.0" prefWidth="130.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="36.0" prefWidth="703.0" spacing="15.0">
+                              <children>
+                                 <Label alignment="CENTER" prefHeight="26.0" prefWidth="200.0" style="&#10;" text="COVID-19 Booster Vaccine:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="16.0" fx:id="x113211" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x213211" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerCovidBoosterVaccineChoice" prefHeight="26.0" prefWidth="136.0" />
+                                 <Label alignment="CENTER" prefHeight="26.0" prefWidth="163.0" style="&#10;" text="Booster Vaccine Date:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="16.0" fx:id="x113212" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x213212" />
+                                    </textFill>
+                                 </Label>
+                                 <DatePicker fx:id="registerCovidBoosterVaccineCalendar" prefHeight="26.0" prefWidth="130.0" />
+                              </children>
+                           </HBox>
+                           <HBox accessibleRole="COMBO_BOX" prefHeight="35.0" prefWidth="703.0" spacing="127.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Allergies:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x11111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerAllergiesText" prefHeight="26.0" prefWidth="388.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="35.0" prefWidth="703.0" spacing="10.0">
+                              <children>
+                                 <Label alignment="CENTER" style="&#10;" text="Pre-existing Conditions:" textAlignment="CENTER" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x111111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerPreConditionsText" prefHeight="26.0" prefWidth="390.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="36.0" prefWidth="703.0" spacing="41.0">
+                              <children>
+                                 <Label accessibleRole="CHECK_BOX" alignment="CENTER" prefHeight="27.0" prefWidth="157.0" style="&#10;" text="Medication (if any):" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x1111111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerMedicationText" prefHeight="26.0" prefWidth="390.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="35.0" prefWidth="703.0" spacing="28.0">
+                              <children>
+                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="125.0" style="&#10;" text="Substance Use:" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x11111111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerSubstanceChoice" prefHeight="26.0" prefWidth="142.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="37.0" prefWidth="703.0" spacing="57.0">
+                              <children>
+                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="96.0" style="&#10;" text="Height (in):" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x111111111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerHeightText" prefHeight="26.0" prefWidth="130.0" />
+                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="114.0" style="&#10;" text="Weight (lbs):" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x1111111111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111111" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerWeightText" prefHeight="26.0" prefWidth="98.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="40.0" prefWidth="703.0" spacing="64.0">
+                              <children>
+                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="48.0" style="&#10;" text="Race:" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x1111111112" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111112" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerRaceChoice" prefHeight="26.0" prefWidth="148.0" />
+                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="125.0" style="&#10;" text="Ethnicity:" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x11111111121" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerEthnicityText" accessibleRole="COMBO_BOX" prefHeight="26.0" prefWidth="102.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="34.0" prefWidth="690.0" spacing="40.0">
+                              <children>
+                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="72.0" style="&#10;" text="Religion:" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x111111111211" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111211" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerReligionText" prefHeight="30.0" prefWidth="159.0" />
+                                 <Label alignment="CENTER" prefHeight="35.0" prefWidth="170.0" style="&#10;" text="Pregnant (if female):" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x111111111212" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111212" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerPregnantChoice" prefHeight="26.0" prefWidth="107.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="34.0" prefWidth="690.0" spacing="72.0">
+                              <children>
+                                 <Label fx:id="registerSexChoice" alignment="CENTER" prefHeight="27.0" prefWidth="40.0" style="&#10;" text="Sex:" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x1111111112111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111112111" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerSexChoice" prefHeight="30.0" prefWidth="131.0" />
+                                 <Label fx:id="registerGenderChoice" alignment="CENTER" prefHeight="32.0" prefWidth="81.0" style="&#10;" text="Gender:" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x11111111121111" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121111" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerGenderChoice" prefHeight="31.0" prefWidth="101.0" />
+                              </children>
+                           </HBox>
+                           <HBox prefHeight="32.0" prefWidth="690.0" spacing="30.0">
+                              <children>
+                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="82.0" style="&#10;" text="Pronouns:" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x11111111121112" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121112" />
+                                    </textFill>
+                                 </Label>
+                                 <TextField fx:id="registerPronounsText" prefHeight="26.0" prefWidth="134.0" />
+                                 <Label alignment="CENTER" prefHeight="30.0" prefWidth="124.0" style="&#10;" text="Sexual Activity:" wrapText="false">
+                                    <font>
+                                       <Font size="18.0" fx:id="x111111111211121" />
+                                    </font>
+                                    <textFill>
+                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111211121" />
+                                    </textFill>
+                                 </Label>
+                                 <ChoiceBox fx:id="registerSexualChoice" prefHeight="30.0" prefWidth="107.0" />
+                              </children>
+                           </HBox>
+                              <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" layoutX="8.0" layoutY="11.0" style="&#10;" text="Full Name:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x1" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField layoutX="228.0" layoutY="91.0" prefHeight="26.0" prefWidth="426.0" />
-                                    <Label alignment="CENTER" layoutX="367.0" layoutY="53.0" style="&#10;" text="Phone Number:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x211" />
-                                       </textFill>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="3.0" layoutY="248.0" style="&#10;" text="Blood Type:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x112" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x212" />
-                                       </textFill>
-                                    </Label>
-                                    <DatePicker layoutX="229.0" layoutY="53.0" prefHeight="26.0" prefWidth="126.0" />
-                                    <TextField layoutX="213.0" layoutY="283.0" prefHeight="26.0" prefWidth="305.0" />
-                                    <TextField layoutX="213.0" layoutY="323.0" prefHeight="26.0" prefWidth="154.0" />
-                                    <Label alignment="CENTER" layoutX="2.0" layoutY="53.0" style="&#10;" text="Date of Birth:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x113" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x213" />
-                                       </textFill>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="2.0" layoutY="90.0" style="&#10;" text="Home Address:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x1131" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2131" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField layoutX="227.0" layoutY="12.0" prefHeight="26.0" prefWidth="430.0" />
-                                    <Label alignment="CENTER" layoutX="4.0" layoutY="128.0" style="&#10;" text="Email:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x11311" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21311" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField layoutX="229.0" layoutY="129.0" prefHeight="26.0" prefWidth="425.0" />
-                                    <Label alignment="CENTER" layoutX="4.0" layoutY="169.0" style="&#10;" text="Guardian Name: " textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x11" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField layoutX="228.0" layoutY="170.0" prefHeight="26.0" prefWidth="426.0" />
-                                    <Label alignment="CENTER" layoutX="4.0" layoutY="205.0" style="&#10;" text="Guardian Phone Number:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x1111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField layoutX="227.0" layoutY="206.0" prefHeight="26.0" prefWidth="201.0" />
-                                    <ChoiceBox layoutX="212.0" layoutY="248.0" prefHeight="26.0" prefWidth="143.0" />
-                                    <TextField layoutX="504.0" layoutY="54.0" />
-                                    <Label alignment="CENTER" layoutX="2.0" layoutY="283.0" style="&#10;" text="Social Security Number:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x12" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x22" />
-                                       </textFill>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="2.0" layoutY="322.0" style="&#10;" text="Health Insurance:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x121" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x221" />
-                                       </textFill>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="9.0" layoutY="357.0" style="&#10;" text="COVID-19 Primary Vaccine:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="16.0" fx:id="x1132" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2132" />
-                                       </textFill>
-                                    </Label>
-                                    <DatePicker layoutX="548.0" layoutY="357.0" prefHeight="26.0" prefWidth="126.0" />
-                                    <Label alignment="CENTER" layoutX="376.0" layoutY="357.0" style="&#10;" text="Primary Vaccine Date:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="16.0" fx:id="x1133" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2133" />
-                                       </textFill>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="-3.0" layoutY="389.0" style="&#10;" text="COVID-19 Secondary Vaccine:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="16.0" fx:id="x11321" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21321" />
-                                       </textFill>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="355.0" layoutY="388.0" prefHeight="27.0" prefWidth="196.0" style="&#10;" text="Secondary Vaccine Date:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="16.0" fx:id="x11331" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21331" />
-                                       </textFill>
-                                    </Label>
-                                    <DatePicker layoutX="546.0" layoutY="389.0" prefHeight="26.0" prefWidth="130.0" />
-                                    <Label alignment="CENTER" layoutX="3.0" layoutY="423.0" style="&#10;" text="COVID-19 Booster Vaccine:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="16.0" fx:id="x113211" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x213211" />
-                                       </textFill>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="376.0" layoutY="421.0" style="&#10;" text="Booster Vaccine Date:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="16.0" fx:id="x113212" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x213212" />
-                                       </textFill>
-                                    </Label>
-                                    <DatePicker layoutX="545.0" layoutY="422.0" prefHeight="26.0" prefWidth="130.0" />
-                                    <Label alignment="CENTER" layoutX="58.0" layoutY="454.0" style="&#10;" text="Allergies:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x11111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField layoutX="225.0" layoutY="456.0" prefHeight="26.0" prefWidth="426.0" />
-                                    <Label alignment="CENTER" layoutX="20.0" layoutY="497.0" style="&#10;" text="Pre-existing Conditions:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x111111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField layoutX="228.0" layoutY="496.0" prefHeight="26.0" prefWidth="426.0" />
-                                    <ChoiceBox layoutX="213.0" layoutY="357.0" prefHeight="26.0" prefWidth="137.0" />
-                                    <ChoiceBox layoutX="213.0" layoutY="388.0" prefHeight="26.0" prefWidth="137.0" />
-                                    <ChoiceBox layoutX="213.0" layoutY="420.0" prefHeight="26.0" prefWidth="136.0" />
-                                    <Label alignment="CENTER" layoutX="31.0" layoutY="544.0" prefHeight="27.0" prefWidth="177.0" style="&#10;" text="Medication (if any):" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x1111111" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111" />
-                                       </textFill>
-                                    </Label>
-                                    <TextField layoutX="226.0" layoutY="543.0" prefHeight="26.0" prefWidth="426.0" />
+                                 <Button fx:id="registerSubmitButton" mnemonicParsing="false" onAction="#registerSubmitButtonClicked" prefHeight="50.0" prefWidth="67.0" text="Submit" textAlignment="CENTER">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Button>
                                  </children>
-                              </AnchorPane>
-                              <Button layoutX="356.0" layoutY="887.0" mnemonicParsing="false" text="Submit" />
-                              <Label alignment="CENTER" layoutX="26.0" layoutY="591.0" prefHeight="27.0" prefWidth="177.0" style="&#10;" text="Substance Use:" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x11111111" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111" />
-                                 </textFill>
-                              </Label>
-                              <ChoiceBox layoutX="226.0" layoutY="594.0" prefHeight="26.0" prefWidth="142.0" />
-                              <Label alignment="CENTER" layoutX="24.0" layoutY="630.0" prefHeight="27.0" prefWidth="177.0" style="&#10;" text="Height (in):" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x111111111" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111" />
-                                 </textFill>
-                              </Label>
-                              <TextField layoutX="206.0" layoutY="634.0" prefHeight="26.0" prefWidth="130.0" />
-                              <Label alignment="CENTER" layoutX="376.0" layoutY="630.0" prefHeight="27.0" prefWidth="177.0" style="&#10;" text="Weight (lbs):" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x1111111111" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111111" />
-                                 </textFill>
-                              </Label>
-                              <TextField layoutX="559.0" layoutY="629.0" prefHeight="26.0" prefWidth="98.0" />
-                              <Label alignment="CENTER" layoutX="40.0" layoutY="672.0" prefHeight="29.0" prefWidth="130.0" style="&#10;" text="Race:" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x1111111112" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111112" />
-                                 </textFill>
-                              </Label>
-                              <ChoiceBox layoutX="208.0" layoutY="672.0" prefHeight="26.0" prefWidth="158.0" />
-                              <Label alignment="CENTER" layoutX="395.0" layoutY="671.0" prefHeight="27.0" prefWidth="130.0" style="&#10;" text="Ethnicity:" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x11111111121" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121" />
-                                 </textFill>
-                              </Label>
-                              <TextField layoutX="554.0" layoutY="672.0" prefHeight="26.0" prefWidth="113.0" />
-                              <Label alignment="CENTER" layoutX="37.0" layoutY="716.0" prefHeight="27.0" prefWidth="130.0" style="&#10;" text="Religion:" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x111111111211" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111211" />
-                                 </textFill>
-                              </Label>
-                              <TextField layoutX="209.0" layoutY="715.0" prefHeight="30.0" prefWidth="159.0" />
-                              <Label alignment="CENTER" layoutX="381.0" layoutY="714.0" prefHeight="35.0" prefWidth="170.0" style="&#10;" text="Pregnant (if female):" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x111111111212" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111212" />
-                                 </textFill>
-                              </Label>
-                              <ChoiceBox layoutX="563.0" layoutY="721.0" prefHeight="26.0" prefWidth="107.0" />
-                              <Label alignment="CENTER" layoutX="37.0" layoutY="763.0" prefHeight="27.0" prefWidth="124.0" style="&#10;" text="Sex:" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x1111111112111" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111112111" />
-                                 </textFill>
-                              </Label>
-                              <Label alignment="CENTER" layoutX="389.0" layoutY="760.0" prefHeight="32.0" prefWidth="124.0" style="&#10;" text="Gender:" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x11111111121111" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121111" />
-                                 </textFill>
-                              </Label>
-                              <ChoiceBox layoutX="209.0" layoutY="762.0" prefHeight="30.0" prefWidth="131.0" />
-                              <ChoiceBox layoutX="565.0" layoutY="762.0" prefHeight="31.0" prefWidth="101.0" />
-                              <Label alignment="CENTER" layoutX="42.0" layoutY="806.0" prefHeight="27.0" prefWidth="124.0" style="&#10;" text="Pronouns:" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x11111111121112" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121112" />
-                                 </textFill>
-                              </Label>
-                              <TextField layoutX="210.0" layoutY="807.0" prefHeight="26.0" prefWidth="157.0" />
-                              <Label alignment="CENTER" layoutX="389.0" layoutY="805.0" prefHeight="30.0" prefWidth="124.0" style="&#10;" text="Sexual Activity:" textAlignment="CENTER" wrapText="false">
-                                 <font>
-                                    <Font size="18.0" fx:id="x111111111211121" />
-                                 </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111211121" />
-                                 </textFill>
-                              </Label>
-                              <ChoiceBox layoutX="564.0" layoutY="803.0" prefHeight="30.0" prefWidth="107.0" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </ScrollPane>
-               </children></AnchorPane>
+                              </VBox>
+                        </children>
+                     </VBox>
+                  </children>
+               </AnchorPane>
+            </content>
+         </ScrollPane>
       </content>
     </Tab>
     <Tab text="Patient Look-Up">
