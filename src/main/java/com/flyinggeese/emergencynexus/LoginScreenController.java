@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -71,8 +72,14 @@ public class LoginScreenController {
                             controller.setPassword(loginPassword.getText());
                             controller.setUsername(loginUsername.getText());
                             break;
+                        case "registration":
+                            fxmlLoader.setLocation(getClass().getResource("registration-user-interface.fxml"));
+                            stage.setTitle("Front Desk Interface");
+                            scene = new Scene(fxmlLoader.load());
+                            break;
                     }
                     scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));
+                    stage.getIcons().add(new Image(EmergencyNexus.class.getResourceAsStream("logo.png")));
                     stage.setScene(scene);
                     stage.show();
                     ((Node)(event.getSource())).getScene().getWindow().hide();
@@ -84,17 +91,17 @@ public class LoginScreenController {
 
     @FXML
     void registerClicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("register-screen.fxml"));
-        /* 
-         * if "fx:controller" is not set in fxml
-         * fxmlLoader.setController(NewWindowController);
-         */
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        Stage stage = new Stage();
-        stage.setTitle("Account help");
-        stage.setScene(scene);
-        stage.show();
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(getClass().getResource("register-screen.fxml"));
+//        /*
+//         * if "fx:controller" is not set in fxml
+//         * fxmlLoader.setController(NewWindowController);
+//         */
+//        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+//        Stage stage = new Stage();
+//        stage.setTitle("Account help");
+//        stage.setScene(scene);
+//        stage.show();
+//        ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 }

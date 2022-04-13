@@ -1,218 +1,130 @@
 package com.flyinggeese.emergencynexus;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class NurseUserInterfaceController implements Initializable {
 
+    //MENU INSTANCE VARIABLES
     @FXML
-    private Font x1;
+    private Button menuSaveDraftButton, menuSignOutButton, menuSubmitButton;
+
+    //FXML VARIABLES FOR REGISTER FORM
+    @FXML
+    private TextField registerAddressText, registerAllergiesText, registerEmailText, registerEthnicityText,
+            registerGuardianNameText, registerGuardianPhoneText, registerHeightText, registerInsuranceChoice,
+            registerMedicationText, registerNameText, registerPhoneText, registerPreConditionsText, registerPronounsText,
+            registerReligionText, registerWeightText;
 
     @FXML
-    private Font x11;
+    private DatePicker registerBirthDateCalendar, registerCovidBoosterVaccineCalendar, registerCovidPrimaryVaccineCalendar,
+            registerCovidSecondaryVaccineCalendar;
 
     @FXML
-    private Font x111;
+    private ChoiceBox<?> registerBloodTypeChoiceBox, registerCovidBoosterVaccineChoice, registerCovidPrimaryVaccineChoice,
+            registerCovidSecondaryVaccineChoice, registerGenderChoice, registerPregnantChoice, registerRaceChoice,
+            registerSexChoice, registerSexualChoice, registerSubstanceChoice;
+
+
+    //INSTANCE VARIABLES FOR VISIT
 
     @FXML
-    private Font x1111;
+    private AnchorPane overallAnchorPane;
 
     @FXML
-    private Font x11111;
+    private VBox overallVBox;
 
     @FXML
-    private Font x111111;
+    private TabPane tabPane;
 
     @FXML
-    private Font x11112;
+    private CheckBox visitCantDoubleVision, visitAbHurt, visitAcuteCheck, visitArmHurt, visitAsthmaCheck, visitBackHurt,
+            visitBronchitisCheck, visitCantBlindness, visitCantBlurredVision, visitCantBreath, visitCantLosingHearing,
+            visitCantMoveOne, visitCantPassBowel, visitCantPassUrine, visitCantRemember, visitCantRinging, visitCantSleep,
+            visitCantSmell, visitCantSoundsTooLoud, visitCantSpeak, visitCantStopPassingWater, visitCantStopScratch,
+            visitCantStopSweat, visitCantSwallow, visitCantTaste, visitCantWalk, visitCantWrite, visitChestHurt,
+            visitChestPainCheck, visitChronicHurt, visitConstipationCheck, visitDizziinessCheck, visitEarHurt,
+            visitEpiCheck, visitFeelChills, visitFeelFever, visitFeelLight, visitFeelParesthesia, visitFeelSleepy,
+            visitFeverCheck, visitFluFeel, visitGastroCheck, visitHeadHurt, visitHeadInjuryCheck, visitHeadacheText,
+            visitIMInjectionCheck, visitLegHurt, visitLowBackCheck, visitMouthFeel, visitNauseaCheck, visitNauseatedFeel,
+            visitOMCheck, visitOxygenCheck, visitPelvisHurt, visitRectumHurt, visitRespInfCheck, visitSCCheck,
+            visitShortOfBreathFeel, visitSkinHurt, visitStrainBackCheck, visitStrainNeckCheck, visitSweatyFeel,
+            visitSyncopeCheck, visitTeethCheck, visitTheRoomSpinFeel, visitThirstyFeel, visitTiredFeel, visitToothHurt,
+            visitUTICheck, visitUnspecifiedAbCheck, visitVomitFeel, visitWeakFeel;
 
     @FXML
-    private Font x111121;
+    private MenuButton visitAboutToBlackFeel, visitFeel, visitHurts;
 
     @FXML
-    private Font x111122;
+    private RadioButton visitAdmissionNoRadio, visitAdmissionYesRadio;
 
     @FXML
-    private Font x111123;
+    private TextField visitAlbuterolText, visitAspirinText, visitAtropineText, visitBloodPressureText, visitCantOtherText,
+            visitDiphenText, visitEpinephrineText, visitFlumaText, visitGlucoseText, visitHydroText, visitIVText,
+            visitLorazepamText, visitMoprhineText, visitNalaxoneText, visitNameText, visitNitroText, visitOtherDiagnosisText,
+            visitOtherFeel, visitOtherHurtText, visitOtherMedicationText, visitOtherMedicineDosageText, visitRoomNumberText;
 
     @FXML
-    private Font x112;
+    private DatePicker visitCheckinDate, visitDate, visitCheckoutDate;
 
     @FXML
-    private Font x1121;
+    private TextArea visitNotes;
 
     @FXML
-    private Font x11211;
+    private ChoiceBox<?> visitPhysicianChoice;
+
+
 
     @FXML
-    private Font x11212;
+    void menuSaveDraftButtonClicked(ActionEvent event) {
+
+    }
 
     @FXML
-    private Font x1122;
+    void menuSignOutButtonClicked(ActionEvent event) {
+
+    }
 
     @FXML
-    private Font x11221;
+    void menuSubmitButtonClicked(ActionEvent event) {
+
+    }
 
     @FXML
-    private Color x2;
+    void visitAdmissionNoRadioClicked(ActionEvent event) {
+
+    }
 
     @FXML
-    private Color x21;
+    void visitAdmissionYesRadioClicked(ActionEvent event) {
 
-    @FXML
-    private Color x211;
+    }
 
-    @FXML
-    private Color x2111;
-
-    @FXML
-    private Color x21111;
-
-    @FXML
-    private Color x211111;
-
-    @FXML
-    private Color x21112;
-
-    @FXML
-    private Color x211121;
-
-    @FXML
-    private Color x211122;
-
-    @FXML
-    private Color x211123;
-
-    @FXML
-    private Color x212;
-
-    @FXML
-    private Color x2121;
-
-    @FXML
-    private Color x21211;
-
-    @FXML
-    private Color x21212;
-
-    @FXML
-    private Color x2122;
-
-    @FXML
-    private Color x21221;
-
-    @FXML
-    private Font x3;
-
-    @FXML
-    private Color x4;
-
-    @FXML
-    private TextField fullName, physician, icant, bp, room, saline, notes;
-
-    @FXML
-    private ChoiceBox<String> feeling, symptoms, medication, injection;
-
-    @FXML
-    private DatePicker visit, checkin, checkout;
-
-    @FXML
-    private Button submit;
-
-    @FXML
-    private CheckBox tests;
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        //PATIENT VISIT FORM CHOICE BOXES
-        ObservableList<String> hurt = FXCollections.observableArrayList();
-        hurt.addAll("Head", "Shoulders", "Chest", "Arms", "Hips", "Legs", "Knees", "Feet");
-        symptoms.setItems(hurt);
-        symptoms.setValue("Head");
-
-        ObservableList<String> s = FXCollections.observableArrayList();
-        s.addAll("Good", "Okay", "Bad", "Terrible");
-        feeling.setItems(s);
-        feeling.setValue("Okay");
-
-        ObservableList<String> meds = FXCollections.observableArrayList();
-        meds.addAll("None", "Tylenol", "Aspirin", "Insulin");
-        medication.setItems(meds);
-        medication.setValue("None");
-
-        ObservableList<String> inj = FXCollections.observableArrayList();
-        inj.addAll("None", "COVID-19 Vaccine", "Flu Shot");
-        injection.setItems(inj);
-        injection.setValue("None");
-    }
-
-    @FXML
-    void submitData(ActionEvent event) throws IOException, SQLException {
-        ConnectToDatabase db = new ConnectToDatabase();
-        db.makeJDBCConnection();
-        String query = "INSERT INTO emergency_nexus.visit (dateofvisit, symptomsmyhurt, symptomsifeel, symptomsicant, bloodpressure, admissionstatuscheckin, admissionstatuscheckout, admissionstatusroom, amountofsaline, givenmedication, injectionsgiven, notesandobservations, patient, primaryphysician) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement pst = db.getConnection().prepareStatement(query);
-
-        pst.setString(1, ((TextField)visit.getEditor()).getText());
-        pst.setString(2, symptoms.getSelectionModel().getSelectedItem().toString());
-        pst.setString(3, feeling.getSelectionModel().getSelectedItem().toString());
-        pst.setString(4, icant.getText());
-        pst.setString(5, bp.getText());
-        pst.setString(6, ((TextField)checkin.getEditor()).getText());
-        pst.setString(7, ((TextField)checkout.getEditor()).getText());
-        pst.setString(8, room.getText());
-        pst.setString(9, saline.getText());
-        pst.setString(10, medication.getSelectionModel().getSelectedItem().toString());
-        pst.setString(11, injection.getSelectionModel().getSelectedItem().toString());
-        pst.setString(12, notes.getText());
-        pst.setString(13, fullName.getText());
-        pst.setString(14, physician.getText());
-
-        pst.execute();
-        pst.close();
-        clearFields();
-    }
-    public void clearFields() {
-        fullName.clear();
-        physician.clear();
-        visit.setValue(null);
-        symptoms.setValue("Head");
-        feeling.setValue("Okay");
-        icant.clear();
-        bp.clear();
-        checkin.setValue(null);
-        checkout.setValue(null);
-        room.clear();
-        saline.clear();
-        medication.setValue("None");
-        injection.setValue("None");
-        notes.clear();
-    }
-    @FXML
-    private TextField namelookup;
-    @FXML
-    private DatePicker dob;
-
-    void lookUpPatient(ActionEvent event) throws IOException, SQLException{
-        ConnectToDatabase db = new ConnectToDatabase();
-        db.makeJDBCConnection();
-        String searchQuery = "SELECT * FROM emergency_nexus.patients WHERE fullname = ? AND dateofbirth = ?";
-        PreparedStatement pst = db.getConnection().prepareStatement(searchQuery);
-
-        pst.setString(1, namelookup.getText());
-        pst.setString(2, ((TextField)dob.getEditor()).getText());
+    public void initialize(URL location, ResourceBundle resources) {
+        AnchorPane.setTopAnchor(tabPane, 0.0);
+        AnchorPane.setLeftAnchor(tabPane, 0.0);
+        AnchorPane.setRightAnchor(tabPane, 0.0);
+        AnchorPane.setBottomAnchor(tabPane, 0.0);
+        overallVBox.fillWidthProperty();
 
     }
 }
