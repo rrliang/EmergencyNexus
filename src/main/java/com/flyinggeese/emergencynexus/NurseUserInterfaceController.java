@@ -15,13 +15,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class NurseUserInterfaceController implements Initializable {
 
     //MENU INSTANCE VARIABLES
     @FXML
-    private Button menuSaveDraftButton, menuSignOutButton, menuSubmitButton;
+    private Button menuSaveDraftButton, menuSignOutButton, menuSubmitButton, menuOpenFormButton, menuOnlyShowFormButton,
+            menuDeleteButton, menuDeleteButtonClicked;
+
+    @FXML
+    private HBox uniqueMenuButtonHbox;
 
     //FXML VARIABLES FOR REGISTER FORM
     @FXML
@@ -41,8 +48,9 @@ public class NurseUserInterfaceController implements Initializable {
 
     @FXML
     private CheckBox registerDrugAllergyCheck, registerFoodAllergyCheck, registerInsectAllergyCheck,
-            registerLatexAllergyCheck, registerMoldAllergyCheck, registerPetAllergyCheck, registerInuslinCheck,
-            registerAntibioticsCheck, registerAntiCoagulantCheck, registerIbuprofenCheck, registerNaxCheck;
+            registerLatexAllergyCheck, registerMoldAllergyCheck, registerPetAllergyCheck, registerPollenAllergyCheck,
+            registerInuslinCheck, registerAntibioticsCheck, registerAntiCoagulantCheck, registerIbuprofenCheck, registerNaxCheck,
+            registerDrugHistoryCheck, registerHistoryAlcoholCheck, registerHistorySmokingCheck;
 
     @FXML
     private RadioButton registerHispanicRadio, registerNonHispanicRadio, registerNonReligiousRadio, registerReligiousRadio,
@@ -98,7 +106,10 @@ public class NurseUserInterfaceController implements Initializable {
     @FXML
     private ChoiceBox<?> visitPhysicianChoice;
 
+
+    //GLOBAL VARIABLES
     private String registerEthnicity, registerReligion, registerSex, registerSexuallyActive;
+    private ConnectToDatabase db = new ConnectToDatabase();
 
 
     @FXML
@@ -113,6 +124,125 @@ public class NurseUserInterfaceController implements Initializable {
 
     @FXML
     void menuSubmitButtonClicked(ActionEvent event) {
+        if (tabPane.getSelectionModel().getSelectedIndex() == 0) { //Register Patient
+
+        } else { //Visit form
+
+        }
+    }
+
+    private String getAllergies() {
+        ArrayList<String> allergiesList = new ArrayList<>();
+        if (registerDrugAllergyCheck.isSelected() && !registerDrugAllergyText.getText().equals("")) {
+            allergiesList.add(registerDrugAllergyText.getText());
+        } else if (registerDrugAllergyCheck.isSelected() && registerDrugAllergyText.getText().equals("")) {
+            allergiesList.add("drug");
+        }
+        if (registerFoodAllergyCheck.isSelected()) {
+            allergiesList.add("food");
+        }
+        if (registerInsectAllergyCheck.isSelected()) {
+            allergiesList.add("insect");
+        }
+        if (registerLatexAllergyCheck.isSelected()) {
+            allergiesList.add("latex");
+        }
+        if (registerMoldAllergyCheck.isSelected()) {
+            allergiesList.add("mold");
+        }
+        if (registerPetAllergyCheck.isSelected()) {
+            allergiesList.add("pet");
+        }
+        if (registerPollenAllergyCheck.isSelected()) {
+            allergiesList.add("pollen");
+        }
+        if (registerOtherAllergyText.getText().equals("")) {
+            allergiesList.add(registerOtherAllergyText.getText());
+        }
+        return allergiesList.toString();
+    }
+
+    private String getPriorMedications() {
+        ArrayList<String> medicationsList = new ArrayList<>();
+        if (registerInuslinCheck.isSelected()) {
+            medicationsList.add("insulin");
+        }
+        if (registerAntibioticsCheck.isSelected()) {
+            medicationsList.add("antibiotics");
+        }
+        if (registerAntiCoagulantCheck.isSelected()) {
+            medicationsList.add("anticoagulant");
+        }
+        if (registerIbuprofenCheck.isSelected()) {
+            medicationsList.add("ibuprofen");
+        }
+        if (registerNaxCheck.isSelected()) {
+            medicationsList.add("naloxone");
+        }
+        return medicationsList.toString();
+    }
+
+    private String getSubstanceUse() {
+        ArrayList<String> substanceUse = new ArrayList<>();
+        if (registerDrugHistoryCheck.isSelected()) {
+            substanceUse.add("recreational drug use");
+        }
+        if (registerHistoryAlcoholCheck.isSelected()) {
+            substanceUse.add("alcohol");
+        }
+        if (registerHistorySmokingCheck.isSelected()) {
+            substanceUse.add("smoking");
+        }
+        return substanceUse.toString();
+    }
+
+    private void submitRegistrationForm(PatientRegistrationForm patient) throws SQLException {
+        String insertQuery = "INSERT INTO patients (fullname, dateofbirth, phonenumber, homeaddress, email, guardianname," +
+                " guardianphonenumber, bloodtype, healthinsuranceprovider, covidshot1date, covidshot1type, covidshot2date," +
+                " covidshot2type, boosterdate, boostertype, allergies, preexistingconditions, priormedications, historyofsubstance," +
+                " height, weight, race, ethnicity, religion, pregnancy, assignedbirthsex, genderidentity, pronouns, sexualactivity)" +
+                " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement smt = db.getConnection().prepareStatement(insertQuery);
+        smt.setString(1, patient.getName());
+        smt.setString(2, patient.getName());
+    }
+
+    private PatientRegistrationForm getRegistrationForm() {
+
+        return new PatientRegistrationForm(
+                registerNameText.getText(), ((TextField)registerBirthDateCalendar.getEditor()).getText(),
+                registerPhoneText.getText(), registerAddressText.getText(), registerEmailText.getText(), registerGuardianNameText.getText(),
+                registerGuardianPhoneText.getText(), registerBloodTypeChoiceBox.getValue().toString(), registerInsuranceChoice.getValue().toString(),
+                ((TextField)registerCovidPrimaryVaccineCalendar.getEditor()).getText(), registerCovidPrimaryVaccineChoice.getValue().toString(),
+                ((TextField)registerCovidSecondaryVaccineCalendar.getEditor()).getText(), registerCovidSecondaryVaccineChoice.getValue().toString(),
+                ((TextField)registerCovidBoosterVaccineCalendar.getEditor()).getText(), registerCovidBoosterVaccineChoice.getValue().toString(),
+                getAllergies(), registerPreConditionsText.getText(), getPriorMedications(), getSubstanceUse(), registerHeightText.getText(),
+                registerWeightText.getText(), registerRaceChoice.getValue().toString(), registerEthnicity, registerReligion,
+                registerPregnantChoice.getValue().toString(), registerSex, registerGenderChoice.getValue().toString(),
+                registerPronounsText.getText(), registerSexuallyActive);
+    }
+
+    private boolean checkRegistrationEmpty() {
+        return (registerNameText.getText().equals("") && ((TextField)registerBirthDateCalendar.getEditor()).getText().equals("") &&
+                registerPhoneText.getText().equals("") && registerAddressText.getText().equals("") && registerEmailText.getText().equals("") &&
+                registerGuardianNameText.getText().equals("") && registerGuardianPhoneText.getText().equals("") && registerBloodTypeChoiceBox.getValue().toString().equals("") &&
+                registerInsuranceChoice.getValue().toString().equals("") && ((TextField)registerCovidPrimaryVaccineCalendar.getEditor()).getText().equals("") &&
+                registerCovidPrimaryVaccineChoice.getValue().toString().equals("") && ((TextField)registerCovidSecondaryVaccineCalendar.getEditor()).getText().equals("") &&
+                registerCovidSecondaryVaccineChoice.getValue().toString().equals("") && ((TextField)registerCovidBoosterVaccineCalendar.getEditor()).getText().equals("") &&
+                registerCovidBoosterVaccineChoice.getValue().toString().equals("") && getAllergies().equals("") && registerPreConditionsText.getText().equals("") &&
+                getPriorMedications().equals("") && getSubstanceUse().equals("") && registerHeightText.getText().equals("") &&
+                registerWeightText.getText().equals("") && registerRaceChoice.getValue().toString().equals("") && registerEthnicity.equals("") &&
+                registerReligion.equals("") && registerPregnantChoice.getValue().toString().equals("") && registerSex.equals("") &&
+                registerGenderChoice.getValue().toString().equals("") && registerPronounsText.getText().equals("") && registerSexuallyActive.equals(""));
+    }
+
+    @FXML
+    void menuOnlyShowFormButton(ActionEvent event) {
+
+    }
+
+    @FXML
+    void menuOpenFormButtonClicked(ActionEvent event) {
 
     }
 
@@ -126,26 +256,65 @@ public class NurseUserInterfaceController implements Initializable {
 
     }
 
-    private void setVisibleMenuButtons(boolean visibility) {
-        menuSaveDraftButton.setVisible(visibility);
-        menuSubmitButton.setVisible(visibility);
+    @FXML
+    void draftsTableViewClicked(ActionEvent event) {
+
+    }
+
+    private void submitRegistration() {
+
+    }
+
+    private void setMenuButtonsForms(String tab) {
+        switch(tab) {
+            case "forms":
+                menuSaveDraftButton.toBack();
+                menuSubmitButton.toBack();
+                menuSaveDraftButton.setVisible(true);
+                menuSubmitButton.setVisible(true);
+                menuOpenFormButton.setVisible(false);
+                menuOnlyShowFormButton.setVisible(false);
+                menuDeleteButton.setVisible(false);
+                break;
+            case "records":
+                menuOnlyShowFormButton.toBack();
+                menuOpenFormButton.toBack();
+                menuSaveDraftButton.setVisible(false);
+                menuSubmitButton.setVisible(false);
+                menuOpenFormButton.setVisible(true);
+                menuOnlyShowFormButton.setVisible(true);
+                menuDeleteButton.setVisible(false);
+                break;
+            case "drafts":
+                menuDeleteButton.toBack();
+                menuOpenFormButton.toBack();
+                menuSaveDraftButton.setVisible(false);
+                menuSubmitButton.setVisible(false);
+                menuOpenFormButton.setVisible(true);
+                menuOnlyShowFormButton.setVisible(false);
+                menuDeleteButton.setVisible(true);
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        db.makeJDBCConnection();
+        setMenuButtonsForms("forms");
 
-//        tabPane.getSelectionModel().selectedItemProperty().addListener(
-//                new ChangeListener<Tab>() {
-//                    @Override
-//                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-//                        if (registerTab.isSelected() || visitTab.isSelected()) {
-//                            setVisibleMenuButtons(true);
-//                        } else {
-//                            setVisibleMenuButtons(false);
-//                        }
-//                    }
-//                }
-//        );
+        tabPane.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Tab>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        if (tabPane.getSelectionModel().getSelectedIndex() == 0 || tabPane.getSelectionModel().getSelectedIndex() == 1) {
+                            setMenuButtonsForms("forms");
+                        } else if (tabPane.getSelectionModel().getSelectedIndex() == 2){
+                            setMenuButtonsForms("records");
+                        } else {
+                            setMenuButtonsForms("drafts");
+                        }
+                    }
+                }
+        );
 
         ToggleGroup ethnicityGroup = new ToggleGroup();
         ethnicityGroup.getToggles().addAll(registerHispanicRadio, registerNonHispanicRadio);
