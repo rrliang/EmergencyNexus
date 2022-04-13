@@ -23,7 +23,7 @@ USE `emergency_nexus`;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (12345678,'Admin','admin account','admin@nexus.org','1233 3jklfj j','1928-483-28','admin','nexus'),(12345680,'Nurse','Jenny Benny','jben@nexus.org','1234 Skid Rd.','938-342-3421','jben','password1234'),(12345702,'Doctor','Dr. Octavius','dococ@nexus.org','Ny C','123-321-1321','dococ','spidey');
+INSERT INTO `users` VALUES (12345678,'Admin','admin account','admin@nexus.org','1233 3jklfj j','1928-483-28','admin','nexus'),(12345680,'Nurse','Jenny Benny','jben@nexus.org','1234 Skid Rd.','938-342-3421','jben','password1234'),(12345702,'Doctor','Dr. Octavius','dococ@nexus.org','Ny C','123-321-1321','dococ','spidey'),(12345710,'Nurse','Harley Quinzella','hquinzel@nexus.org','123 Crime Alley','840-349-4354','hquin','puddin'),(12345711,'Nurse','fdsaf','fdsaf','dfdsa','fdas','dafdsa','fdsafda');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -36,4 +36,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-11 19:17:39
+-- Dump completed on 2022-04-13 18:46:55

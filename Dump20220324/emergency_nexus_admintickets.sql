@@ -23,7 +23,7 @@ USE `emergency_nexus`;
 
 LOCK TABLES `admintickets` WRITE;
 /*!40000 ALTER TABLE `admintickets` DISABLE KEYS */;
-INSERT INTO `admintickets` VALUES (1,'','jben','forgot password','closed','admin'),(2,'','hquin','forgot my password :(','closed',NULL);
+INSERT INTO `admintickets` VALUES (1,'','jben','forgot password','open','admin'),(2,'','hquin','forgot my password :(','closed','admin');
 /*!40000 ALTER TABLE `admintickets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -36,4 +36,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-11 19:17:39
+-- Dump completed on 2022-04-13 18:46:55

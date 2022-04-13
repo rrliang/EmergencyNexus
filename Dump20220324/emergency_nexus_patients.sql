@@ -23,7 +23,7 @@ USE `emergency_nexus`;
 
 LOCK TABLES `patients` WRITE;
 /*!40000 ALTER TABLE `patients` DISABLE KEYS */;
-INSERT INTO `patients` VALUES (1111111,'John Smith','1988-12-08','123-444-4444','60 Cherry Road','jsmith@hotmail.com','Marge Smith','778-574-2344','A','123-22-3443','Connecticare .Inc',NULL,NULL,NULL,NULL,NULL,NULL,'','diabetes','Insulin','alcohol',69,180.8,'White','Non-Hispanic','Religious','False','Male','Male','He/Him','True');
+INSERT INTO `patients` VALUES (1111111,'John Smith','1988-12-08','123-444-4444','60 Cherry Road','jsmith@hotmail.com','Marge Smith','778-574-2344','A','Connecticare .Inc',NULL,NULL,NULL,NULL,NULL,NULL,'','diabetes','Insulin','alcohol','69','180.8','White','Non-Hispanic','Religious','False','Male','Male','He/Him','True');
 /*!40000 ALTER TABLE `patients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -36,4 +36,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-11 19:17:39
+-- Dump completed on 2022-04-13 18:46:55
