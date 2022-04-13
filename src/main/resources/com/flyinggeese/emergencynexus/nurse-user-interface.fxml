@@ -56,7 +56,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.NurseUserInterfaceController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.NurseUserInterfaceController">
   <children>
     <MenuBar prefHeight="0.0" prefWidth="703.0" VBox.vgrow="NEVER">
       <menus>
@@ -351,7 +351,7 @@
                                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111" />
                                                    </textFill>
                                                 </Label>
-                                                <MenuButton mnemonicParsing="false">
+                                                <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0">
                                                   <items>
                                                     <MenuItem mnemonicParsing="false" text="Insulin">
                                                          <graphic>
@@ -438,26 +438,8 @@
                                                             <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121" />
                                                          </textFill>
                                                       </Label>
-                                                      <RadioButton fx:id="registerHispanicRadio" mnemonicParsing="false" onAction="#registerHispanicRadioClicked" text="Hispanic" />
-                                                      <RadioButton fx:id="registerNonHispanicRadio" mnemonicParsing="false" onAction="#registerNonHispanicRadioClicked" prefHeight="17.0" prefWidth="144.0" text="Non-Hispanic" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </HBox>
-                                          <HBox prefHeight="34.0" prefWidth="690.0" spacing="40.0">
-                                             <children>
-                                                <HBox prefHeight="27.0" prefWidth="325.0">
-                                                   <children>
-                                                      <Label alignment="CENTER" prefHeight="27.0" prefWidth="125.0" style="&#10;" text="Religion:" wrapText="false">
-                                                         <font>
-                                                            <Font size="18.0" fx:id="x111111111213" />
-                                                         </font>
-                                                         <textFill>
-                                                            <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111213" />
-                                                         </textFill>
-                                                      </Label>
-                                                      <RadioButton fx:id="registerNonReligiousRadio" mnemonicParsing="false" onAction="#registerNonReligiousRadioClicked" text="Non-religious" />
-                                                      <RadioButton fx:id="registerReligiousRadio" mnemonicParsing="false" onAction="#registerReligiousRadioClicked" prefHeight="17.0" prefWidth="144.0" text="Religious" />
+                                                      <RadioButton fx:id="registerHispanicRadio" mnemonicParsing="false" text="Hispanic" />
+                                                      <RadioButton fx:id="registerNonHispanicRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="144.0" text="Non-Hispanic" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -474,8 +456,8 @@
                                                             <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111112111" />
                                                          </textFill>
                                                       </Label>
-                                                      <RadioButton fx:id="registerMaleRadio" mnemonicParsing="false" onAction="#registerMaleRadioClicked" prefHeight="17.0" prefWidth="124.0" text="Male" />
-                                                      <RadioButton fx:id="registerFemaleRadio" mnemonicParsing="false" onAction="#registerFemaleRadioClicked" prefHeight="17.0" prefWidth="144.0" text="Female" />
+                                                      <RadioButton fx:id="registerMaleRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" text="Male" />
+                                                      <RadioButton fx:id="registerFemaleRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="144.0" text="Female" />
                                                    </children>
                                                 </HBox>
                                                 <HBox prefHeight="34.0" prefWidth="202.0">
@@ -516,8 +498,22 @@
                                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111211121" />
                                                    </textFill>
                                                 </Label>
-                                                <RadioButton fx:id="registerSexualYesRadio" mnemonicParsing="false" onAction="#registerSexualYesRadioClicked" text="Yes" />
-                                                <RadioButton fx:id="registerSexualNoRadio" mnemonicParsing="false" onAction="#registerSexualNoRadioClicked" text="No" />
+                                                <RadioButton fx:id="registerSexualYesRadio" mnemonicParsing="false" text="Yes" />
+                                                <RadioButton fx:id="registerSexualNoRadio" mnemonicParsing="false" text="No" />
+                                                <HBox prefHeight="27.0" prefWidth="325.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" prefHeight="27.0" prefWidth="125.0" style="&#10;" text="Religion:" wrapText="false">
+                                                         <font>
+                                                            <Font size="18.0" fx:id="x111111111213" />
+                                                         </font>
+                                                         <textFill>
+                                                            <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111213" />
+                                                         </textFill>
+                                                      </Label>
+                                                      <RadioButton fx:id="registerNonReligiousRadio" mnemonicParsing="false" text="Non-religious" />
+                                                      <RadioButton fx:id="registerReligiousRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="144.0" text="Religious" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </HBox>
                                        </children>
