@@ -1,5 +1,7 @@
 package com.flyinggeese.emergencynexus;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -96,6 +98,8 @@ public class NurseUserInterfaceController implements Initializable {
     @FXML
     private ChoiceBox<?> visitPhysicianChoice;
 
+    private String registerEthnicity, registerReligion, registerSex, registerSexuallyActive;
+
 
     @FXML
     void menuSaveDraftButtonClicked(ActionEvent event) {
@@ -122,58 +126,68 @@ public class NurseUserInterfaceController implements Initializable {
 
     }
 
-    @FXML
-    void registerFemaleRadioClicked(ActionEvent event) {
-        System.out.println("femal");
-        if (registerMaleRadio.isArmed()) {
-            System.out.println("male clicked");
-
-            registerMaleRadio.disarm();
-        }
-
-        if (registerMaleRadio.isFocused()) {
-            System.out.println("fkasjld");
-        }
-
-    }
-
-    @FXML
-    void registerHispanicRadioClicked(ActionEvent event) {
-
-    }
-
-    @FXML
-    void registerMaleRadioClicked(ActionEvent event) {
-
-    }
-
-    @FXML
-    void registerNonHispanicRadioClicked(ActionEvent event) {
-
-    }
-
-    @FXML
-    void registerNonReligiousRadioClicked(ActionEvent event) {
-
-    }
-
-    @FXML
-    void registerReligiousRadioClicked(ActionEvent event) {
-
-    }
-
-    @FXML
-    void registerSexualNoRadioClicked(ActionEvent event) {
-
-    }
-
-    @FXML
-    void registerSexualYesRadioClicked(ActionEvent event) {
-
+    private void setVisibleMenuButtons(boolean visibility) {
+        menuSaveDraftButton.setVisible(visibility);
+        menuSubmitButton.setVisible(visibility);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+//        tabPane.getSelectionModel().selectedItemProperty().addListener(
+//                new ChangeListener<Tab>() {
+//                    @Override
+//                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+//                        if (registerTab.isSelected() || visitTab.isSelected()) {
+//                            setVisibleMenuButtons(true);
+//                        } else {
+//                            setVisibleMenuButtons(false);
+//                        }
+//                    }
+//                }
+//        );
+
+        ToggleGroup ethnicityGroup = new ToggleGroup();
+        ethnicityGroup.getToggles().addAll(registerHispanicRadio, registerNonHispanicRadio);
+        ethnicityGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(registerHispanicRadio)) {
+                registerEthnicity = "Hispanic";
+            } else if (newValue.equals(registerNonHispanicRadio)) {
+                registerEthnicity = "Non-Hispanic";
+            }
+        });
+
+        ToggleGroup sexGroup = new ToggleGroup();
+        sexGroup.getToggles().addAll(registerMaleRadio, registerFemaleRadio);
+        sexGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(registerMaleRadio)) {
+                registerSex = "Male";
+            } else if (newValue.equals(registerFemaleRadio)) {
+                registerSex = "Female";
+            }
+        });
+
+        ToggleGroup sexuallyActiveGroup = new ToggleGroup();
+        sexuallyActiveGroup.getToggles().addAll(registerSexualYesRadio, registerSexualNoRadio);
+        sexuallyActiveGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(registerSexualYesRadio)) {
+                registerSexuallyActive = "Yes";
+            } else if (newValue.equals(registerSexualNoRadio)) {
+                registerSexuallyActive = "No";
+            }
+        });
+
+        ToggleGroup religionGroup = new ToggleGroup();
+        religionGroup.getToggles().addAll(registerNonReligiousRadio, registerReligiousRadio);
+        religionGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(registerNonReligiousRadio)) {
+                registerReligion = "Non-religious";
+            } else if (newValue.equals(registerReligiousRadio)) {
+                registerReligion = "Religious";
+            }
+        });
+
+
         AnchorPane.setTopAnchor(tabPane, 0.0);
         AnchorPane.setLeftAnchor(tabPane, 0.0);
         AnchorPane.setRightAnchor(tabPane, 0.0);
