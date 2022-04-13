@@ -57,7 +57,7 @@
                            <children>
                               <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="594.0" prefWidth="509.0">
                                  <children>
-                                    <Label alignment="CENTER" layoutX="36.0" layoutY="15.0" style="&#10;" text="First Name: " textAlignment="CENTER" wrapText="false">
+                                    <Label alignment="CENTER" layoutX="36.0" layoutY="15.0" style="&#10;" text="Full Name: " textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x1" />
                                        </font>
@@ -65,7 +65,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                                        </textFill>
                                     </Label>
-                                    <Label alignment="CENTER" layoutX="407.0" layoutY="53.0" style="&#10;" text="Visit Date: " textAlignment="CENTER" wrapText="false">
+                                    <Label alignment="CENTER" layoutX="36.0" layoutY="52.0" style="&#10;" text="Visit Date: " textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x11" />
                                        </font>
@@ -73,7 +73,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
                                        </textFill>
                                     </Label>
-                                    <TextField layoutX="200.0" layoutY="16.0" />
+                                    <TextField fx:id="fullName" layoutX="200.0" layoutY="16.0" prefHeight="26.0" prefWidth="451.0" />
                                     <Label alignment="CENTER" layoutX="36.0" layoutY="93.0" style="&#10;" text="Symptoms: " textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x111" />
@@ -108,7 +108,6 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111" />
                                        </textFill>
                                     </Label>
-                                    <ChoiceBox layoutX="199.0" layoutY="202.0" prefWidth="150.0" />
                                     <Label alignment="CENTER" layoutX="33.0" layoutY="248.0" style="&#10;" text="Blood pressure:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x112" />
@@ -117,7 +116,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x212" />
                                        </textFill>
                                     </Label>
-                                    <TextField layoutX="200.0" layoutY="249.0" />
+                                    <TextField fx:id="bp" layoutX="200.0" layoutY="249.0" />
                                     <Label alignment="CENTER" layoutX="33.0" layoutY="289.0" style="&#10;" text="Admission status:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x1121" />
@@ -128,7 +127,6 @@
                                     </Label>
                                     <RadioButton layoutX="200.0" layoutY="294.0" mnemonicParsing="false" text="Yes" />
                                     <RadioButton layoutX="256.0" layoutY="294.0" mnemonicParsing="false" text="No" />
-                                    <DatePicker layoutX="200.0" layoutY="54.0" prefHeight="25.0" prefWidth="150.0" />
                                     <Label alignment="CENTER" layoutX="119.0" layoutY="328.0" style="&#10;" text="Check-in: " textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="14.0" fx:id="x11112" />
@@ -137,7 +135,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x21112" />
                                        </textFill>
                                     </Label>
-                                    <DatePicker layoutX="200.0" layoutY="325.0" prefHeight="25.0" prefWidth="93.0" />
+                                    <DatePicker fx:id="checkin" layoutX="200.0" layoutY="325.0" prefHeight="25.0" prefWidth="93.0" />
                                     <Label alignment="CENTER" layoutX="304.0" layoutY="327.0" style="&#10;" text="Check-out: " textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="14.0" fx:id="x111121" />
@@ -146,7 +144,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x211121" />
                                        </textFill>
                                     </Label>
-                                    <DatePicker layoutX="392.0" layoutY="325.0" prefHeight="25.0" prefWidth="93.0" />
+                                    <DatePicker fx:id="checkout" layoutX="392.0" layoutY="325.0" prefHeight="25.0" prefWidth="93.0" />
                                     <Label alignment="CENTER" layoutX="75.0" layoutY="364.0" style="&#10;" text="Room number:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="14.0" fx:id="x111122" />
@@ -155,7 +153,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x211122" />
                                        </textFill>
                                     </Label>
-                                    <TextField layoutX="200.0" layoutY="362.0" />
+                                    <TextField fx:id="room" layoutX="200.0" layoutY="362.0" />
                                     <Label alignment="CENTER" layoutX="33.0" layoutY="400.0" style="&#10;" text="Primary physician:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x11211" />
@@ -164,7 +162,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x21211" />
                                        </textFill>
                                     </Label>
-                                    <TextField layoutX="201.0" layoutY="401.0" />
+                                    <TextField fx:id="physician" layoutX="201.0" layoutY="401.0" />
                                     <Label alignment="CENTER" layoutX="35.0" layoutY="438.0" style="&#10;" text="IV administration:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x11212" />
@@ -183,7 +181,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x211123" />
                                        </textFill>
                                     </Label>
-                                    <TextField layoutX="200.0" layoutY="479.0" />
+                                    <TextField fx:id="saline" layoutX="200.0" layoutY="479.0" />
                                     <Label alignment="CENTER" layoutX="27.0" layoutY="521.0" style="&#10;" text="Given Medications:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x1122" />
@@ -192,7 +190,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x2122" />
                                        </textFill>
                                     </Label>
-                                    <ChoiceBox layoutX="201.0" layoutY="522.0" prefWidth="150.0" />
+                                    <ChoiceBox fx:id="medication" layoutX="201.0" layoutY="522.0" prefWidth="150.0" />
                                     <Label alignment="CENTER" layoutX="55.0" layoutY="567.0" style="&#10;" text="Injections given:" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x11221" />
@@ -201,27 +199,11 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x21221" />
                                        </textFill>
                                     </Label>
-                                    <ChoiceBox layoutX="201.0" layoutY="568.0" prefWidth="150.0" />
-                                    <Label alignment="CENTER" layoutX="407.0" layoutY="11.0" style="&#10;" text="Last Name: " textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x12" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x22" />
-                                       </textFill>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="30.0" layoutY="53.0" style="&#10;" text="Date of Birth:" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x113" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x213" />
-                                       </textFill>
-                                    </Label>
+                                    <ChoiceBox fx:id="injection" layoutX="201.0" layoutY="568.0" prefWidth="150.0" />
+                                    <TextField fx:id="icant" layoutX="199.0" layoutY="201.0" prefHeight="26.0" prefWidth="351.0" />
+                                    <DatePicker fx:id="visit" layoutX="204.0" layoutY="52.0" prefHeight="25.0" prefWidth="150.0" />
                                  </children>
                               </AnchorPane>
-                              <TextField layoutX="510.0" layoutY="14.0" />
-                              <DatePicker layoutX="502.0" layoutY="54.0" prefHeight="25.0" prefWidth="150.0" />
                               <Label alignment="CENTER" layoutX="34.0" layoutY="605.0" prefHeight="27.0" prefWidth="162.0" style="&#10;" text="Notes/Observations:" textAlignment="CENTER" wrapText="false">
                                  <font>
                                     <Font size="18.0" fx:id="x14" />
@@ -230,8 +212,8 @@
                                     <Color red="0.624" green="0.624" blue="0.624" fx:id="x24" />
                                  </textFill>
                               </Label>
-                              <TextField layoutX="37.0" layoutY="637.0" prefHeight="82.0" prefWidth="436.0" />
-                              <Button layoutX="338.0" layoutY="743.0" mnemonicParsing="false" text="Submit" />
+                              <TextField fx:id="notes" layoutX="37.0" layoutY="637.0" prefHeight="82.0" prefWidth="436.0" />
+                              <Button fx:id="submit" layoutX="338.0" layoutY="743.0" mnemonicParsing="false" onAction="#submitData" text="Submit" />
                            </children>
                         </AnchorPane>
                      </content>
