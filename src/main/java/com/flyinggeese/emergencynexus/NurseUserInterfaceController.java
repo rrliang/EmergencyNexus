@@ -5,12 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.control.ChoiceBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -133,6 +130,9 @@ public class NurseUserInterfaceController implements Initializable {
 
     @FXML
     private Button submit;
+
+    @FXML
+    private CheckBox tests;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -213,7 +213,6 @@ public class NurseUserInterfaceController implements Initializable {
 
         pst.setString(1, namelookup.getText());
         pst.setString(2, ((TextField)dob.getEditor()).getText());
-
 
     }
 }
