@@ -56,7 +56,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.NurseUserInterfaceController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.NurseUserInterfaceController">
   <children>
     <MenuBar prefHeight="0.0" prefWidth="703.0" VBox.vgrow="NEVER">
       <menus>
@@ -81,7 +81,7 @@
          <children>
             <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="703.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
-                  <Tab text="Registration Form">
+                  <Tab fx:id="registrationTab" text="Registration Form">
                      <content>
                         <ScrollPane prefHeight="1054.0" prefWidth="740.0">
                            <content>
@@ -199,7 +199,7 @@
                                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x221" />
                                                    </textFill>
                                                 </Label>
-                                                <TextField fx:id="registerInsuranceChoice" accessibleRole="CHECK_BOX" prefHeight="26.0" prefWidth="154.0" />
+                                                <ChoiceBox fx:id="registerInsuranceChoice" prefHeight="25.0" prefWidth="245.0" />
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="37.0" prefWidth="703.0" spacing="15.0">
@@ -278,7 +278,54 @@
                                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111" />
                                                    </textFill>
                                                 </Label>
-                                                <TextField fx:id="registerAllergiesText" prefHeight="26.0" prefWidth="388.0" />
+                                                <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0">
+                                                  <items>
+                                                      <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerDrugAllergyCheck" text="Drug allergy">
+                                                               <graphic>
+                                                                  <TextField fx:id="registerDrugAllergyText" promptText="Specific drug(s)" />
+                                                               </graphic>
+                                                            </CheckBox>
+                                                         </graphic>
+                                                      </MenuItem>
+                                                    <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerFoodAllergyCheck" mnemonicParsing="false" text="Food allergy" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                    <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerInsectAllergyCheck" mnemonicParsing="false" text="Insect allergy" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerLatexAllergyCheck" mnemonicParsing="false" text="Latex allergy" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerMoldAllergyCheck" mnemonicParsing="false" text="Mold allergy" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerPetAllergyCheck" mnemonicParsing="false" text="Pet allergy" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerPollenAllergyCheck" mnemonicParsing="false" text="Pollen Allergy" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                         <graphic>
+                                                            <TextField fx:id="registerOtherAllergyText" promptText="Other(s)" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                  </items>
+                                                </MenuButton>
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="35.0" prefWidth="703.0" spacing="10.0">
@@ -296,7 +343,7 @@
                                           </HBox>
                                           <HBox prefHeight="36.0" prefWidth="703.0" spacing="41.0">
                                              <children>
-                                                <Label accessibleRole="CHECK_BOX" alignment="CENTER" prefHeight="27.0" prefWidth="157.0" style="&#10;" text="Medication (if any):" wrapText="false">
+                                                <Label accessibleRole="CHECK_BOX" alignment="CENTER" prefHeight="27.0" prefWidth="157.0" style="&#10;" text="Prior-Medications:" wrapText="false">
                                                    <font>
                                                       <Font size="18.0" fx:id="x1111111" />
                                                    </font>
@@ -304,7 +351,35 @@
                                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111" />
                                                    </textFill>
                                                 </Label>
-                                                <TextField fx:id="registerMedicationText" prefHeight="26.0" prefWidth="390.0" />
+                                                <MenuButton mnemonicParsing="false">
+                                                  <items>
+                                                    <MenuItem mnemonicParsing="false" text="Insulin">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerInuslinCheck" mnemonicParsing="false" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                    <MenuItem mnemonicParsing="false" text="Antibiotics">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerAntibioticsCheck" mnemonicParsing="false" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false" text="Anticoagulant">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerAntiCoagulantCheck" mnemonicParsing="false" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false" text="Ibuprofen">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerIbuprofenCheck" mnemonicParsing="false" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                      <MenuItem mnemonicParsing="false" text="Naxolone">
+                                                         <graphic>
+                                                            <CheckBox fx:id="registerNaxCheck" mnemonicParsing="false" />
+                                                         </graphic>
+                                                      </MenuItem>
+                                                  </items>
+                                                </MenuButton>
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="35.0" prefWidth="703.0" spacing="28.0">
@@ -342,7 +417,7 @@
                                                 <TextField fx:id="registerWeightText" prefHeight="26.0" prefWidth="98.0" />
                                              </children>
                                           </HBox>
-                                          <HBox prefHeight="40.0" prefWidth="703.0" spacing="64.0">
+                                          <HBox prefHeight="15.0" prefWidth="690.0" spacing="64.0">
                                              <children>
                                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="48.0" style="&#10;" text="Race:" wrapText="false">
                                                    <font>
@@ -353,73 +428,87 @@
                                                    </textFill>
                                                 </Label>
                                                 <ChoiceBox fx:id="registerRaceChoice" prefHeight="26.0" prefWidth="148.0" />
-                                                <Label alignment="CENTER" prefHeight="27.0" prefWidth="125.0" style="&#10;" text="Ethnicity:" wrapText="false">
-                                                   <font>
-                                                      <Font size="18.0" fx:id="x11111111121" />
-                                                   </font>
-                                                   <textFill>
-                                                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121" />
-                                                   </textFill>
-                                                </Label>
-                                                <TextField fx:id="registerEthnicityText" accessibleRole="COMBO_BOX" prefHeight="26.0" prefWidth="102.0" />
+                                                <HBox prefHeight="27.0" prefWidth="325.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" prefHeight="27.0" prefWidth="125.0" style="&#10;" text="Ethnicity:" wrapText="false">
+                                                         <font>
+                                                            <Font size="18.0" fx:id="x11111111121" />
+                                                         </font>
+                                                         <textFill>
+                                                            <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121" />
+                                                         </textFill>
+                                                      </Label>
+                                                      <RadioButton fx:id="registerHispanicRadio" mnemonicParsing="false" onAction="#registerHispanicRadioClicked" text="Hispanic" />
+                                                      <RadioButton fx:id="registerNonHispanicRadio" mnemonicParsing="false" onAction="#registerNonHispanicRadioClicked" prefHeight="17.0" prefWidth="144.0" text="Non-Hispanic" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="34.0" prefWidth="690.0" spacing="40.0">
                                              <children>
-                                                <Label alignment="CENTER" prefHeight="27.0" prefWidth="72.0" style="&#10;" text="Religion:" wrapText="false">
-                                                   <font>
-                                                      <Font size="18.0" fx:id="x111111111211" />
-                                                   </font>
-                                                   <textFill>
-                                                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111211" />
-                                                   </textFill>
-                                                </Label>
-                                                <TextField fx:id="registerReligionText" prefHeight="30.0" prefWidth="159.0" />
-                                                <Label alignment="CENTER" prefHeight="35.0" prefWidth="170.0" style="&#10;" text="Pregnant (if female):" wrapText="false">
-                                                   <font>
-                                                      <Font size="18.0" fx:id="x111111111212" />
-                                                   </font>
-                                                   <textFill>
-                                                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111212" />
-                                                   </textFill>
-                                                </Label>
-                                                <ChoiceBox fx:id="registerPregnantChoice" prefHeight="26.0" prefWidth="107.0" />
+                                                <HBox prefHeight="27.0" prefWidth="325.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" prefHeight="27.0" prefWidth="125.0" style="&#10;" text="Religion:" wrapText="false">
+                                                         <font>
+                                                            <Font size="18.0" fx:id="x111111111213" />
+                                                         </font>
+                                                         <textFill>
+                                                            <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111213" />
+                                                         </textFill>
+                                                      </Label>
+                                                      <RadioButton fx:id="registerNonReligiousRadio" mnemonicParsing="false" onAction="#registerNonReligiousRadioClicked" text="Non-religious" />
+                                                      <RadioButton fx:id="registerReligiousRadio" mnemonicParsing="false" onAction="#registerReligiousRadioClicked" prefHeight="17.0" prefWidth="144.0" text="Religious" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </HBox>
-                                          <HBox prefHeight="34.0" prefWidth="690.0" spacing="72.0">
+                                          <HBox prefHeight="34.0" prefWidth="690.0">
                                              <children>
-                                                <Label alignment="CENTER" prefHeight="27.0" prefWidth="40.0" style="&#10;" text="Sex:" wrapText="false">
-                                                   <font>
-                                                      <Font size="18.0" fx:id="x1111111112111" />
-                                                   </font>
-                                                   <textFill>
-                                                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111112111" />
-                                                   </textFill>
-                                                </Label>
-                                                <ChoiceBox fx:id="registerSexChoice" prefHeight="30.0" prefWidth="131.0" />
-                                                <Label alignment="CENTER" prefHeight="32.0" prefWidth="81.0" style="&#10;" text="Gender:" wrapText="false">
-                                                   <font>
-                                                      <Font size="18.0" fx:id="x11111111121111" />
-                                                   </font>
-                                                   <textFill>
-                                                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121111" />
-                                                   </textFill>
-                                                </Label>
-                                                <ChoiceBox fx:id="registerGenderChoice" prefHeight="31.0" prefWidth="101.0" />
+                                                <HBox prefHeight="34.0" prefWidth="238.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" prefHeight="27.0" prefWidth="119.0" style="&#10;" text="Sex:" wrapText="false">
+                                                         <font>
+                                                            <Font size="18.0" fx:id="x1111111112111" />
+                                                         </font>
+                                                         <textFill>
+                                                            <Color red="0.624" green="0.624" blue="0.624" fx:id="x2111111112111" />
+                                                         </textFill>
+                                                      </Label>
+                                                      <RadioButton fx:id="registerMaleRadio" mnemonicParsing="false" onAction="#registerMaleRadioClicked" prefHeight="17.0" prefWidth="124.0" text="Male" />
+                                                      <RadioButton fx:id="registerFemaleRadio" mnemonicParsing="false" onAction="#registerFemaleRadioClicked" prefHeight="17.0" prefWidth="144.0" text="Female" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="34.0" prefWidth="202.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" prefHeight="32.0" prefWidth="81.0" style="&#10;" text="Gender:" wrapText="false">
+                                                         <font>
+                                                            <Font size="18.0" fx:id="x11111111121111" />
+                                                         </font>
+                                                         <textFill>
+                                                            <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121111" />
+                                                         </textFill>
+                                                      </Label>
+                                                      <ChoiceBox fx:id="registerGenderChoice" prefHeight="31.0" prefWidth="101.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="34.0" prefWidth="231.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" prefHeight="27.0" prefWidth="152.0" style="&#10;" text="Pronouns:" wrapText="false">
+                                                         <font>
+                                                            <Font size="18.0" fx:id="x11111111121112" />
+                                                         </font>
+                                                         <textFill>
+                                                            <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121112" />
+                                                         </textFill>
+                                                      </Label>
+                                                      <TextField fx:id="registerPronounsText" prefHeight="26.0" prefWidth="134.0" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="32.0" prefWidth="690.0" spacing="30.0">
                                              <children>
-                                                <Label alignment="CENTER" prefHeight="27.0" prefWidth="82.0" style="&#10;" text="Pronouns:" wrapText="false">
-                                                   <font>
-                                                      <Font size="18.0" fx:id="x11111111121112" />
-                                                   </font>
-                                                   <textFill>
-                                                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x21111111121112" />
-                                                   </textFill>
-                                                </Label>
-                                                <TextField fx:id="registerPronounsText" prefHeight="26.0" prefWidth="134.0" />
-                                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="124.0" style="&#10;" text="Sexual Activity:" wrapText="false">
+                                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="124.0" style="&#10;" text="Sexually Active:" wrapText="false">
                                                    <font>
                                                       <Font size="18.0" fx:id="x111111111211121" />
                                                    </font>
@@ -427,10 +516,10 @@
                                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x211111111211121" />
                                                    </textFill>
                                                 </Label>
-                                                <ChoiceBox fx:id="registerSexualChoice" prefHeight="30.0" prefWidth="107.0" />
+                                                <RadioButton fx:id="registerSexualYesRadio" mnemonicParsing="false" onAction="#registerSexualYesRadioClicked" text="Yes" />
+                                                <RadioButton fx:id="registerSexualNoRadio" mnemonicParsing="false" onAction="#registerSexualNoRadioClicked" text="No" />
                                              </children>
                                           </HBox>
-                                          <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -439,7 +528,7 @@
                         </ScrollPane>
                      </content>
                   </Tab>
-                  <Tab text="Patient Visit Form">
+                  <Tab fx:id="visitTab" text="Patient Visit Form">
                      <content>
                         <ScrollPane prefHeight="452.0" prefWidth="862.0">
                            <content>
@@ -987,7 +1076,7 @@
                                                       </MenuItem>
                                                       <MenuItem mnemonicParsing="false" text="Morphine or nitrous oxide">
                                                          <graphic>
-                                                            <TextField fx:id="visitMoprhineText" promptText="Dosage (mg)" />
+                                                            <TextField fx:id="visitMorphineText" promptText="Dosage (mg)" />
                                                          </graphic>
                                                       </MenuItem>
                                                       <MenuItem mnemonicParsing="false" text="Nalaxone">
@@ -1104,7 +1193,7 @@
                                                       </MenuItem>
                                                       <MenuItem mnemonicParsing="false">
                                                          <graphic>
-                                                            <CheckBox fx:id="visitDizziinessCheck" mnemonicParsing="false" text="Dizziness and giddiness" />
+                                                            <CheckBox fx:id="visitDizzinessCheck" mnemonicParsing="false" text="Dizziness and giddiness" />
                                                          </graphic>
                                                       </MenuItem>
                                                       <MenuItem mnemonicParsing="false">
@@ -1201,7 +1290,7 @@
                         </ScrollPane>
                      </content>
                   </Tab>
-                  <Tab text="Records">
+                  <Tab fx:id="recordsTab" text="Records">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -1223,7 +1312,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Drafts">
+                  <Tab fx:id="draftsTab" text="Drafts">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
