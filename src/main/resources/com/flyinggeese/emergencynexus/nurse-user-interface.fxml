@@ -65,6 +65,7 @@
                   <Button fx:id="menuOpenFormButton" mnemonicParsing="false" onAction="#menuOpenFormButtonClicked" prefHeight="25.0" prefWidth="89.0" text="Open form" textAlignment="CENTER" />
                   <Button fx:id="menuOnlyShowFormButton" mnemonicParsing="false" onAction="#menuOnlyShowFormButton" prefHeight="25.0" prefWidth="148.0" text="Only show my forms" textAlignment="CENTER" wrapText="true" />
                   <Button fx:id="menuDeleteButton" mnemonicParsing="false" onAction="#menuDeleteButtonClicked" prefHeight="25.0" prefWidth="64.0" text="Delete" />
+                  <Button fx:id="menuClearFormButton" mnemonicParsing="false" onAction="#menuClearFormButtonClicked" text="Clear form" />
                </children>
             </HBox>
             <HBox prefHeight="33.0" prefWidth="78.0" HBox.hgrow="NEVER">
@@ -352,7 +353,7 @@
                                                    <items>
                                                       <MenuItem mnemonicParsing="false" text="Insulin">
                                                          <graphic>
-                                                            <CheckBox fx:id="registerInuslinCheck" mnemonicParsing="false" />
+                                                            <CheckBox fx:id="registerInsulinCheck" mnemonicParsing="false" />
                                                          </graphic>
                                                       </MenuItem>
                                                       <MenuItem mnemonicParsing="false" text="Antibiotics">
@@ -370,7 +371,7 @@
                                                             <CheckBox fx:id="registerIbuprofenCheck" mnemonicParsing="false" />
                                                          </graphic>
                                                       </MenuItem>
-                                                      <MenuItem mnemonicParsing="false" text="Nalolxone">
+                                                      <MenuItem mnemonicParsing="false" text="Naloxone">
                                                          <graphic>
                                                             <CheckBox fx:id="registerNaxCheck" mnemonicParsing="false" />
                                                          </graphic>
@@ -501,6 +502,11 @@
                                                       <TextField fx:id="registerPronounsText" prefHeight="26.0" prefWidth="134.0" />
                                                    </children>
                                                 </HBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="registerPregnantHbox" prefHeight="0.0" prefWidth="690.0">
+                                             <children>
+                                                <RadioButton fx:id="registerPregnantRadio" mnemonicParsing="false" text="Pregnant" />
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="32.0" prefWidth="690.0" spacing="30.0">
@@ -714,11 +720,11 @@
                                                             </MenuItem>
                                                             <MenuItem mnemonicParsing="false">
                                                                <graphic>
-                                                                  <MenuButton fx:id="visitAboutToBlackFeel" mnemonicParsing="false" text="Dizzy">
+                                                                  <MenuButton mnemonicParsing="false" text="Dizzy">
                                                                      <items>
                                                                         <MenuItem mnemonicParsing="false">
                                                                            <graphic>
-                                                                              <CheckBox mnemonicParsing="false" text="About to black out" />
+                                                                              <CheckBox fx:id="visitAboutToBlackFeel" mnemonicParsing="false" text="About to black out" />
                                                                            </graphic>
                                                                         </MenuItem>
                                                                         <MenuItem mnemonicParsing="false">
@@ -873,7 +879,7 @@
                                                                         </MenuItem>
                                                                         <MenuItem mnemonicParsing="false">
                                                                            <graphic>
-                                                                              <CheckBox fx:id="visItCantDoubleVision" mnemonicParsing="false" text="Double vision" />
+                                                                              <CheckBox fx:id="visitCantDoubleVision" mnemonicParsing="false" text="Double vision" />
                                                                            </graphic>
                                                                         </MenuItem>
                                                                      </items>
@@ -966,13 +972,13 @@
                                                 </Label>
                                                 <ButtonBar prefHeight="27.0" prefWidth="83.0">
                                                    <buttons>
-                                                      <RadioButton fx:id="visitAdmissionYesRadio" minWidth="20.0" mnemonicParsing="false" onAction="#visitAdmissionYesRadioClicked" prefHeight="17.0" text="Yes" />
-                                                      <RadioButton fx:id="visitAdmissionNoRadio" minWidth="0.0" mnemonicParsing="false" onAction="#visitAdmissionNoRadioClicked" prefHeight="17.0" text="No" />
+                                                      <RadioButton fx:id="visitAdmissionYesRadio" minWidth="20.0" mnemonicParsing="false" prefHeight="17.0" text="Yes" />
+                                                      <RadioButton fx:id="visitAdmissionNoRadio" minWidth="0.0" mnemonicParsing="false" prefHeight="17.0" text="No" />
                                                    </buttons>
                                                 </ButtonBar>
                                              </children>
                                           </HBox>
-                                          <HBox prefHeight="27.0" prefWidth="705.0">
+                                          <HBox fx:id="visitAdmissionStatusHbox" prefHeight="27.0" prefWidth="705.0">
                                              <children>
                                                 <HBox prefHeight="27.0" prefWidth="316.0">
                                                    <children>
@@ -1148,7 +1154,7 @@
                                                       </MenuItem>
                                                       <MenuItem mnemonicParsing="false">
                                                          <graphic>
-                                                            <CheckBox fx:id="visitOMCheck" mnemonicParsing="false" text="P.O (Oral medication) " />
+                                                            <CheckBox fx:id="visitPOCheck" mnemonicParsing="false" text="P.O (Oral medication) " />
                                                          </graphic>
                                                       </MenuItem>
                                                    </items>
@@ -1184,7 +1190,7 @@
                                                       </MenuItem>
                                                       <MenuItem mnemonicParsing="false">
                                                          <graphic>
-                                                            <CheckBox fx:id="visitHeadacheText" mnemonicParsing="false" text="Headache" />
+                                                            <CheckBox fx:id="visitHeadacheCheck" mnemonicParsing="false" text="Headache" />
                                                          </graphic>
                                                       </MenuItem>
                                                       <MenuItem mnemonicParsing="false">
