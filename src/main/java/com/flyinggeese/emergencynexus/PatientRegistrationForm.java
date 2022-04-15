@@ -1,40 +1,19 @@
 package com.flyinggeese.emergencynexus;
 
-public class PatientRegistrationForm {
-    String name, birthdate, phone, home, email, guardianName, guardianPhone, bloodType, insurance, covid1date, covid1Type,
-            covid2date, covid2Type, covid3date, covid3Type, allergies, preexistingConditions, medications, history, height,
-            weight, race, ethnicity, religion, pregnancy, sex, gender, pronouns, sexualActivity;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.ArrayList;
 
+public class PatientRegistrationForm {
+    ArrayList<String> keys;
+    String[] values;
+    String typeOfDraft;
+    String timeOfDraft;
+    String nameOfDraft;
+
+    // Constructor
     public PatientRegistrationForm() {
-        this.name = "";
-        this.birthdate = "";
-        this.phone = "";
-        this.home = "";
-        this.email = "";
-        this.guardianName = "";
-        this.guardianPhone = "";
-        this.bloodType = "";
-        this.insurance = "";
-        this.covid1date = "";
-        this.covid1Type = "";
-        this.covid2date = "";
-        this.covid2Type = "";
-        this.covid3date = "";
-        this.covid3Type = "";
-        this.allergies = "";
-        this.preexistingConditions = "";
-        this.medications = "";
-        this.history = "";
-        this.height = "";
-        this.weight = "";
-        this.race = "";
-        this.ethnicity = "";
-        this.religion = "";
-        this.pregnancy = "";
-        this.sex = "";
-        this.gender = "";
-        this.pronouns = "";
-        this.sexualActivity = "";
+        initialize();
     }
 
     public PatientRegistrationForm(String name, String birthdate, String phone, String home, String email,
@@ -45,266 +24,164 @@ public class PatientRegistrationForm {
                                    String ethnicity, String religion, String pregnancy, String sex, String gender,
                                    String pronouns, String  sexualActivity)
     {
-        this.name = name;
-        this.birthdate = birthdate;
-        this.phone = phone;
-        this.home = home;
-        this.email = email;
-        this.guardianName = guardianName;
-        this.guardianPhone = guardianPhone;
-        this.bloodType = bloodType;
-        this.insurance = insurance;
-        this.covid1date = covid1date;
-        this.covid1Type = covid1Type;
-        this.covid2date = covid2date;
-        this.covid2Type = covid2Type;
-        this.covid3date = covid3date;
-        this.covid3Type = covid3Type;
-        this.allergies = allergies;
-        this.preexistingConditions = preexistingConditions;
-        this.medications = medications;
-        this.history = history;
-        this.height = height;
-        this.weight = weight;
-        this.race = race;
-        this.ethnicity = ethnicity;
-        this.religion = religion;
-        this.pregnancy = pregnancy;
-        this.sex = sex;
-        this.gender = gender;
-        this.pronouns = pronouns;
-        this.sexualActivity = sexualActivity;
+        initialize();
+        values[0] = name;
+        values[1] = birthdate;
+        values[2] = phone;
+        values[3] = home;
+        values[4] = email;
+        values[5] = guardianName;
+        values[6] = guardianPhone;
+        values[7] = bloodType;
+        values[8] = insurance;
+        values[9] = covid1date;
+        values[10] = covid1Type;
+        values[11] = covid2date;
+        values[12] = covid2Type;
+        values[13] = covid3date;
+        values[14] = covid3Type;
+        values[15] = allergies;
+        values[16] = preexistingConditions;
+        values[17] = medications;
+        values[18] = history;
+        values[19] = height;
+        values[20] = weight;
+        values[21] = race;
+        values[22] = ethnicity;
+        values[23] = religion;
+        values[24] = pregnancy;
+        values[25] = sex;
+        values[26] = gender;
+        values[27] = pronouns;
+        values[28] = sexualActivity;
     }
 
-    public String getName() {
-        return name;
+    // Fill in keys array and values array
+    private void initialize() {
+        // Fill in keys
+        keys = new ArrayList<String>();
+        keys.add("name");
+        keys.add("birthdate");
+        keys.add("phone");
+        keys.add("home");
+        keys.add("email");
+        keys.add("guardianName");
+        keys.add("guardianPhone");
+        keys.add("bloodType");
+        keys.add("insurance");
+        keys.add("covid1date");
+        keys.add("covid1Type");
+        keys.add("covid2date");
+        keys.add("covid2Type");
+        keys.add("covid3date");
+        keys.add("covid3Type");
+        keys.add("allergies");
+        keys.add("preexistingConditions");
+        keys.add("medications");
+        keys.add("history");
+        keys.add("height");
+        keys.add("weight");
+        keys.add("race");
+        keys.add("ethnicity");
+        keys.add("religion");
+        keys.add("pregnancy");
+        keys.add("sex");
+        keys.add("gender");
+        keys.add("pronouns");
+        keys.add("sexualActivity");
+        typeOfDraft = "";
+        timeOfDraft = "";
+        nameOfDraft = "";
+        // Fill in values with empty strings
+        values = new String[keys.size()];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = "";
+        }
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String[] getAll() {
+        return values;
     }
 
-    public String getBirthdate() {
-        return birthdate;
+    public boolean equalsSame(PatientRegistrationForm form)
+    {
+        if(form == null) {
+            return false;
+        }
+
+        for(String k: keys)
+        {
+            for(String k2: form.getAll()) {
+                if (!k.equals(k2))
+                    return false;
+            }
+        }
+        return true;
     }
 
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
+    // Get value by key name
+    public String getValue(String key) {
+        int index = 0;
+        for(String k: keys)
+        {
+            if(k.equalsIgnoreCase(key))
+                return values[index];
+            else
+                index++;
+        }
+        return "Key Not Found";
     }
 
-    public String getPhone() {
-        return phone;
+    // Set value by key name
+    public void setValue(String key, String value) {
+        int index = 0;
+        for(String k: keys)
+        {
+            if(k.equalsIgnoreCase(key))
+            {
+                values[index] = value;
+                break;
+            }
+            else
+                index++;
+        }
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public String getTypeOfDraft() {
+        return typeOfDraft;
     }
 
-    public String getHome() {
-        return home;
+    public void setTypeOfDraft(String typeOfDraft) {
+        this.typeOfDraft = typeOfDraft;
     }
 
-    public void setHome(String home) {
-        this.home = home;
+    public String getTimeOfDraft() {
+        return timeOfDraft;
     }
 
-    public String getEmail() {
-        return email;
+    public void setTimeOfDraft(String timeOfDraft) {
+        this.timeOfDraft = timeOfDraft;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getNameOfDraft() {
+        return nameOfDraft;
     }
 
-    public String getGuardianName() {
-        return guardianName;
+    public void setNameOfDraft(String nameOfDraft) {
+        this.nameOfDraft = nameOfDraft;
     }
 
-    public void setGuardianName(String guardianName) {
-        this.guardianName = guardianName;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PatientRegistrationForm)) return false;
+        PatientRegistrationForm that = (PatientRegistrationForm) o;
+        return keys.equals(that.keys) && Arrays.equals(values, that.values) && Objects.equals(typeOfDraft, that.typeOfDraft);
     }
 
-    public String getGuardianPhone() {
-        return guardianPhone;
-    }
 
-    public void setGuardianPhone(String guardianPhone) {
-        this.guardianPhone = guardianPhone;
-    }
-
-    public String getBloodType() {
-        return bloodType;
-    }
-
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
-    }
-
-    public String getInsurance() {
-        return insurance;
-    }
-
-    public void setInsurance(String insurance) {
-        this.insurance = insurance;
-    }
-
-    public String getCovid1date() {
-        return covid1date;
-    }
-
-    public void setCovid1date(String covid1date) {
-        this.covid1date = covid1date;
-    }
-
-    public String getCovid1Type() {
-        return covid1Type;
-    }
-
-    public void setCovid1Type(String covid1Type) {
-        this.covid1Type = covid1Type;
-    }
-
-    public String getCovid2date() {
-        return covid2date;
-    }
-
-    public void setCovid2date(String covid2date) {
-        this.covid2date = covid2date;
-    }
-
-    public String getCovid2Type() {
-        return covid2Type;
-    }
-
-    public void setCovid2Type(String covid2Type) {
-        this.covid2Type = covid2Type;
-    }
-
-    public String getCovid3date() {
-        return covid3date;
-    }
-
-    public void setCovid3date(String covid3date) {
-        this.covid3date = covid3date;
-    }
-
-    public String getCovid3Type() {
-        return covid3Type;
-    }
-
-    public void setCovid3Type(String covid3Type) {
-        this.covid3Type = covid3Type;
-    }
-
-    public String getAllergies() {
-        return allergies;
-    }
-
-    public void setAllergies(String allergies) {
-        this.allergies = allergies;
-    }
-
-    public String getPreexistingConditions() {
-        return preexistingConditions;
-    }
-
-    public void setPreexistingConditions(String preexistingConditions) {
-        this.preexistingConditions = preexistingConditions;
-    }
-
-    public String getMedications() {
-        return medications;
-    }
-
-    public void setMedications(String medications) {
-        this.medications = medications;
-    }
-
-    public String getHistory() {
-        return history;
-    }
-
-    public void setHistory(String history) {
-        this.history = history;
-    }
-
-    public String getHeight() {
-        return height;
-    }
-
-    public void setHeight(String height) {
-        this.height = height;
-    }
-
-    public String getWeight() {
-        return weight;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
-
-    public String getRace() {
-        return race;
-    }
-
-    public void setRace(String race) {
-        this.race = race;
-    }
-
-    public String getEthnicity() {
-        return ethnicity;
-    }
-
-    public void setEthnicity(String ethnicity) {
-        this.ethnicity = ethnicity;
-    }
-
-    public String getReligion() {
-        return religion;
-    }
-
-    public void setReligion(String religion) {
-        this.religion = religion;
-    }
-
-    public String getPregnancy() {
-        return pregnancy;
-    }
-
-    public void setPregnancy(String pregnancy) {
-        this.pregnancy = pregnancy;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPronouns() {
-        return pronouns;
-    }
-
-    public void setPronouns(String pronouns) {
-        this.pronouns = pronouns;
-    }
-
-    public String getSexualActivity() {
-        return sexualActivity;
-    }
-
-    public void setSexualActivity(String sexualActivity) {
-        this.sexualActivity = sexualActivity;
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

@@ -1,9 +1,11 @@
 package com.flyinggeese.emergencynexus;
 
+import java.io.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Scanner;
 
 public class ConnectToDatabase {
     private Connection crunchifyConn = null;
@@ -21,8 +23,12 @@ public class ConnectToDatabase {
 
         try {
             // DriverManager: The basic service for managing a set of JDBC drivers.
-//            jdbc:mysql://127.0.0.1:3306/?user=root
-            crunchifyConn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/emergency_nexus?user=emergencynexusclient?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false", "emergencynexusclient", "password");
+            File file = new File("database-properties.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String dbPass = "";
+            dbPass = br.readLine();
+
+            crunchifyConn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/emergency_nexus?user=root?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false", "root", dbPass);
 
             if (crunchifyConn != null) {
                 System.out.println("Connection Successful! Enjoy. Now it's time to push data");
@@ -33,6 +39,10 @@ public class ConnectToDatabase {
             System.out.println("MySQL Connection Failed!");
             e.printStackTrace();
             return;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

@@ -1,52 +1,174 @@
 package com.flyinggeese.emergencynexus;
 
-import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-public interface PatientVisitForm {
-    public void setPatient(String patient);
+public class PatientVisitForm {
+    ArrayList<String> keys;
+    String[] values;
+//    private String dateOfVisit;
+//    private String symptomsMyHurt;
+//    private String symptomsIFeel;
+//    private String symptomsICant;
+//    private String bloodPressure;
+//    private String admissionStatusCheckIn;
+//    private String admissionStatusCheckout;
+//    private String admissionStatusRoom;
+//    private String physician;
+//    private String amountOfSaline;
+//    private String givenMedication;
+//    private String injectionsGiven;
+//    private String potentialDiagnosis;
+//    private String notesAndObservations;
+//    private String docRequestText;
+//    private String docDiagnosis;
+//    private String docDischargeInstructions;
+//    private String docNotesAndObservations;
+    private String typeOfDraft;
+    private String nameOfDraft;
+    private String timeOfDraft;
+    private int patient, primaryPhysician;
 
-    public void setDate(String date);
+    public PatientVisitForm() {
+        initialize();
+    }
 
-    public void setSymptoms(String[] whatHurts, String[] iFeel, String[] iCant, String other);
+    public PatientVisitForm(String nameOfPatient, String dateOfVisit, String symptomsIFeel, String symptomsMyHurt, String symptomsICant, String bloodPressure,
+                            String admissionStatusCheckIn, String admissionStatusCheckout, String admissionStatusRoom,
+                            String physician, String givenMedication, String injectionsGiven,
+                            String potentialDiagnosis, String notesAndObservations) {
+        initialize();
+        values[0] = nameOfPatient;
+        values[1] = dateOfVisit;
+        values[3] = symptomsMyHurt;
+        values[2] = symptomsIFeel;
+        values[4] = symptomsICant;
+        values[5] = bloodPressure;
+        values[6] = admissionStatusCheckIn;
+        values[7] = admissionStatusCheckout;
+        values[8] = admissionStatusRoom;
+        values[9] = physician;
+        values[10] = givenMedication;
+        values[11] = injectionsGiven;
+        values[12] = potentialDiagnosis;
+        values[13] = notesAndObservations;
+    }
 
-    public void setBloodPressure(String bloodPressure);
+    private void initialize()
+    {
+        keys = new ArrayList<String>();
+        keys.add("patientName");
+        keys.add("dateOfVisit");
+        keys.add("symptomsMyHurt");
+        keys.add("symptomsIFeel");
+        keys.add("symptomsICant");
+        keys.add("bloodPressure");
+        keys.add("admissionStatusCheckIn");
+        keys.add("admissionStatusCheckout");
+        keys.add("admissionStatusRoom");
+        keys.add("physicianName");
+        keys.add("givenMedication");
+        keys.add("injectionsGiven");
+        keys.add("potentialDiagnosis");
+        keys.add("notesAndObservations");
+        keys.add("docRequestText");
+        keys.add("docDiagnosis");
+        keys.add("docDischargeInstructions");
+        keys.add("docNotesAndObservations");
 
-    public void setAdmissionStatus(boolean admitted);
+        values = new String[keys.size()];
+        for(int i=0; i<values.length; i++)
+        {
+            values[i] = "";
+        }
+    }
 
-    public void setAdmissionStatus(boolean admitted, String date, int roomNumber);
+    public boolean equalsSame(PatientVisitForm form) throws SQLException {
+        if(form == null) {
+            return false;
+        }
 
-    public void setPrimaryPhysician(String primaryPhysician);
+        for(String k: keys)
+        {
+            for(String k2: form.getAll()) {
+                if (!k.equals(k2))
+                    return false;
+            }
+        }
+        if(patient != form.getPatient() || primaryPhysician != form.getPrimaryPhysician())
+            return false;
+        return true;
+    }
 
-    public void setIVAdministration(boolean saline, double amountSaline);
+    public String getValue(String key) {
+        int index = 0;
+        for(String k: keys)
+        {
+            if(k.equals(key))
+                return values[index];
+            else
+                index++;
+        }
+        return "Key Not Found";
+    }
 
-    public void setGivenMedications(String[] medications);
+    public void setValue(String key, String value) {
+        int index = 0;
+        for(String k: keys)
+        {
+            if(k.equalsIgnoreCase(key))
+            {
+                values[index] = value;
+                break;
+            }
+            else
+                index++;
+        }
+    }
 
-    public void setInjectionsGiven(boolean iM, boolean iV, boolean sC, boolean pO);
+    public String[] getAll() {
+        return values;
+    }
 
-    public void setPotentialDiagnosis(List<String> diagnosis);
+    public int getPatient() {
+        return patient;
+    }
 
-    public void setNotes(String notes);
+    public void setPatient(int patient) {
+        this.patient = patient;
+    }
 
-    public String getPatient();
+    public int getPrimaryPhysician() {
+        return primaryPhysician;
+    }
 
-    public String getDate();
+    public void setPrimaryPhysician(int primaryPhysician) {
+        this.primaryPhysician = primaryPhysician;
+    }
 
-    public void getSymptoms();
+    public String getTypeOfDraft() {
+        return typeOfDraft;
+    }
 
-    public void getBloodPressure();
+    public void setTypeOfDraft(String typeOfDraft) {
+        this.typeOfDraft = typeOfDraft;
+    }
 
-    public void getAdmissionStatus();
+    public String getNameOfDraft() {
+        return nameOfDraft;
+    }
 
-    public void getPrimaryPhysician();
+    public void setNameOfDraft(String nameOfDraft) {
+        this.nameOfDraft = nameOfDraft;
+    }
 
-    public void getIVAdministration();
+    public String getTimeOfDraft() {
+        return timeOfDraft;
+    }
 
-    public void getGivenMedications();
-
-    public void getInjectionGiven();
-
-    public void getPotentialDiagnosis();
-
-    public void getNotes();
-
+    public void setTimeOfDraft(String timeOfDraft) {
+        this.timeOfDraft = timeOfDraft;
+    }
 }

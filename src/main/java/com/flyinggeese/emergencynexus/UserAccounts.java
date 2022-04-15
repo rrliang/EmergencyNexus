@@ -30,6 +30,7 @@ public class UserAccounts {
         holderPhoneNumber = "";
         typeOfDraft = "";
         timeOfDraft = "";
+        nameOfDraft = "";
         editChoice = "";
         editText = "";
     }
@@ -210,6 +211,7 @@ public class UserAccounts {
 
     @Override
     public int hashCode() {
-        return Objects.hash(typeOfAccount, accountEmail, accountUsername, accountPassword, holderFullName, holderHomeAddress, holderPhoneNumber, typeOfDraft, timeOfDraft);
+        return Objects.hash(typeOfAccount, accountEmail, accountUsername, accountPassword, holderFullName, holderHomeAddress,
+                holderPhoneNumber, typeOfDraft, timeOfDraft);
     }
 }

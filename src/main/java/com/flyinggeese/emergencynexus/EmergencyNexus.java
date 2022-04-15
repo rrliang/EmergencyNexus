@@ -14,7 +14,8 @@ public class EmergencyNexus extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(EmergencyNexus.class.getResource("login-screen.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Emergency Nexus");
-        stage.getIcons().add(new Image(EmergencyNexus.class.getResourceAsStream("emergencynexusicon.png")));
+        scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));
+        stage.getIcons().add(new Image(EmergencyNexus.class.getResourceAsStream("logo.png")));
         stage.setScene(scene);
         stage.show();
     }
