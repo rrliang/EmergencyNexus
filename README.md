@@ -8,7 +8,7 @@
 Before running anything, navigate to the Dump20220415 folder in this repo and download that entire folder. In MySQL workbench, make a new connection, and then make a new database called emergency_nexus. Then, under the server settings which are near the top of the Workbench window, find the Data import option. Once in this option, select the freshly downloaded Dump20220415 folder. The emergency_nexus database should automatically pop up. Press the start import button, and the database is now local to your device!
   
 Steps to import the database can be found in the images below as well:  
-1.) In MySQL Workbench create a new connection:
+1.) In MySQL Workbench create a new connection:  
 ![image](https://user-images.githubusercontent.com/42505429/164803654-0e3f5f5d-45d8-4b63-9c2b-f38541e1f394.png)
   
 2.) In the new popup, follow the steps to create the connection:
@@ -23,7 +23,11 @@ Steps to import the database can be found in the images below as well:
 5.) In the new popup, press the three dots near the path to navigate to the downloaded Dump20220415 folder:
 ![image](https://user-images.githubusercontent.com/42505429/164805512-f1545eb6-570f-4952-90e3-1778253319a8.png)
 
-
+If MySQL and MYSQL Workbench is not installed on your device, go to this website  https://dev.mysql.com/downloads/installer/ and install it with your OS.
+  
+In order to run the Jar file and the SRC files themselves, any java ver. from 17.02 or newer has to be installed. To check which Java you have running, open a command prompt and type in the command:
+java -version
+  
 
 ### Running from IDE:
 The code hosted in this repo will work on the Intellij IDE specifically. If opening and running from Intellij, please reload the Maven project first before you try running it. Also before running from Intellij, navigate to the database-properties.txt file and put your MySQL root password.
