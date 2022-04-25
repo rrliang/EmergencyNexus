@@ -33,7 +33,7 @@ CREATE TABLE `users` (
   `password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idusers`),
   UNIQUE KEY `idusers_UNIQUE` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=12345694 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12345695 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (12345670,'Doctor','Greg Man','gman@nexus.org','124 fjfj eh','123-4-4-4','gman','menty'),(12345678,'Admin','admin account','admin@nexus.org','1233 3jklfj j','1928-483-28','admin','nexus'),(12345679,'Nurse','Harley Quinzel','hquinzel@nexus.org','123 Crime Allety','12=4-34=5','hquin','puddin'),(12345680,'Nurse','Jenny Benny','jben@nexus.org','1234 Skid Rd.','938-342-3421','jben','password1234'),(12345681,'Doctor','doctor octor','dococ@nexus.org','24 man hatten','838-949-2394','dococ','wow'),(12345685,'Doctor','bruh','bruh@nexus.org','bruh','bruh','bruh','bruh'),(12345693,'Nurse','nurse','nurse','nurse','nurse','nurse','nexus');
+INSERT INTO `users` VALUES (12345670,'Doctor','Greg Man','gman@nexus.org','124 fjfj eh','123-4-4-4','gman','menty'),(12345678,'Admin','admin account','admin@nexus.org','1233 3jklfj j','1928-483-28','admin','nexus'),(12345679,'Nurse','Harley Quinzel','hquinzel@nexus.org','123 Crime Allety','12=4-34=5','hquin','puddin'),(12345680,'Nurse','Jenny Benny','jben@nexus.org','1234 Skid Rd.','938-342-3421','jben','password1234'),(12345681,'Doctor','doctor octor','dococ@nexus.org','24 man hatten','838-949-2394','dococ','wow'),(12345685,'Doctor','bruh','bruh@nexus.org','bruh','bruh','bruh','bruh'),(12345693,'Nurse','nurse','nurse','nurse','nurse','nurse','nexus'),(12345694,'Doctor','doctor','doctor','doctor','doctor','doctor','nexus');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-15 19:19:25
+-- Dump completed on 2022-04-25 16:26:18

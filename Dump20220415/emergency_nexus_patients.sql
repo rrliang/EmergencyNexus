@@ -55,7 +55,7 @@ CREATE TABLE `patients` (
   `sexualactivity` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idpatients`),
   UNIQUE KEY `idpatients_UNIQUE` (`idpatients`)
-) ENGINE=InnoDB AUTO_INCREMENT=1111120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1111122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `patients` (
 
 LOCK TABLES `patients` WRITE;
 /*!40000 ALTER TABLE `patients` DISABLE KEYS */;
-INSERT INTO `patients` VALUES (1111111,'John Smith','12/3/1999','123-444-4444','60 Cherry Road','jsmith@hotmail.com','Marge Smith','778-574-2344','A','Connecticare .Inc',NULL,NULL,NULL,NULL,NULL,NULL,'','diabetes','Insulin','alcohol','69','180.8','White','Non-Hispanic','Religious','False','Male','Male','He/Him','True'),(1111118,'Amelia Bedelia','8/3/1999','870-324-2345','133 Streat Lane','ABed@gmail.com','Rose Bedilia','953-495-3421','B','Health Markets','4/5/2022','Pfizer-BioNTech','4/22/2022','Pfizer-BioNTech','5/7/2022','Pfizer-BioNTech','[drug: Morphine, food, insect, latex, mold, pet]','','[insulin]','[recreational drug use]','60','240','White','non-hispanic','religious','no','female','Female','She/her','no'),(1111119,'fdasdas','4/28/2022','','','','','',NULL,NULL,'',NULL,'',NULL,'',NULL,'[other: ]','','[]','[]','','',NULL,'','','no','',NULL,'','');
+INSERT INTO `patients` VALUES (1111111,'John Smith','12/3/1999','123-444-4444','60 Cherry Road','jsmith@hotmail.com','Marge Smith','778-574-2344','A','Connecticare .Inc',NULL,NULL,NULL,NULL,NULL,NULL,'','diabetes','Insulin','alcohol','69','180.8','White','Non-Hispanic','Religious','False','Male','Male','He/Him','True'),(1111118,'Amelia Bedelia','8/3/1999','870-324-2345','133 Streat Lane','ABed@gmail.com','Rose Bedilia','953-495-3421','B','Health Markets','4/5/2022','Pfizer-BioNTech','4/22/2022','Pfizer-BioNTech','5/7/2022','Pfizer-BioNTech','[drug: Morphine, food, insect, latex, mold, pet]','','[insulin]','[recreational drug use]','60','240','White','non-hispanic','religious','no','female','Female','She/her','no'),(1111119,'fdasdas','4/28/2022','','','','','',NULL,NULL,'',NULL,'',NULL,'',NULL,'[other: ]','','[]','[]','','',NULL,'','','no','',NULL,'',''),(1111120,'john ','4/13/2022','','','','','','','','','','','','','','[other: ]','','[]','[]','','','','','','no','','','',''),(1111121,'Gary Johnson','4/15/1992','893-423-4324','392 Geary Lane','gearybeary@gmail.com','Martha Johnson','392-453-4324','B','Shelter Insurance','4/4/2022','Moderna ','4/14/2022','Moderna ','4/28/2022','Johnson & Johnson’s Janssen','[drug: antibiotics, food, insect, pollen, other: ]','wobbly knees','[insulin, antibiotics, ibuprofen]','[alcohol]','123','190','White','non-hispanic','religious','no','male','Male','he/him','no');
 /*!40000 ALTER TABLE `patients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -77,4 +77,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-15 19:19:25
+-- Dump completed on 2022-04-25 16:26:18
