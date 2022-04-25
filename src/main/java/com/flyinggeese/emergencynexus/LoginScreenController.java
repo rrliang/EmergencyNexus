@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -44,14 +45,19 @@ public class LoginScreenController {
                 Scene scene = null;
                 switch(accountType.toLowerCase()) {
                     case "doctor":
-                        fxmlLoader.setLocation(getClass().getResource("nurse-user-interface.fxml"));
+                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface.fxml"));
                         stage.setTitle("Practitioner Interface");
                         scene = new Scene(fxmlLoader.load());
+                        StaffUserInterfaceController doctorController = fxmlLoader.getController();
+                        doctorController.setAccountType("doctor");
+                        doctorController.setUsername(loginUsername.getText());
                         break;
                     case "nurse":
-                        fxmlLoader.setLocation(getClass().getResource("nurse-user-interface.fxml"));
+                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface.fxml"));
                         stage.setTitle("Nurse Interface");
                         scene = new Scene(fxmlLoader.load());
+                        StaffUserInterfaceController nurseController = fxmlLoader.getController();
+                        nurseController.setAccountType("nurse");
                         break;
                     case "admin":
                         fxmlLoader.setLocation(getClass().getResource("sysadmin-user-interface.fxml"));
@@ -60,11 +66,6 @@ public class LoginScreenController {
                         SysAdminUserInterfaceController controller = fxmlLoader.getController();
                         controller.setPassword(loginPassword.getText());
                         controller.setUsername(loginUsername.getText());
-                        break;
-                    case "registration":
-                        fxmlLoader.setLocation(getClass().getResource("registration-user-interface.fxml"));
-                        stage.setTitle("Front Desk Interface");
-                        scene = new Scene(fxmlLoader.load());
                         break;
                 }
                 scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));

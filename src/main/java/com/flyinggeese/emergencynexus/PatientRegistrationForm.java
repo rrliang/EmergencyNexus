@@ -5,11 +5,11 @@ import java.util.Objects;
 import java.util.ArrayList;
 
 public class PatientRegistrationForm {
-    ArrayList<String> keys;
-    String[] values;
-    String typeOfDraft;
-    String timeOfDraft;
-    String nameOfDraft;
+    private ArrayList<String> keys;
+    private String[] values;
+    private String typeOfDraft;
+    private String timeOfDraft;
+    private String nameOfDraft;
 
     // Constructor
     public PatientRegistrationForm() {
@@ -59,7 +59,7 @@ public class PatientRegistrationForm {
     // Fill in keys array and values array
     private void initialize() {
         // Fill in keys
-        keys = new ArrayList<String>();
+        keys = new ArrayList<>();
         keys.add("name");
         keys.add("birthdate");
         keys.add("phone");
@@ -178,7 +178,6 @@ public class PatientRegistrationForm {
         PatientRegistrationForm that = (PatientRegistrationForm) o;
         return keys.equals(that.keys) && Arrays.equals(values, that.values) && Objects.equals(typeOfDraft, that.typeOfDraft);
     }
-
 
     @Override
     public int hashCode() {

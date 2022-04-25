@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class PatientVisitForm {
     ArrayList<String> keys;
     String[] values;
-//    private String dateOfVisit;
 //    private String symptomsMyHurt;
 //    private String symptomsIFeel;
 //    private String symptomsICant;
@@ -38,7 +37,8 @@ public class PatientVisitForm {
     public PatientVisitForm(String nameOfPatient, String dateOfVisit, String symptomsIFeel, String symptomsMyHurt, String symptomsICant, String bloodPressure,
                             String admissionStatusCheckIn, String admissionStatusCheckout, String admissionStatusRoom,
                             String physician, String givenMedication, String injectionsGiven,
-                            String potentialDiagnosis, String notesAndObservations) {
+                            String potentialDiagnosis, String notesAndObservations, String docRequestTest, String docDiagnosis,
+                            String docDischargeInstructions, String docNotesAndObservations, String lastEditedBy) {
         initialize();
         values[0] = nameOfPatient;
         values[1] = dateOfVisit;
@@ -54,6 +54,11 @@ public class PatientVisitForm {
         values[11] = injectionsGiven;
         values[12] = potentialDiagnosis;
         values[13] = notesAndObservations;
+        values[14] = docRequestTest;
+        values[15] = docDiagnosis;
+        values[16] = docDischargeInstructions;
+        values[17] = docNotesAndObservations;
+        values[18] = lastEditedBy;
     }
 
     private void initialize()
@@ -77,6 +82,7 @@ public class PatientVisitForm {
         keys.add("docDiagnosis");
         keys.add("docDischargeInstructions");
         keys.add("docNotesAndObservations");
+        keys.add("lasteditedby");
 
         values = new String[keys.size()];
         for(int i=0; i<values.length; i++)
