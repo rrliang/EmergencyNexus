@@ -134,7 +134,7 @@ public class StaffUserInterfaceController implements Initializable {
 
     //INSTANCE VARIABLES FOR RECORDS
     @FXML
-    TreeTableView<Object> recordsTable;
+    TreeTableView<PatientRecords> recordsTable;
     @FXML TreeTableColumn recordPatientCol, recordNameCol, recordBirthdayCol, recordsVisitCol, recordVisitDateCol, visitLastEditorCol;
 
     //GLOBAL VARIABLES
@@ -167,7 +167,7 @@ public class StaffUserInterfaceController implements Initializable {
 //        TreeTableColumn<PatientRegistrationForm, String> recordNameCol = new TreeTableColumn<>("fullname");
 //        TreeTableColumn<PatientRegistrationForm, String> recordBirthdayCol = new TreeTableColumn<>("birthdate");
 //        TreeTableColumn<PatientVisitForm, String> recordsVisitCol = new TreeTableColumn<>("dateOfVisit");
-        TreeItem<Object> root = new TreeItem<>(new Object());
+        TreeItem<PatientRecords> root = new TreeItem<>(new PatientRecords());
         recordNameCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("fullname"));
         recordBirthdayCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("birthdate"));
         recordVisitDateCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("dateOfVisit"));
@@ -223,7 +223,7 @@ public class StaffUserInterfaceController implements Initializable {
         ArrayList<PatientRecords> recordsVisitList = new ArrayList<>();
         while (rs.next()) {
             PatientVisitForm visit = new PatientVisitForm(
-                    "",
+                    getPatientFromID(rs.getInt("patient"))[0],
                     rs.getString("dateofvisit"),
                     rs.getString("symptomsifeel"),
                     rs.getString("symptomsmyhurt"),
@@ -232,7 +232,7 @@ public class StaffUserInterfaceController implements Initializable {
                     rs.getString("admissionstatuscheckin"),
                     rs.getString("admissionstatuscheckout"),
                     rs.getString("admissionstatusroom"),
-                    "",
+                    getPhysicianFromID(rs.getInt("primaryphysician")),
                     rs.getString("givenmedication"),
                     rs.getString("injectionsgiven"),
                     rs.getString("potentialdiagnosis"),
@@ -253,7 +253,8 @@ public class StaffUserInterfaceController implements Initializable {
 
         for (int i = 0; i < patientRecordsList.size(); i++) {
             for (int j = 0; j < recordsVisitList.size(); j++) {
-                if (patientRecordsList.get(i).getFullname().equals(getPatientFromID(recordsVisitList.get(j).getVisit().getPatient()))) {
+                if ((patientRecordsList.get(i).getPatient().getValue("name").equals((getPatientFromID(recordsVisitList.get(j).getVisit().getPatient()))[0]) &&
+                        (patientRecordsList.get(i).getPatient().getValue("birthdate").equals((getPatientFromID(recordsVisitList.get(j).getVisit().getPatient()))[1])))) {
                     patientTreeList.get(i).getChildren().add(new TreeItem<>(recordsVisitList.get(j)));
                 }
             }
@@ -267,20 +268,22 @@ public class StaffUserInterfaceController implements Initializable {
         recordsTable.setShowRoot(false);
     }
 
-    private String getPatientFromID(int id) throws SQLException {
+    private String[] getPatientFromID(int id) throws SQLException {
         String getPatient = "SELECT * FROM patients WHERE idpatients = ?";
         PreparedStatement stm = db.getConnection().prepareStatement(getPatient);
         stm.setString(1, String.valueOf(id));
         ResultSet rs = stm.executeQuery();
         String patientName = "";
+        String patientBirthdate = "";
         while (rs.next()) {
             patientName = rs.getString("fullname");
+            patientBirthdate = rs.getString("dateofbirth");
         }
-        return patientName;
+        return new String[] {patientName, patientBirthdate};
     }
 
     private String getPhysicianFromID(int id) throws SQLException {
-        String getPatient = "SELECT * FROM users WHERE userid = ?";
+        String getPatient = "SELECT * FROM users WHERE idusers = ?";
         PreparedStatement stm = db.getConnection().prepareStatement(getPatient);
         stm.setString(1, String.valueOf(id));
         ResultSet rs = stm.executeQuery();
@@ -319,7 +322,7 @@ public class StaffUserInterfaceController implements Initializable {
 
     @FXML
     void menuSaveDraftButtonClicked(ActionEvent event) throws SQLException {
-        if (tabPane.getSelectionModel().getSelectedIndex() == 0) { //Register Patient
+        if (tabPane.getSelectionModel().getSelectedItem().equals(registrationTab)) { //Register Patient
             saveRegistrationDraft();
         } else { //Visit form
             saveVisitDraft();
@@ -425,6 +428,16 @@ public class StaffUserInterfaceController implements Initializable {
         visitRoomNumberText.setText("");
         visitAdmissionYesRadio.disarm();
         visitAdmissionNoRadio.disarm();
+        for (CheckBox c : doctorTestChecks) {
+            c.disarm();
+        }
+        for (CheckBox c : doctorDiagnosisChecks) {
+            c.disarm();
+        }
+        doctorNotes.setText("");
+        doctorDischargeText.setText("");
+        otherTestText.setText("");
+        otherDiagnosisText.setText("");
     }
 
     private void saveRegistrationDraft() throws SQLException {
@@ -432,9 +445,9 @@ public class StaffUserInterfaceController implements Initializable {
         PatientRegistrationForm form = getRegistrationForm();
         if (checkRegistrationEmpty()) {
             alertFormEmpty(true);
-        } else if(checkIfPatientExists(form)) {
-            alertPatientAlreadyExists(true);
-        } else if(draftList.contains(form)) {
+        } else if (checkIfPatientExists(form)) {
+            alertPatientAlreadyExists(true, "Draft");
+        } else if (draftList.contains(form)) {
             Alert alreadyExists = new Alert(Alert.AlertType.ERROR);
             alreadyExists.setContentText("ERR: Draft already exists.");
             alreadyExists.showAndWait();
@@ -535,8 +548,10 @@ public class StaffUserInterfaceController implements Initializable {
     void menuSubmitButtonClicked(ActionEvent event) throws SQLException {
         if (tabPane.getSelectionModel().getSelectedItem().equals(registrationTab)) { //Register Patient
             submitRegisterForm();
+            setRecordsTable();
         } else { //Visit form
             submitVisitForm();
+            setRecordsTable();
         }
     }
 
@@ -640,8 +655,11 @@ public class StaffUserInterfaceController implements Initializable {
 
     private void submitRegisterForm() throws SQLException {
         String errMsg, warningMsg;
+        PatientRegistrationForm form = getRegistrationForm();
         if (checkRegistrationEmpty()) {
             alertFormEmpty(true);
+        } else if(checkIfPatientExists(form)) {
+            alertPatientAlreadyExists(true, "Patient Form");
         } else if((errMsg = checkRegistrationError()).length() != 0) {
             Alert formError = new Alert(Alert.AlertType.ERROR);
             formError.setContentText(errMsg);
@@ -652,10 +670,10 @@ public class StaffUserInterfaceController implements Initializable {
             Alert formError = new Alert(Alert.AlertType.ERROR,warningMsg + "\n Still want to submit?", yes, no);
             Optional<ButtonType> result = formError.showAndWait();
             if (result.isPresent() && result.get() == yes) {
-                alertSubmitSuccess(submitRegistrationForm(getRegistrationForm()));
+                alertSubmitSuccess(submitRegistrationForm(form));
             }
         } else {
-            alertSubmitSuccess(submitRegistrationForm(getRegistrationForm()));
+            alertSubmitSuccess(submitRegistrationForm(form));
         }
     }
 
@@ -670,10 +688,10 @@ public class StaffUserInterfaceController implements Initializable {
 
     }
 
-    private void alertPatientAlreadyExists(boolean patientExists) {
+    private void alertPatientAlreadyExists(boolean patientExists, String type) {
         if (patientExists) {
             Alert accountAlreadyExists = new Alert(Alert.AlertType.CONFIRMATION);
-            accountAlreadyExists.setContentText("ERR: That patient already exists in record. Draft will not be saved.");
+            accountAlreadyExists.setContentText("ERR: That patient already exists in record. " + type + " will not be saved.");
             accountAlreadyExists.showAndWait();
         } else {
             return;
@@ -1303,8 +1321,12 @@ public class StaffUserInterfaceController implements Initializable {
 
     @FXML
     void menuOpenFormButtonClicked(ActionEvent event) {
-        openDraftsForm();
-        tabPane.getSelectionModel().select(registrationTab);
+        if (tabPane.getSelectionModel().getSelectedItem().equals(recordsTab)) {
+            openRecordsForm();
+        } else {
+            openDraftsForm();
+        }
+
     }
 
     @FXML
@@ -1317,7 +1339,7 @@ public class StaffUserInterfaceController implements Initializable {
         if(event.getButton() == MouseButton.SECONDARY) {
             draftsTableView.setContextMenu(cm);
             open.setOnAction((cmEvent) -> {
-                menuOpenFormButton.arm();
+                menuOpenFormButton.fire();
             });
             delete.setOnAction((cmEvent) -> {
                 deleteButtonClicked();
@@ -1326,13 +1348,25 @@ public class StaffUserInterfaceController implements Initializable {
     }
 
     private void openDraftsForm() {
-
         if ((draftsTableView.getSelectionModel().getSelectedItem().getClass().getName().contains("PatientRegistrationForm"))) {
             PatientRegistrationForm form = (PatientRegistrationForm) draftsTableView.getSelectionModel().getSelectedItem();
             setRegistrationTab(form);
+            tabPane.getSelectionModel().select(registrationTab);
         } else {
             PatientVisitForm form = (PatientVisitForm) draftsTableView.getSelectionModel().getSelectedItem();
             setVisitTab(form);
+            tabPane.getSelectionModel().select(visitTab);
+        }
+    }
+
+    private void openRecordsForm() {
+        TreeItem<PatientRecords> record = recordsTable.getSelectionModel().getSelectedItem();
+        if (record.getValue().getPatient() != null) {
+            setRegistrationTab(record.getValue().getPatient());
+            tabPane.getSelectionModel().select(registrationTab);
+        } else {
+            setVisitTab(record.getValue().getVisit());
+            tabPane.getSelectionModel().select(visitTab);
         }
     }
 
@@ -1388,119 +1422,119 @@ public class StaffUserInterfaceController implements Initializable {
     private void setVisitTab(PatientVisitForm form) {
         clearVisit();
         visitNameText.setText(form.getValue("patientName"));
-        visitDate.getEditor().setText("dateOfVisit");
+        visitDate.getEditor().setText(form.getValue("dateOfVisit"));
         if (!form.getValue("symptomsMyHurt").equals("[]")) {
-            for (String s : (form.getValue("symptomsMyHurt").substring(1,getAllergies().length()-1)).split(",")) {
-                if (s.toLowerCase().contains("abdomen")) {
-                    visitAbHurt.arm();
-                } else if (s.toLowerCase().contains("back")) {
-                    visitBackHurt.arm();
-                } else if (s.toLowerCase().contains("chest")) {
-                    visitChestHurt.arm();
-                } else if (s.toLowerCase().contains("ear")) {
-                    visitEarHurt.arm();
-                } else if (s.toLowerCase().contains("head")) {
-                    visitHeadHurt.arm();
-                } else if (s.toLowerCase().contains("pelvis")) {
-                    visitPelvisHurt.arm();
+            for (String s : (form.getValue("symptomsMyHurt").substring(1,getHurt().length()-1)).split(",")) {
+                if (s.equals("abdomen")) {
+                    visitAbHurt.fire();
+                } else if (s.equals("back")) {
+                    visitBackHurt.fire();
+                } else if (s.equals("chest")) {
+                    visitChestHurt.fire();
+                } else if (s.equals("ear")) {
+                    visitEarHurt.fire();
+                } else if (s.equals("head")) {
+                    visitHeadHurt.fire();
+                } else if (s.equals("pelvis")) {
+                    visitPelvisHurt.fire();
                 } else if (s.toLowerCase().equals("tooth")) {
-                    visitToothHurt.arm();
+                    visitToothHurt.fire();
                 } else if (s.toLowerCase().equals("rectum")) {
-                    visitRectumHurt.arm();
+                    visitRectumHurt.fire();
                 } else if (s.toLowerCase().equals("skin")) {
-                    visitSkinHurt.arm();
+                    visitSkinHurt.fire();
                 } else if (s.toLowerCase().equals("leg")) {
-                    visitLegHurt.arm();
+                    visitLegHurt.fire();
                 } else if (s.toLowerCase().equals("arm")) {
-                    visitArmHurt.arm();
+                    visitArmHurt.fire();
                 } else if (s.toLowerCase().equals("chronic pain")) {
-                    visitChronicHurt.arm();
+                    visitChronicHurt.fire();
                 } else {
                     visitOtherHurtText.setText(s);
                 }
             }
         }
         if (!form.getValue("symptomsIFeel").equals("[]")) {
-            for (String s : (form.getValue("symptomsIFeel").substring(1,getAllergies().length()-1)).split(",")) {
-                if (s.toLowerCase().contains("chills")) {
-                    visitFeelChills.arm();
-                } else if (s.toLowerCase().contains("paresthesia")) {
-                    visitFeelParesthesia.arm();
-                } else if (s.toLowerCase().contains("light-headed")) {
-                    visitFeelLight.arm();
-                } else if (s.toLowerCase().contains("dizzy, about to black out")) {
-                    visitAboutToBlackFeel.arm();
-                } else if (s.toLowerCase().contains("dizzy, the room is spinning")) {
-                    visitTheRoomSpinFeel.arm();
-                } else if (s.toLowerCase().contains("mouth dry")) {
-                    visitMouthFeel.arm();
+            for (String s : (form.getValue("symptomsIFeel").substring(1,getFeel().length()-1)).split(",")) {
+                if (s.equals("chills")) {
+                    visitFeelChills.fire();
+                } else if (s.equals("paresthesia")) {
+                    visitFeelParesthesia.fire();
+                } else if (s.equals("light-headed")) {
+                    visitFeelLight.fire();
+                } else if (s.equals("dizzy, about to black out")) {
+                    visitAboutToBlackFeel.fire();
+                } else if (s.equals("dizzy, the room is spinning")) {
+                    visitTheRoomSpinFeel.fire();
+                } else if (s.equals("mouth dry")) {
+                    visitMouthFeel.fire();
                 } else if (s.toLowerCase().equals("nauseated")) {
-                    visitNauseatedFeel.arm();
+                    visitNauseatedFeel.fire();
                 } else if (s.toLowerCase().equals("short of breath")) {
-                    visitShortOfBreathFeel.arm();
+                    visitShortOfBreathFeel.fire();
                 } else if (s.toLowerCase().equals("sick, like I have the flu")) {
-                    visitFluFeel.arm();
+                    visitFluFeel.fire();
                 } else if (s.toLowerCase().equals("sick, like I have to vomit")) {
-                    visitVomitFeel.arm();
+                    visitVomitFeel.fire();
                 } else if (s.toLowerCase().equals("sleepy")) {
-                    visitFeelSleepy.arm();
+                    visitFeelSleepy.fire();
                 } else if (s.toLowerCase().equals("sweaty")) {
-                    visitSweatyFeel.arm();
+                    visitSweatyFeel.fire();
                 } else if (s.toLowerCase().equals("thirsty")) {
-                    visitThirstyFeel.arm();
+                    visitThirstyFeel.fire();
                 } else if (s.toLowerCase().equals("tired")) {
-                    visitTiredFeel.arm();
+                    visitTiredFeel.fire();
                 } else if (s.toLowerCase().equals("weak")) {
-                    visitWeakFeel.arm();
+                    visitWeakFeel.fire();
                 } else {
                     visitOtherFeel.setText(s);
                 }
             }
         }
         if (!form.getValue("symptomsICant").equals("[]")) {
-            for (String s : (form.getValue("symptomsICant").substring(1,getAllergies().length()-1)).split(",")) {
-                if (s.toLowerCase().contains("breathe")) {
-                    visitCantBreath.arm();
-                } else if (s.toLowerCase().contains("hear, losing hearing")) {
-                    visitCantLosingHearing.arm();
-                } else if (s.toLowerCase().contains("hear, sounds are too loud")) {
-                    visitCantSoundsTooLoud.arm();
-                } else if (s.toLowerCase().contains("hear, sounds are ringing")) {
-                    visitCantRinging.arm();
-                } else if (s.toLowerCase().contains("move one side (arm and or leg)")) {
-                    visitCantMoveOne.arm();
-                } else if (s.toLowerCase().contains("pass a bowel action normally")) {
-                    visitCantPassBowel.arm();
+            for (String s : (form.getValue("symptomsICant").substring(1,getCant().length()-1)).split(",")) {
+                if (s.equals("breathe")) {
+                    visitCantBreath.fire();
+                } else if (s.equals("hear, losing hearing")) {
+                    visitCantLosingHearing.fire();
+                } else if (s.equals("hear, sounds are too loud")) {
+                    visitCantSoundsTooLoud.fire();
+                } else if (s.equals("hear, sounds are ringing")) {
+                    visitCantRinging.fire();
+                } else if (s.equals("move one side (arm and or leg)")) {
+                    visitCantMoveOne.fire();
+                } else if (s.equals("pass a bowel action normally")) {
+                    visitCantPassBowel.fire();
                 } else if (s.toLowerCase().equals("pass urine normally")) {
-                    visitCantPassUrine.arm();
+                    visitCantPassUrine.fire();
                 } else if (s.toLowerCase().equals("remember")) {
-                    visitCantRemember.arm();
+                    visitCantRemember.fire();
                 } else if (s.toLowerCase().equals("see, blindness")) {
-                    visitCantBlindness.arm();
+                    visitCantBlindness.fire();
                 } else if (s.toLowerCase().equals("see, double vision")) {
-                    visitCantDoubleVision.arm();
+                    visitCantDoubleVision.fire();
                 } else if (s.toLowerCase().equals("see, blurred vision")) {
-                    visitCantBlurredVision.arm();
+                    visitCantBlurredVision.fire();
                 } else if (s.toLowerCase().equals("sleep")) {
-                    visitCantSleep.arm();
+                    visitCantSleep.fire();
                 } else if (s.toLowerCase().equals("smell things normally")) {
-                    visitCantSmell.arm();
+                    visitCantSmell.fire();
                 } else if (s.toLowerCase().equals("speak normally")) {
-                    visitCantSpeak.arm();
+                    visitCantSpeak.fire();
                 } else if (s.toLowerCase().equals("passing watery bowl actions")) {
-                    visitCantStopPassingWater.arm();
+                    visitCantStopPassingWater.fire();
                 } else if (s.toLowerCase().equals("scratching")) {
-                    visitCantStopScratch.arm();
+                    visitCantStopScratch.fire();
                 } else if (s.toLowerCase().equals("sweating")) {
-                    visitCantStopSweat.arm();
+                    visitCantStopSweat.fire();
                 } else if (s.toLowerCase().equals("swallow normally")) {
-                    visitCantSwallow.arm();
+                    visitCantSwallow.fire();
                 } else if (s.toLowerCase().equals("taste properly")) {
-                    visitCantTaste.arm();
+                    visitCantTaste.fire();
                 } else if (s.toLowerCase().equals("walk normally")) {
-                    visitCantWalk.arm();
+                    visitCantWalk.fire();
                 } else if (s.toLowerCase().equals("write normally")) {
-                    visitCantWrite.arm();
+                    visitCantWrite.fire();
                 } else {
                     visitCantOtherText.setText(s);
                 }
@@ -1512,34 +1546,34 @@ public class StaffUserInterfaceController implements Initializable {
         visitRoomNumberText.setText(form.getValue("admissionStatusRoom"));
         visitPhysicianChoice.setValue(form.getValue("physicianName"));
         if (!form.getValue("givenMedication").equals("[]")) {
-            for (String s : (form.getValue("givenMedication").substring(1,getAllergies().length()-1)).split(",")) {
-                if (s.toLowerCase().contains("oxygen")) {
-                    visitOxygenCheck.arm();
-                } else if (s.toLowerCase().contains("Epinephrine")) {
+            for (String s : (form.getValue("givenMedication").substring(1,getMedications().length()-1)).split(",")) {
+                if (s.equals("oxygen")) {
+                    visitOxygenCheck.fire();
+                } else if (s.equals("Epinephrine")) {
                     visitEpinephrineText.setText(s);
-                } else if (s.toLowerCase().contains("Nitroglycerin")) {
+                } else if (s.equals("Nitroglycerin")) {
                     visitNitroText.setText(s);
-                } else if (s.toLowerCase().contains("Diphenhydramine")) {
+                } else if (s.equals("Diphenhydramine")) {
                     visitDiphenText.setText(s);
-                } else if (s.toLowerCase().contains("Albuterol")) {
+                } else if (s.equals("Albuterol")) {
                     visitAlbuterolText.setText(s);
-                } else if (s.toLowerCase().contains("Aspirin")) {
+                } else if (s.equals("Aspirin")) {
                     visitAspirinText.setText(s);
-                } else if (s.toLowerCase().contains("Glucose")) {
+                } else if (s.equals("Glucose")) {
                     visitGlucoseText.setText(s);
-                } else if (s.toLowerCase().contains("Atropine")) {
+                } else if (s.equals("Atropine")) {
                     visitAtropineText.setText(s);
-                } else if (s.toLowerCase().contains("Hydrocortisone")) {
+                } else if (s.equals("Hydrocortisone")) {
                     visitHydroText.setText(s);
-                } else if (s.toLowerCase().contains("Morphine")) {
+                } else if (s.equals("Morphine")) {
                     visitMorphineText.setText(s);
-                } else if (s.toLowerCase().contains("Nalaxone")) {
+                } else if (s.equals("Nalaxone")) {
                     visitNalaxoneText.setText(s);
-                } else if (s.toLowerCase().contains("Lorazepam")) {
+                } else if (s.equals("Lorazepam")) {
                     visitLorazepamText.setText(s);
-                } else if (s.toLowerCase().contains("Flumazenil")) {
+                } else if (s.equals("Flumazenil")) {
                     visitFlumaText.setText(s);
-                } else if (!s.toLowerCase().equals(" (mg): ")){
+                } else if (s.contains(" (mg): ")){
                     String[] otherMedArr = s.split(" (mg): ");
                     System.out.println(otherMedArr[0]);
                     visitOtherMedicationText.setText(otherMedArr[0]);
@@ -1548,66 +1582,65 @@ public class StaffUserInterfaceController implements Initializable {
             }
         }
         if (!form.getValue("injectionsGiven").equals("[]")) {
-            for (String s : (form.getValue("injectionsGiven").substring(1,getAllergies().length()-1)).split(",")) {
-                if (s.toLowerCase().contains("oxygen")) {
-                    visitOxygenCheck.arm();
-                } else if (s.toLowerCase().contains("(IM)")) {
-                    visitIMInjectionCheck.arm();
-                } else if (s.toLowerCase().contains("(IV)")) {
+            for (String s : (form.getValue("injectionsGiven").substring(1,getInjection().length()-1)).split(",")) {
+                if (s.equals("(IM)")) {
+                    visitIMInjectionCheck.fire();
+                } else if (s.equals("(IV)")) {
                     visitIVText.setText(s);
-                } else if (s.toLowerCase().contains("(SC)")) {
-                    visitSCCheck.arm();
-                } else if (s.toLowerCase().contains("P.O")) {
-                    visitPOCheck.arm();
+                } else if (s.equals("(SC)")) {
+                    visitSCCheck.fire();
+                } else if (s.equals("P.O")) {
+                    visitPOCheck.fire();
                 }
             }
         }
         if (!form.getValue("potentialDiagnosis").equals("[]")) {
-            for (String s : (form.getValue("potentialDiagnosis").substring(1, getAllergies().length() - 1)).split(",")) {
-                if (s.toLowerCase().contains("Other chest pain, chest pain unspecified")) {
-                    visitChestHurt.arm();
-                } else if (s.toLowerCase().contains("Urinary tract infection, site not specified")) {
-                    visitUTICheck.arm();
-                } else if (s.toLowerCase().contains("headache")) {
-                    visitHeadacheCheck.arm();
-                } else if (s.toLowerCase().contains("Unspecified abdominal pain")) {
-                    visitUnspecifiedAbCheck.arm();
-                } else if (s.toLowerCase().contains("Syncope and collapse")) {
-                    visitSyncopeCheck.arm();
-                } else if (s.toLowerCase().contains("Non-infective gastroenteritis and colitis, unspecified")) {
-                    visitGastroCheck.arm();
+            for (String s : (form.getValue("potentialDiagnosis").substring(1, getDiagnosis().length() - 1)).split(",")) {
+                if (s.equals("Other chest pain, chest pain unspecified")) {
+                    visitChestHurt.fire();
+                } else if (s.equals("Urinary tract infection, site not specified")) {
+                    visitUTICheck.fire();
+                } else if (s.equals("headache")) {
+                    visitHeadacheCheck.fire();
+                } else if (s.equals("Unspecified abdominal pain")) {
+                    visitUnspecifiedAbCheck.fire();
+                } else if (s.equals("Syncope and collapse")) {
+                    visitSyncopeCheck.fire();
+                } else if (s.equals("Non-infective gastroenteritis and colitis, unspecified")) {
+                    visitGastroCheck.fire();
                 } else if (s.toLowerCase().equals("Dizziness and giddiness")) {
-                    visitDizzinessCheck.arm();
+                    visitDizzinessCheck.fire();
                 } else if (s.toLowerCase().equals("Low back pain")) {
-                    visitLowBackCheck.arm();
+                    visitLowBackCheck.fire();
                 } else if (s.toLowerCase().equals("Unspecified injury of head, initial encounter")) {
-                    visitHeadInjuryCheck.arm();
+                    visitHeadInjuryCheck.fire();
                 } else if (s.toLowerCase().equals("Nausea with vomiting, unspecified")) {
-                    visitNauseaCheck.arm();
+                    visitNauseaCheck.fire();
                 } else if (s.toLowerCase().equals("Acute pharyngitis, unspecified")) {
-                    visitAcuteCheck.arm();
+                    visitAcuteCheck.fire();
                 } else if (s.toLowerCase().equals("Unspecified asthma with (acute) exacerbation")) {
-                    visitAsthmaCheck.arm();
+                    visitAsthmaCheck.fire();
                 } else if (s.toLowerCase().equals("Constipation, unspecified")) {
-                    visitConstipationCheck.arm();
+                    visitConstipationCheck.fire();
                 } else if (s.toLowerCase().equals("Acute bronchitis, unspecified")) {
-                    visitBronchitisCheck.arm();
+                    visitBronchitisCheck.fire();
                 } else if (s.toLowerCase().equals("Strain of muscle, fascia and tendon at neck level, initial encounter")) {
-                    visitStrainNeckCheck.arm();
+                    visitStrainNeckCheck.fire();
                 } else if (s.toLowerCase().equals("Fever, unspecified")) {
-                    visitFeverCheck.arm();
+                    visitFeverCheck.fire();
                 } else if (s.toLowerCase().equals("Other specified disorders of teeth and supporting structures")) {
-                    visitTeethCheck.arm();
+                    visitTeethCheck.fire();
                 } else if (s.toLowerCase().equals("Epigastric pain")) {
-                    visitEpiCheck.arm();
+                    visitEpiCheck.fire();
                 } else if (s.toLowerCase().equals("Strain of muscle, fascia and tendon of lower back, initial encounter")) {
-                    visitStrainBackCheck.arm();
+                    visitStrainBackCheck.fire();
                 } else {
                     visitOtherDiagnosisText.setText(s);
                 }
             }
         }
         visitNotes.setText(form.getValue("notesAndObservations"));
+        //TODO DOCTOR
     }
 
     private void setRegistrationTab(PatientRegistrationForm form) {
@@ -1627,34 +1660,34 @@ public class StaffUserInterfaceController implements Initializable {
         registerCovidSecondaryVaccineCalendar.getEditor().setText(form.getValue("Covid2Date"));
         registerCovidBoosterVaccineChoice.setValue(form.getValue("covid3Type"));
         registerCovidBoosterVaccineCalendar.getEditor().setText(form.getValue("covid3Date"));
-        if (!form.getValue("Allergies").equals("[]")) {
+        if (!form.getValue("Allergies").equals("[]") || !form.getValue("Allergies").equals("")) {
             for (String s : (form.getValue("Allergies").substring(1,getAllergies().length()-2)).split(",")) {
-                if (s.toLowerCase().contains("food")) {
-                    registerFoodAllergyCheck.arm();
+                if (s.equals("food")) {
+                    registerFoodAllergyCheck.fire();
                 }
-                if (s.toLowerCase().contains("insect")) {
-                    registerInsectAllergyCheck.arm();
+                if (s.equals("insect")) {
+                    registerInsectAllergyCheck.fire();
                 }
-                if (s.toLowerCase().contains("latex")) {
-                    registerLatexAllergyCheck.arm();
+                if (s.equals("latex")) {
+                    registerLatexAllergyCheck.fire();
                 }
-                if (s.toLowerCase().contains("mold")) {
-                    registerMoldAllergyCheck.arm();
+                if (s.equals("mold")) {
+                    registerMoldAllergyCheck.fire();
                 }
-                if (s.toLowerCase().contains("pet")) {
-                    registerPetAllergyCheck.arm();
+                if (s.equals("pet")) {
+                    registerPetAllergyCheck.fire();
                 }
-                if (s.toLowerCase().contains("pollen")) {
-                    registerPollenAllergyCheck.arm();
+                if (s.equals("pollen")) {
+                    registerPollenAllergyCheck.fire();
                 }
-                if (s.toLowerCase().contains("drug: ")) {
+                if (s.equals("drug: ")) {
                     registerDrugAllergyText.setText(s.substring(5));
-                    registerDrugAllergyCheck.arm();
+                    registerDrugAllergyCheck.fire();
                 }
                 if (s.toLowerCase().equals("drug")) {
-                    registerDrugAllergyCheck.arm();
+                    registerDrugAllergyCheck.fire();
                 }
-                if (s.toLowerCase().contains("other: ")) {
+                if (s.equals("other: ")) {
                     registerOtherAllergyText.setText(s);
                 }
             }
@@ -1662,33 +1695,33 @@ public class StaffUserInterfaceController implements Initializable {
         registerPreConditionsText.setText(form.getValue("preexistingConditions"));
         if (!form.getValue("Medications").equals("[]")) {
             for (String s : (form.getValue("Medications").substring(1,getAllergies().length()-1)).split(",")) {
-                if (s.toLowerCase().contains("insulin")) {
-                    registerInsulinCheck.arm();
+                if (s.equals("insulin")) {
+                    registerInsulinCheck.fire();
                 }
-                if (s.toLowerCase().contains("antibiotics")) {
-                    registerAntibioticsCheck.arm();
+                if (s.equals("antibiotics")) {
+                    registerAntibioticsCheck.fire();
                 }
-                if (s.toLowerCase().contains("anticoagulant")) {
-                    registerAntiCoagulantCheck.arm();
+                if (s.equals("anticoagulant")) {
+                    registerAntiCoagulantCheck.fire();
                 }
-                if (s.toLowerCase().contains("ibuprofen")) {
-                    registerIbuprofenCheck.arm();
+                if (s.equals("ibuprofen")) {
+                    registerIbuprofenCheck.fire();
                 }
-                if (s.toLowerCase().contains("naloxone")) {
-                    registerNaxCheck.arm();
+                if (s.equals("naloxone")) {
+                    registerNaxCheck.fire();
                 }
             }
         }
         if (!form.getValue("History").equals("[]")) {
             for (String s : (form.getValue("History").substring(1,getAllergies().length()-1)).split(",")) {
-                if (s.toLowerCase().contains("drug")) {
-                    registerDrugHistoryCheck.arm();
+                if (s.equals("drug")) {
+                    registerDrugHistoryCheck.fire();
                 }
-                if (s.toLowerCase().contains("alcohol")) {
-                    registerHistoryAlcoholCheck.arm();
+                if (s.equals("alcohol")) {
+                    registerHistoryAlcoholCheck.fire();
                 }
-                if (s.toLowerCase().contains("smoking")) {
-                    registerHistorySmokingCheck.arm();
+                if (s.equals("smoking")) {
+                    registerHistorySmokingCheck.fire();
                 }
             }
         }
@@ -1696,26 +1729,26 @@ public class StaffUserInterfaceController implements Initializable {
         registerWeightText.setText(form.getValue("Weight"));
         registerRaceChoice.setValue(form.getValue("race"));
         if (registerEthnicity.equals("hispanic")) {
-            registerHispanicRadio.arm();
+            registerHispanicRadio.fire();
         } else if (registerEthnicity.contains("non")) {
-            registerNonHispanicRadio.arm();
+            registerNonHispanicRadio.fire();
         }
         if (registerSex.equals("male")) {
-            registerMaleRadio.arm();
+            registerMaleRadio.fire();
         } else if (registerSex.equals("female")) {
-            registerFemaleRadio.arm();
+            registerFemaleRadio.fire();
         }
         registerGenderChoice.setValue(form.getValue("gender"));
         registerPronounsText.setText(form.getValue("pronouns"));
         if (registerSexuallyActive.equals("yes")) {
-            registerSexualYesRadio.arm();
+            registerSexualYesRadio.fire();
         } else if (registerSexuallyActive.equals("no")) {
-            registerSexualNoRadio.arm();
+            registerSexualNoRadio.fire();
         }
         if (registerReligion.equals("religious")) {
-            registerReligiousRadio.arm();
+            registerReligiousRadio.fire();
         } else if (registerSexuallyActive.contains("non")) {
-            registerNonReligiousRadio.arm();
+            registerNonReligiousRadio.fire();
         }
     }
 

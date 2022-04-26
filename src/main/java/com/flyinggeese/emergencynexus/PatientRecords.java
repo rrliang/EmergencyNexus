@@ -6,6 +6,13 @@ public class PatientRecords {
     private PatientVisitForm visit;
     private String dateOfVisit, lastEditedBy;
 
+    PatientRecords() {
+        fullname = "";
+        birthdate = "";
+        dateOfVisit = "";
+        lastEditedBy = "";
+    }
+
     PatientRecords(PatientRegistrationForm patient) {
         this.patient = patient;
         fullname = patient.getValue("name");
