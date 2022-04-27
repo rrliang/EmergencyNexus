@@ -1,0 +1,40 @@
+.tab-pane{
+  -fx-background-color: #faeed9;
+}
+
+/*
+.tab .tab-label{
+	-fx-background-color: transparent;
+	-fx-alignment: center;
+}*/
+
+.tab{
+	-fx-background-color: #ff7d88;
+	-fx-border-color: white;
+	-fx-text-fill: white;
+	-fx-background-insets: 0.0;
+	-fx-background-radius: 0.0;
+}
+
+
+.tab:selected{
+	-fx-background-color: #ff7d88;
+	-fx-text-fill: white;
+	-fx-border-color: black;
+	-fx-background-insets: 0.0;
+	-fx-background-radius: 0.0;
+}
+
+.button{
+	-fx-background-color: #f23545;
+	-fx-text-fill: white;
+	-fx-border-color: white;
+}
+
+.button:pressed {
+    -fx-background-color: #d1303e;
+}
+
+.dropdown-content{
+	-fx-background-color: white;
+}

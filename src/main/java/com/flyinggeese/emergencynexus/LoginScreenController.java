@@ -1,14 +1,17 @@
 package com.flyinggeese.emergencynexus;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,7 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class LoginScreenController {
+public class LoginScreenController implements Initializable {
 
     @FXML
     private Button loginEnterButton;
@@ -97,5 +100,10 @@ public class LoginScreenController {
 //        stage.setScene(scene);
 //        stage.show();
 //        ((Node)(event.getSource())).getScene().getWindow().hide();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loginEnterButton.setDefaultButton(true);
     }
 }

@@ -42,8 +42,8 @@ public class PatientVisitForm {
         initialize();
         values[0] = nameOfPatient;
         values[1] = dateOfVisit;
-        values[3] = symptomsMyHurt;
         values[2] = symptomsIFeel;
+        values[3] = symptomsMyHurt;
         values[4] = symptomsICant;
         values[5] = bloodPressure;
         values[6] = admissionStatusCheckIn;
@@ -66,8 +66,8 @@ public class PatientVisitForm {
         keys = new ArrayList<String>();
         keys.add("patientName");
         keys.add("dateOfVisit");
-        keys.add("symptomsMyHurt");
         keys.add("symptomsIFeel");
+        keys.add("symptomsMyHurt");
         keys.add("symptomsICant");
         keys.add("bloodPressure");
         keys.add("admissionStatusCheckIn");
