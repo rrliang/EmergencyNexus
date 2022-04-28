@@ -36,7 +36,7 @@ CREATE TABLE `visit` (
   `primaryphysician` int NOT NULL,
   `givenmedication` varchar(400) DEFAULT NULL,
   `injectionsgiven` varchar(200) DEFAULT NULL,
-  `potentialdiagnosis` varchar(600) DEFAULT NULL,
+  `potentialdiagnosis` varchar(800) DEFAULT NULL,
   `notesandobservations` varchar(700) DEFAULT NULL,
   `docrequesttest` varchar(200) DEFAULT NULL,
   `docdiagnosis` varchar(600) DEFAULT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `visit` (
   `lasteditedby` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idvisit`,`patient`),
   UNIQUE KEY `idvisit_UNIQUE` (`idvisit`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,7 @@ CREATE TABLE `visit` (
 
 LOCK TABLES `visit` WRITE;
 /*!40000 ALTER TABLE `visit` DISABLE KEYS */;
-INSERT INTO `visit` VALUES (7,1111111,'4/26/2022','[abdomen, chest, pelvis, tooth, leg, chronic pain, ]','[mouth dry, ]','[move one side (arm and or leg), ]','','','','',12345681,'[oxygen]','[Intramuscular injection (IM)]','[Other chest pain, chest pain unspecified]','',NULL,NULL,NULL,NULL,'nurse'),(8,1111120,'4/20/2022','[]','[]','[]','','','','',12345694,'[]','[]','[]','',NULL,NULL,NULL,NULL,'doctor'),(9,1111120,'4/20/2022','[]','[]','[]','','','','',12345694,'[]','[]','[]','',NULL,NULL,NULL,NULL,'Harley Quinzel'),(10,1111111,'4/13/2022','[]','[]','[]','','','','',0,'[]','[]','[]','','[]','[]','','','nurse'),(11,1111111,'5/1/2022','[abdomen, chest, tooth, skin, leg, chronic pain, ]','[fever, nauseated, ]','[move one side (arm and or leg), ]','123','4/18/2022','4/27/2022','123',12345694,'[oxygen]','[Intramuscular injection (IM)]','[Other chest pain, chest pain unspecified]','He is not good','[Red Blood Cell Test, Electrolyte Test, Stool Test, other: morgue]','[Chest Pain, Gastrointestinal hemorrhage, Myocardial infarction, other: dead]','don\'t be unalive','he\'s dead whoops','doctor'),(12,1111121,'4/20/2022','[back, ]','[fever, ]','[breathe, ]','123','','','',12345694,'[oxygen]','[Intramuscular injection (IM)]','[Epigastric pain]','knees still wobble','[Renal Function Test, Stool Test]','[Pneumonia, Intracranial injury]','be more careful with joints','don\'t jump anymore','doctor');
+INSERT INTO `visit` VALUES (23,1111129,'4/21/2022','[abdomen, back, chest, ear, head, pelvis, tooth, rectum, skin, leg, arm, chronic pain, joints]','[chills, fever, paresthesia, light-headed, dizzy: about to black out, dizzy: the room is spinning, mouth dry, nauseated, short of breath, sick: like I have the flu, sick: like I have to vomit, sleepy, sweaty, thirsty, tired, weak, joints]','[breathe, hear: losing hearing, hear: sounds are too loud, move one side (arm and or leg), pass a bowel action normally, pass urine normally, remember, see: blindness, see: double vision, see: blurred vision, sleep, smell things normally, speak normally, passing watery bowl actions, scratching, sweating, swallow normally, taste properly, walk normally, write normally, stay awake]','123/7','4/3/2022','4/21/2022','32',12345681,'[oxygen, Epinephrine (mg): 13, Nitroglycerin (mg): 12, Diphenhydramine (mg): 11, Albuterol/salbutamol (mg): 15, Aspirin (mg): 14, Glucose (mg): 16, Atropine (mg): 17, Hydrocortisone (mg): 18, Morphine or nitrous oxide (mg): 19, Nalaxone (mg): 20, Lorazepam or Midazolam (mg): 31, Flumazenil (mg): 34, Melanin (mg): 23]','[Intramuscular injection (IM), Intravascular injection (IV): 342, Subcutaneous Injection (SC), P.O (Oral medication)]','[Other chest pain; chest pain unspecified, Acute upper respiratory infection; unspecified, Urinary tract infection; site not specified, Headache, Unspecified abdominal pain, Syncope and collapse, Non-infective gastroenteritis and colitis; unspecified, Dizziness and giddiness, Low back pain, Unspecified injury of head; initial encounter, Nausea with vomiting; unspecified, Acute pharyngitis; unspecified, Unspecified asthma with (acute) exacerbation, Constipation; unspecified, Acute bronchitis; unspecified, Strain of muscle; fascia and tendon at neck level; initial encounter, Fever: unspecified, Other specified disorders of teeth and supporting structures, Epigastric pain, Strain of muscle; fascia and tendon of lower back; initial encounter, Dead]','This man is completely dead','[]','[]','','',NULL);
 /*!40000 ALTER TABLE `visit` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -67,4 +67,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-25 16:26:18
+-- Dump completed on 2022-04-27 13:42:06

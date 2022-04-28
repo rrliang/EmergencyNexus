@@ -48,7 +48,7 @@ public class LoginScreenController implements Initializable {
                 Scene scene = null;
                 switch(accountType.toLowerCase()) {
                     case "doctor":
-                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface.fxml"));
+                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface2.fxml"));
                         stage.setTitle("Practitioner Interface");
                         scene = new Scene(fxmlLoader.load());
                         StaffUserInterfaceController doctorController = fxmlLoader.getController();
@@ -56,7 +56,7 @@ public class LoginScreenController implements Initializable {
                         doctorController.setUsername(loginUsername.getText());
                         break;
                     case "nurse":
-                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface.fxml"));
+                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface2.fxml"));
                         stage.setTitle("Nurse Interface");
                         scene = new Scene(fxmlLoader.load());
                         StaffUserInterfaceController nurseController = fxmlLoader.getController();

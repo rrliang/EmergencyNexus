@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.StaffUserInterfaceController">
+   <children>
+      <TableView fx:id="draftsTableView" onMousePressed="#draftsTableViewClicked" prefHeight="530.0" prefWidth="703.0">
+         <columns>
+            <TableColumn fx:id="draftsTypeCol" prefWidth="181.0" text="Type" />
+            <TableColumn fx:id="draftsTimeCol" prefWidth="180.0" text="Timestamp" />
+            <TableColumn fx:id="draftsNameCol" prefWidth="281.6000671386719" text="Name" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

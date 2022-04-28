@@ -24,6 +24,8 @@
 	-fx-background-insets: 0.0;
 	-fx-background-radius: 0.0;
 }
+/*
+
 
 .button{
 	-fx-background-color: #f23545;
@@ -34,7 +36,7 @@
 .button:pressed {
     -fx-background-color: #d1303e;
 }
-
+*/
 .dropdown-content{
 	-fx-background-color: white;
 }

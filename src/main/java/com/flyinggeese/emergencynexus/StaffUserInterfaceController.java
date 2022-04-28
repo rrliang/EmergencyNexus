@@ -1,5 +1,7 @@
 package com.flyinggeese.emergencynexus;
 
+import com.jfoenix.controls.JFXButton;
+import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,12 +16,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +40,7 @@ public class StaffUserInterfaceController implements Initializable {
 
     //MENU INSTANCE VARIABLES
     @FXML
-    private Button menuSaveDraftButton, menuSignOutButton, menuSubmitButton, menuOpenFormButton, menuOnlyShowFormButton,
+    private JFXButton menuSaveDraftButton, menuSubmitButton, menuOpenFormButton, menuOnlyShowFormButton,
             menuDeleteButton, menuClearFormButton;
 
     @FXML
@@ -82,12 +88,7 @@ public class StaffUserInterfaceController implements Initializable {
     private VBox overallVBox, doctorVbox;
 
     @FXML
-    private TabPane tabPane;
-
-    @FXML
     private HBox visitAdmissionStatusHbox;
-
-    @FXML private Tab registrationTab, visitTab, recordsTab, draftsTab;
 
     @FXML
     private CheckBox visitCantDoubleVision, visitAbHurt, visitAcuteCheck, visitArmHurt, visitAsthmaCheck, visitBackHurt,
@@ -138,6 +139,76 @@ public class StaffUserInterfaceController implements Initializable {
     TreeTableView<PatientRecords> recordsTable;
     @FXML TreeTableColumn recordPatientCol, recordNameCol, recordBirthdayCol, recordsVisitCol, recordVisitDateCol, visitLastEditorCol;
 
+
+    @FXML
+    private ImageView Exit, menuSignOutButton;
+
+    @FXML
+    private Label Menu;
+
+    @FXML
+    private Label MenuClose;
+
+    @FXML
+    private AnchorPane slider, center, recordsCenter, draftCenter,patientCenter;
+
+    @FXML
+    private JFXButton dashBoardButton, addPatientButton, addVisitButton, draftsButton;
+
+    @FXML private BorderPane borderpane;
+
+    @FXML
+    private VBox centerVbox, rightButtons;
+
+    @FXML
+    private ScrollPane visitCenter;
+
+    private String currentTab = "";
+
+    @FXML
+    void dashBoardButtonClicked(ActionEvent event) throws IOException {
+        currentTab = "records";
+        recordsCenter.toBack();
+        recordsCenter.setVisible(true);
+        patientCenter.setVisible(false);
+        visitCenter.setVisible(false);
+        draftCenter.setVisible(false);
+        setMenuButtonsForms("records");
+    }
+
+    @FXML
+    void addPatientButtonClicked(ActionEvent event) throws IOException {
+        currentTab = "patient";
+        patientCenter.toBack();
+        patientCenter.setVisible(true);
+        recordsCenter.setVisible(false);
+        visitCenter.setVisible(false);
+        draftCenter.setVisible(false);
+        setMenuButtonsForms("forms");
+    }
+
+    @FXML
+    void addVisitButtonClicked(ActionEvent event) throws IOException {
+        currentTab = "visit";
+        visitCenter.toBack();
+        visitCenter.setVisible(true);
+        recordsCenter.setVisible(false);
+        patientCenter.setVisible(false);
+        draftCenter.setVisible(false);
+        setMenuButtonsForms("forms");
+    }
+
+    @FXML
+    void draftsButtonClicked(ActionEvent event) throws IOException {
+        currentTab = "drafts";
+        draftCenter.toBack();
+        draftCenter.setVisible(true);
+        visitCenter.setVisible(false);
+        recordsCenter.setVisible(false);
+        patientCenter.setVisible(false);
+        setMenuButtonsForms("drafts");
+    }
+
     //GLOBAL VARIABLES
     private String accountType, accountHolderName, registerEthnicity, registerReligion, registerSex, registerSexuallyActive;
     private ConnectToDatabase db;
@@ -147,7 +218,7 @@ public class StaffUserInterfaceController implements Initializable {
     public void setAccountType(String accountType) {
         this.accountType = accountType;
         if (accountType.equals("nurse")) {
-            doctorVbox.setVisible(false);
+            //doctorVbox.setVisible(false);
         }
     }
 
@@ -323,7 +394,7 @@ public class StaffUserInterfaceController implements Initializable {
 
     @FXML
     void menuSaveDraftButtonClicked(ActionEvent event) throws SQLException {
-        if (tabPane.getSelectionModel().getSelectedItem().equals(registrationTab)) { //Register Patient
+        if (currentTab.equals("patient")) { //Register Patient
             saveRegistrationDraft();
         } else { //Visit form
             saveVisitDraft();
@@ -332,7 +403,7 @@ public class StaffUserInterfaceController implements Initializable {
 
     @FXML
     void menuClearFormButtonClicked (ActionEvent event) {
-        if (tabPane.getSelectionModel().getSelectedItem().equals(registrationTab)) { //Register Patient
+        if (currentTab.equals("patient")) { //Register Patient
             clearRegistration();
         } else { //Visit form
             clearVisit();
@@ -532,26 +603,12 @@ public class StaffUserInterfaceController implements Initializable {
     }
 
     @FXML
-    void menuSignOutButtonClicked(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Stage stage = new Stage();
-        fxmlLoader.setLocation(getClass().getResource("login-screen.fxml"));
-        stage.setTitle("Login Interface");
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));
-        stage.getIcons().add(new Image(EmergencyNexus.class.getResourceAsStream("logo.png")));
-        stage.setScene(scene);
-        stage.show();
-        ((Node)(event.getSource())).getScene().getWindow().hide();
-    }
-
-    @FXML
     void menuDeleteButtonClicked(ActionEvent event) throws SQLException {
         deleteButtonClicked();
     }
 
     private void deleteButtonClicked() throws SQLException {
-        if (tabPane.getSelectionModel().getSelectedItem().equals(draftsTab)) {
+        if (currentTab.equals("drafts")) {
             if ((draftsTableView.getSelectionModel().getSelectedItem().getClass().getName().contains("PatientRegistrationForm"))) {
                 PatientRegistrationForm form = (PatientRegistrationForm) draftsTableView.getSelectionModel().getSelectedItem();
                 draftList.remove(form);
@@ -562,7 +619,7 @@ public class StaffUserInterfaceController implements Initializable {
                 updateDraftTable();
             }
         }
-        else if (tabPane.getSelectionModel().getSelectedItem().equals(recordsTab)) {
+        if (currentTab.equals("records")) {
             PatientRecords record = recordsTable.getSelectionModel().getSelectedItem().getValue();
             if (record.getPatient() != null) { //It is a patient cell
                 PatientRegistrationForm patient = record.getPatient();
@@ -599,7 +656,7 @@ public class StaffUserInterfaceController implements Initializable {
                 }
             } else { //It is a visit form
                 PatientVisitForm visit = record.getVisit();
-                String deleteForm = "DELETE FROM visit WHERE patient = ? AND dateofvisit = ? AND symptomsifeel = ? AND " +
+                String deleteForm = "Select * FROM visit WHERE patient = ? AND dateofvisit = ? AND symptomsifeel = ? AND " +
                         "symptomsmyhurt = ? AND symptomsicant = ? AND bloodpressure = ? AND admissionstatuscheckin = ? AND " +
                         "admissionstatuscheckout = ? AND admissionstatusroom = ? AND primaryphysician = ? AND givenmedication = ? AND " +
                         "injectionsgiven = ? AND potentialdiagnosis = ? AND notesandobservations = ? AND docrequesttest = ? AND " +
@@ -620,9 +677,19 @@ public class StaffUserInterfaceController implements Initializable {
                 while (result.next()) {
                     visit.setPrimaryPhysician(result.getInt("idusers"));
                 }
+
+                String getPatientQuery = "SELECT * FROM patients WHERE fullname = ?";
+                PreparedStatement statement2 = db.getConnection().prepareStatement(getPatientQuery);
+                statement2.setString(1, visit.getValue("patientName"));
+                ResultSet rs = statement2.executeQuery();
+                while (rs.next()) {
+                    visit.setPatient(rs.getInt("idpatients"));
+                }
                 smt.setInt(1, visit.getPatient());
                 smt.setInt(10, visit.getPrimaryPhysician());
-                if(smt.executeUpdate() == 0) {
+                System.out.println(smt);
+                ResultSet ress = smt.executeQuery();
+                while (ress.next()) {
                     Alert error = new Alert(Alert.AlertType.WARNING, "ERROR: could not delete this visit form");
                     error.showAndWait();
                 }
@@ -633,7 +700,7 @@ public class StaffUserInterfaceController implements Initializable {
 
     @FXML
     void menuSubmitButtonClicked(ActionEvent event) throws SQLException {
-        if (tabPane.getSelectionModel().getSelectedItem().equals(registrationTab)) { //Register Patient
+        if (currentTab.equals("patient")) { //Register Patient
             submitRegisterForm();
             clearRegistration();
         } else { //Visit form
@@ -657,7 +724,7 @@ public class StaffUserInterfaceController implements Initializable {
                 if (result.isPresent() && result.get() == yes) {
                     clearRegistration();
                     registerNameText.setText(visitNameText.getText());
-                    tabPane.getSelectionModel().select(registrationTab);
+                    dashBoardButton.fire();
                 }
             }
             Alert formError = new Alert(Alert.AlertType.ERROR);
@@ -800,6 +867,7 @@ public class StaffUserInterfaceController implements Initializable {
         Alert formSubmitted = new Alert(Alert.AlertType.INFORMATION);
         if (formIsSubmitted) {
             formSubmitted.setContentText("Form was successfully submitted");
+            dashBoardButton.fire();
         } else {
             formSubmitted.setContentText("Form was unsuccessfully submitted");
         }
@@ -1403,13 +1471,8 @@ public class StaffUserInterfaceController implements Initializable {
     }
 
     @FXML
-    void menuOnlyShowFormButton(ActionEvent event) {
-
-    }
-
-    @FXML
     void menuOpenFormButtonClicked(ActionEvent event) {
-        if (tabPane.getSelectionModel().getSelectedItem().equals(recordsTab)) {
+        if (currentTab.equals("records")) {
             openRecordsForm();
         } else {
             openDraftsForm();
@@ -1465,11 +1528,11 @@ public class StaffUserInterfaceController implements Initializable {
         if ((draftsTableView.getSelectionModel().getSelectedItem().getClass().getName().contains("PatientRegistrationForm"))) {
             PatientRegistrationForm form = (PatientRegistrationForm) draftsTableView.getSelectionModel().getSelectedItem();
             setRegistrationTab(form);
-            tabPane.getSelectionModel().select(registrationTab);
+            addPatientButton.fire();
         } else {
             PatientVisitForm form = (PatientVisitForm) draftsTableView.getSelectionModel().getSelectedItem();
             setVisitTab(form);
-            tabPane.getSelectionModel().select(visitTab);
+            addVisitButton.fire();
         }
     }
 
@@ -1477,10 +1540,10 @@ public class StaffUserInterfaceController implements Initializable {
         TreeItem<PatientRecords> record = recordsTable.getSelectionModel().getSelectedItem();
         if (record.getValue().getPatient() != null) {
             setRegistrationTab(record.getValue().getPatient());
-            tabPane.getSelectionModel().select(registrationTab);
+            addPatientButton.fire();
         } else {
             setVisitTab(record.getValue().getVisit());
-            tabPane.getSelectionModel().select(visitTab);
+            addVisitButton.fire();
         }
     }
 
@@ -1907,9 +1970,9 @@ public class StaffUserInterfaceController implements Initializable {
     private void setMenuButtonsForms(String tab) {
         switch(tab) {
             case "forms":
+                menuSubmitButton.toBack();
                 menuClearFormButton.toBack();
                 menuSaveDraftButton.toBack();
-                menuSubmitButton.toBack();
                 menuSaveDraftButton.setVisible(true);
                 menuSubmitButton.setVisible(true);
                 menuClearFormButton.setVisible(true);
@@ -1918,18 +1981,19 @@ public class StaffUserInterfaceController implements Initializable {
                 menuDeleteButton.setVisible(false);
                 break;
             case "records":
-                menuOnlyShowFormButton.toBack();
                 menuOpenFormButton.toBack();
+                menuDeleteButton.toBack();
+                menuOnlyShowFormButton.toBack();
                 menuSaveDraftButton.setVisible(false);
                 menuSubmitButton.setVisible(false);
                 menuClearFormButton.setVisible(false);
                 menuOpenFormButton.setVisible(true);
                 menuOnlyShowFormButton.setVisible(true);
-                menuDeleteButton.setVisible(false);
+                menuDeleteButton.setVisible(true);
                 break;
             case "drafts":
-                menuDeleteButton.toBack();
                 menuOpenFormButton.toBack();
+                menuDeleteButton.toBack();
                 menuSaveDraftButton.setVisible(false);
                 menuSubmitButton.setVisible(false);
                 menuClearFormButton.setVisible(false);
@@ -1941,6 +2005,92 @@ public class StaffUserInterfaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        dashBoardButton.fire();
+        center.setTranslateX(-176);
+        Exit.setOnMouseClicked(event -> {
+            System.exit(0);
+        });
+        menuSignOutButton.setOnMouseClicked(event -> {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Stage stage = new Stage();
+            fxmlLoader.setLocation(getClass().getResource("login-screen.fxml"));
+            stage.setTitle("Login Interface");
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));
+            stage.getIcons().add(new Image(EmergencyNexus.class.getResourceAsStream("logo.png")));
+            stage.setScene(scene);
+            stage.show();
+            ((Node)(event.getSource())).getScene().getWindow().hide();
+        });
+
+        slider.setTranslateX(-176);
+        Menu.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            TranslateTransition cslide = new TranslateTransition();
+            cslide.setDuration(Duration.seconds(0.4));
+            cslide.setNode(center);
+
+//            TranslateTransition rslide = new TranslateTransition();
+//            rslide.setDuration(Duration.seconds(0.4));
+//            rslide.setNode(rightButtons);
+
+            slide.setNode(slider);
+
+//            rslide.setToX(0);
+//            rslide.play();
+
+            cslide.setToX(0);
+            cslide.play();
+
+            slide.setToX(0);
+            slide.play();
+
+            slider.setTranslateX(-176);
+            center.setTranslateX(176);
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(false);
+                MenuClose.setVisible(true);
+            });
+        });
+
+        MenuClose.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+
+            TranslateTransition cslide = new TranslateTransition();
+            cslide.setDuration(Duration.seconds(0.4));
+            cslide.setNode(center);
+
+//            TranslateTransition rslide = new TranslateTransition();
+//            rslide.setDuration(Duration.seconds(0.4));
+//            rslide.setNode(rightButtons);
+
+//            rslide.setToX(-176);
+//            rslide.play();
+
+            cslide.setToX(-176);
+            cslide.play();
+
+            slide.setToX(-176);
+            slide.play();
+//            center.setTranslateX(0);
+            slider.setTranslateX(0);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(true);
+                MenuClose.setVisible(false);
+            });
+        });
+
+
+
         registerEthnicity = "";
         registerReligion = "";
         registerSex = "";
@@ -1966,21 +2116,6 @@ public class StaffUserInterfaceController implements Initializable {
                 diagnosisBronchCheck, diagnosisPulmonaryCheck, diagnosisMyocardialCheck, diagnosisDiabetesCheck,
                 diagnosisIntracranialCheck, diagnosisFoodCheck, diagnosisAbdomoinalCheck, diagnosisUrinaryCheck,
                 diagnosisCardiacArrestCheck, diagnosisCovidCheck};
-
-        tabPane.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Tab>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        if (tabPane.getSelectionModel().getSelectedItem().equals(registrationTab) || tabPane.getSelectionModel().getSelectedItem().equals(visitTab)) {
-                            setMenuButtonsForms("forms");
-                        } else if (tabPane.getSelectionModel().getSelectedItem().equals(recordsTab)){
-                            setMenuButtonsForms("records");
-                        } else {
-                            setMenuButtonsForms("drafts");
-                        }
-                    }
-                }
-        );
 
         ToggleGroup admissionStatus = new ToggleGroup();
         admissionStatus.getToggles().addAll(visitAdmissionYesRadio, visitAdmissionNoRadio);
@@ -2035,11 +2170,11 @@ public class StaffUserInterfaceController implements Initializable {
         });
 
 
-        AnchorPane.setTopAnchor(tabPane, 0.0);
-        AnchorPane.setLeftAnchor(tabPane, 0.0);
-        AnchorPane.setRightAnchor(tabPane, 0.0);
-        AnchorPane.setBottomAnchor(tabPane, 0.0);
-        overallVBox.fillWidthProperty();
+//        AnchorPane.setTopAnchor(tabPane, 0.0);
+//        AnchorPane.setLeftAnchor(tabPane, 0.0);
+//        AnchorPane.setRightAnchor(tabPane, 0.0);
+//        AnchorPane.setBottomAnchor(tabPane, 0.0);
+//        overallVBox.fillWidthProperty();
 
         ObservableList<Object> bloodTypes = FXCollections.observableArrayList();
         bloodTypes.addAll("A", "B", "AB", "O", "Unknown");
@@ -2086,6 +2221,10 @@ public class StaffUserInterfaceController implements Initializable {
             e.printStackTrace();
         }
         visitPhysicianChoice.setItems(primaryPhysicians);
+
+    }
+
+    public void menuOnlyShowFormButtonClicked(ActionEvent actionEvent) {
 
     }
 }

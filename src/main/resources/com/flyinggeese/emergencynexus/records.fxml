@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="452.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.StaffUserInterfaceController">
+   <children>
+      <TextField layoutX="5.0" layoutY="2.0" prefHeight="25.0" prefWidth="363.0" promptText="Patient name to look up" />
+      <TreeTableView fx:id="recordsTable" layoutY="30.0" onMouseClicked="#recordsTableClicked" prefHeight="425.0" prefWidth="703.0">
+         <columns>
+            <TreeTableColumn fx:id="recordPatientCol" prefWidth="400.0" text="Patient">
+               <columns>
+                  <TreeTableColumn fx:id="recordNameCol" prefWidth="150.0" text="Name" />
+                  <TreeTableColumn fx:id="recordBirthdayCol" minWidth="0.0" prefWidth="150.0" text="Birthdate" />
+               </columns>
+            </TreeTableColumn>
+            <TreeTableColumn fx:id="recordsVisitCol" minWidth="0.0" prefWidth="450.0" text="Visit Form">
+               <columns>
+                  <TreeTableColumn fx:id="recordVisitDateCol" prefWidth="150.0" text="Visit form date" />
+                  <TreeTableColumn fx:id="visitLastEditorCol" minWidth="255.0" prefWidth="50.0" text="Last person to edit form" />
+               </columns>
+            </TreeTableColumn>
+         </columns>
+      </TreeTableView>
+   </children>
+</AnchorPane>
