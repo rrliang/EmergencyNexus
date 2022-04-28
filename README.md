@@ -35,6 +35,7 @@ The code hosted in this repo will work on the Intellij IDE specifically. If open
 ### Running from Jar file:
 A runnable jar file can be found here: https://drive.google.com/drive/folders/1lJTIt7UZk29Ey6gxMTsvBxw4EuAH9npD?usp=sharing
 If you want to run it from the jar file, please navigate to the shared google drive folder and download both the database-properties.txt file and the emergency-nexus.jar file. Before running the jar file, please add your MySQL root password into the txt file. If you cannot remember your MYSQL root password, you can follow this helpful video to reset the password: https://www.youtube.com/watch?v=rr_hDJLFvQE&list=PLieBumQqLguVUzIctr322URQE7yTo5FmJ&index=3 (Verified working on 4/0/2022).
+Optionally, the jar file can also be found in this Github repo. Simply download the out folder, set your MySQL root password into the database-properties.txt file, and double click the jar file to run it. 
 
 ### Login screen:
 Once at the login screen, try using the accounts:
@@ -102,3 +103,13 @@ Vers. 1.0.0 of the Emergency Nexus software:
   - TODO: implement the couple of things that need to change between the Nurse and Doctor UIs
 - TODO: Billing
   - Will be an option as seen in the records table in both the Nurse and Doctor UIs  
+ 
+  
+FOR DELIVERABLE #6 
+=============
+Vers. 1.0.1 of the Emergency Nexus software:
+  - Doctor UI finished
+  - Billing UI finished and added to records table
+  - Search bar TODO deleted (No need for the search bar)
+  - Everything done
+  - UI look updated
