@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -40,8 +41,8 @@ public class StaffUserInterfaceController implements Initializable {
 
     //MENU INSTANCE VARIABLES
     @FXML
-    private JFXButton menuSaveDraftButton, menuSubmitButton, menuOpenFormButton, menuOnlyShowFormButton,
-            menuDeleteButton, menuClearFormButton;
+    private JFXButton menuSaveDraftButton, menuSubmitButton, menuOpenFormButton,
+            menuDeleteButton, menuClearFormButton, submitBilling, menu;
 
     @FXML
     private HBox uniqueMenuButtonHbox, registerPregnantHbox;
@@ -137,20 +138,14 @@ public class StaffUserInterfaceController implements Initializable {
     //INSTANCE VARIABLES FOR RECORDS
     @FXML
     TreeTableView<PatientRecords> recordsTable;
-    @FXML TreeTableColumn recordPatientCol, recordNameCol, recordBirthdayCol, recordsVisitCol, recordVisitDateCol, visitLastEditorCol;
+    @FXML TreeTableColumn recordPatientCol, recordNameCol, recordBirthdayCol, recordBillCol, recordsVisitCol, recordVisitDateCol, visitLastEditorCol;
 
 
     @FXML
     private ImageView Exit, menuSignOutButton;
 
     @FXML
-    private Label Menu;
-
-    @FXML
-    private Label MenuClose;
-
-    @FXML
-    private AnchorPane slider, center, recordsCenter, draftCenter,patientCenter;
+    private AnchorPane slider, center, recordsCenter, draftCenter;
 
     @FXML
     private JFXButton dashBoardButton, addPatientButton, addVisitButton, draftsButton;
@@ -161,9 +156,31 @@ public class StaffUserInterfaceController implements Initializable {
     private VBox centerVbox, rightButtons;
 
     @FXML
-    private ScrollPane visitCenter;
+    private ScrollPane visitCenter, patientCenter;
 
-    private String currentTab = "";
+    private String currentTab = "", pregnant;
+    private boolean menuOpen, editing;
+    private PatientRegistrationForm editForm;
+
+    @FXML
+    public void calcBilling(ActionEvent actionevent) throws IOException{
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlloader = new FXMLLoader();
+
+        fxmlloader.setLocation(getClass().getResource("billing-interface.fxml"));
+        Scene scene = new Scene(fxmlloader.load());
+        BillingController billingController = fxmlloader.getController();
+
+        billingController.getForm(getVisitForm());
+
+
+        primaryStage.setTitle("Billing");
+        primaryStage.getIcons().add(new Image(EmergencyNexus.class.getResourceAsStream("logo.png")));
+
+        primaryStage.setScene(scene);
+        primaryStage.initModality(Modality.WINDOW_MODAL);
+        primaryStage.show();
+    }
 
     @FXML
     void dashBoardButtonClicked(ActionEvent event) throws IOException {
@@ -218,7 +235,17 @@ public class StaffUserInterfaceController implements Initializable {
     public void setAccountType(String accountType) {
         this.accountType = accountType;
         if (accountType.equals("nurse")) {
-            //doctorVbox.setVisible(false);
+            visitPhysicianChoice.setValue(accountHolderName);
+            for (CheckBox c : doctorTestChecks) {
+                c.setDisable(true);
+            }
+            for (CheckBox c : doctorDiagnosisChecks) {
+                c.setDisable(true);
+            }
+            otherTestText.setDisable(true);
+            otherDiagnosisText.setDisable(true);
+            doctorDischargeText.setDisable(true);
+            doctorNotes.setDisable(true);
         }
     }
 
@@ -230,9 +257,7 @@ public class StaffUserInterfaceController implements Initializable {
         while (result.next()) {
             accountHolderName = result.getString("fullname");
         }
-        if (accountType.equals("doctor")) {
-            visitPhysicianChoice.setValue(accountHolderName);
-        }
+
     }
 
     private void updateRecordsTable() throws SQLException {
@@ -244,6 +269,7 @@ public class StaffUserInterfaceController implements Initializable {
         recordBirthdayCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("birthdate"));
         recordVisitDateCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("dateOfVisit"));
         visitLastEditorCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("lastEditedBy"));
+        recordBillCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("totalBill"));
 
         String getPatientQuery = "SELECT * FROM patients";
         PreparedStatement statement = db.getConnection().prepareStatement(getPatientQuery);
@@ -405,6 +431,7 @@ public class StaffUserInterfaceController implements Initializable {
     void menuClearFormButtonClicked (ActionEvent event) {
         if (currentTab.equals("patient")) { //Register Patient
             clearRegistration();
+            registerNameText.setDisable(false);
         } else { //Visit form
             clearVisit();
         }
@@ -656,16 +683,15 @@ public class StaffUserInterfaceController implements Initializable {
                 }
             } else { //It is a visit form
                 PatientVisitForm visit = record.getVisit();
-                String deleteForm = "Select * FROM visit WHERE patient = ? AND dateofvisit = ? AND symptomsifeel = ? AND " +
-                        "symptomsmyhurt = ? AND symptomsicant = ? AND bloodpressure = ? AND admissionstatuscheckin = ? AND " +
-                        "admissionstatuscheckout = ? AND admissionstatusroom = ? AND primaryphysician = ? AND givenmedication = ? AND " +
-                        "injectionsgiven = ? AND potentialdiagnosis = ? AND notesandobservations = ? AND docrequesttest = ? AND " +
-                        "docdiagnosis = ? AND docdischargeinstructions = ? AND docnotesandobservations = ? AND lasteditedby = ?";
+                String deleteForm = "DELETE FROM visit WHERE visit.patient = ? AND visit.dateofvisit = ? AND visit.symptomsifeel = ? AND " +
+                        "visit.symptomsmyhurt = ? AND visit.symptomsicant = ? AND visit.bloodpressure = ? AND visit.admissionstatuscheckin = ? AND " +
+                        "visit.admissionstatuscheckout = ? AND visit.admissionstatusroom = ? AND visit.primaryphysician = ? AND visit.givenmedication = ? AND " +
+                        "visit.injectionsgiven = ? AND visit.potentialdiagnosis = ? AND visit.notesandobservations = ? AND visit.docrequesttest = ? AND " +
+                        "visit.docdiagnosis = ? AND visit.docdischargeinstructions = ? AND visit.docnotesandobservations = ?";
                 PreparedStatement smt = db.getConnection().prepareStatement(deleteForm);
                 String all[] = visit.getAll();
-                for (int i = 2; i <= all.length; i++) {
+                for (int i = 2; i <= all.length-1; i++) {
                     if (i != 10) {
-                        System.out.println(all[i - 1]);
                         smt.setString(i, all[i - 1]);
                     }
                 }
@@ -687,9 +713,9 @@ public class StaffUserInterfaceController implements Initializable {
                 }
                 smt.setInt(1, visit.getPatient());
                 smt.setInt(10, visit.getPrimaryPhysician());
-                System.out.println(smt);
-                ResultSet ress = smt.executeQuery();
-                while (ress.next()) {
+
+                int exe = smt.executeUpdate();
+                if (exe == -1){
                     Alert error = new Alert(Alert.AlertType.WARNING, "ERROR: could not delete this visit form");
                     error.showAndWait();
                 }
@@ -702,10 +728,8 @@ public class StaffUserInterfaceController implements Initializable {
     void menuSubmitButtonClicked(ActionEvent event) throws SQLException {
         if (currentTab.equals("patient")) { //Register Patient
             submitRegisterForm();
-            clearRegistration();
         } else { //Visit form
             submitVisitForm();
-            clearVisit();
         }
         updateRecordsTable();
     }
@@ -811,24 +835,70 @@ public class StaffUserInterfaceController implements Initializable {
     private void submitRegisterForm() throws SQLException {
         String errMsg, warningMsg;
         PatientRegistrationForm form = getRegistrationForm();
-        if (checkRegistrationEmpty()) {
-            alertFormEmpty(true);
-        } else if(checkIfPatientExists(form)) {
-            alertPatientAlreadyExists(true, "Patient Form");
-        } else if((errMsg = checkRegistrationError()).length() != 0) {
-            Alert formError = new Alert(Alert.AlertType.ERROR);
-            formError.setContentText(errMsg);
-            formError.showAndWait();
-        } else if((warningMsg = checkRegistrationWarning()).length() != 0) {
-            ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-            ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-            Alert formError = new Alert(Alert.AlertType.ERROR,warningMsg + "\n Still want to submit?", yes, no);
-            Optional<ButtonType> result = formError.showAndWait();
-            if (result.isPresent() && result.get() == yes) {
-                alertSubmitSuccess(submitRegistrationForm(form));
+        if (editing) {
+            registerNameText.setDisable(true);
+            if (checkRegistrationEmpty()) {
+                alertFormEmpty(true);
+            } else if (
+                    ((TextField)registerBirthDateCalendar.getEditor()).getText().equals(editForm.getValue("birthdate")) &&
+                    registerPhoneText.getText().equals(editForm.getValue("phone")) && registerAddressText.getText().equals(editForm.getValue("home")) && registerEmailText.getText().equals(editForm.getValue("email")) &&
+                    registerGuardianNameText.getText().equals(editForm.getValue("guardianName")) && registerGuardianPhoneText.getText().equals(editForm.getValue("guardianPhone")) && registerBloodTypeChoiceBox.getValue().equals(editForm.getValue("bloodType")) &&
+                    registerInsuranceChoice.getValue().equals(editForm.getValue("insurance")) && ((TextField)registerCovidPrimaryVaccineCalendar.getEditor()).getText().equals(editForm.getValue("covid1date")) &&
+                    registerCovidPrimaryVaccineChoice.getValue().equals(editForm.getValue("covid1Type")) && ((TextField)registerCovidSecondaryVaccineCalendar.getEditor()).getText().equals(editForm.getValue("covid2date")) &&
+                    registerCovidSecondaryVaccineChoice.getValue().equals(editForm.getValue("covid2Type")) && ((TextField)registerCovidBoosterVaccineCalendar.getEditor()).getText().equals(editForm.getValue("covid3date")) &&
+                    registerCovidBoosterVaccineChoice.getValue().equals(editForm.getValue("covid3Type")) && getAllergies().equals(editForm.getValue("allergies")) && registerPreConditionsText.getText().equals(editForm.getValue("preexistingConditions")) &&
+                    getPriorMedications().equals(editForm.getValue("medications")) && getSubstanceUse().equals(editForm.getValue("history")) && registerHeightText.getText().equals(editForm.getValue("height")) &&
+                    registerWeightText.getText().equals(editForm.getValue("weight")) && registerRaceChoice.getValue().equals(editForm.getValue("race")) && registerEthnicity.equals(editForm.getValue("ethnicity")) &&
+                    registerReligion.equals(editForm.getValue("religion")) && pregnant.equals(editForm.getValue("pregnancy")) && registerSex.equals(editForm.getValue("sex")) && registerGenderChoice.getValue().equals(editForm.getValue("gender")) &&
+                    registerPronounsText.getText().equals(editForm.getValue("pronouns")) && registerSexuallyActive.equals(editForm.getValue("sexualActivity")))
+            {
+                Alert nothingInForm = new Alert(Alert.AlertType.CONFIRMATION);
+                nothingInForm.setContentText("ERR: Nothing has been changed. Update will not be saved.");
+                nothingInForm.showAndWait();
+            } else {
+                String updateQuery = "UPDATE patients set fullname = ?, dateofbirth = ?, phonenumber = ?, homeaddress = ?, email = ?, guardianname = ?," +
+                        " guardianphonenumber = ?, bloodtype = ?, healthinsuranceprovider = ?, covidshot1date = ?, covidshot1type = ?, covidshot2date = ?," +
+                        " covidshot2type = ?, boosterdate = ?, boostertype = ?, allergies = ?, preexistingconditions = ?, priormedications = ?, historyofsubstance = ?," +
+                        " height = ?, weight = ?, race = ?, ethnicity = ?, religion = ?, pregnancy = ?, assignedbirthsex = ?, genderidentity = ?, pronouns = ?, sexualactivity = ?" +
+                        " WHERE fullname = ? AND dateofbirth = ?";
+                PreparedStatement smt = db.getConnection().prepareStatement(updateQuery);
+                String all[] = form.getAll();
+
+                for (int i = 1; i <= all.length; i++) {
+                    smt.setString(i, all[i-1]);
+                }
+                smt.setString(all.length + 1, editForm.getValue("name"));
+                smt.setString(all.length + 2, editForm.getValue("birthdate"));
+                int rs = smt.executeUpdate();
+                boolean worked = false;
+                if(rs != 0) {
+                    Alert workedAlert = new Alert(Alert.AlertType.CONFIRMATION, form.getValue("name") + " was successfully updated");
+                    workedAlert.showAndWait();
+                    updateRecordsTable();
+                    menuClearFormButton.fire();
+                    editing = false;
+                }
             }
         } else {
-            alertSubmitSuccess(submitRegistrationForm(form));
+            if (checkRegistrationEmpty()) {
+                alertFormEmpty(true);
+            } else if(checkIfPatientExists(form)) {
+                alertPatientAlreadyExists(true, "Patient Form");
+            } else if((errMsg = checkRegistrationError()).length() != 0) {
+                Alert formError = new Alert(Alert.AlertType.ERROR);
+                formError.setContentText(errMsg);
+                formError.showAndWait();
+            } else if((warningMsg = checkRegistrationWarning()).length() != 0) {
+                ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+                Alert formError = new Alert(Alert.AlertType.ERROR,warningMsg + "\n Still want to submit?", yes, no);
+                Optional<ButtonType> result = formError.showAndWait();
+                if (result.isPresent() && result.get() == yes) {
+                    alertSubmitSuccess(submitRegistrationForm(form));
+                }
+            } else {
+                alertSubmitSuccess(submitRegistrationForm(form));
+            }
         }
     }
 
@@ -867,6 +937,7 @@ public class StaffUserInterfaceController implements Initializable {
         Alert formSubmitted = new Alert(Alert.AlertType.INFORMATION);
         if (formIsSubmitted) {
             formSubmitted.setContentText("Form was successfully submitted");
+            menuClearFormButton.fire();
             dashBoardButton.fire();
         } else {
             formSubmitted.setContentText("Form was unsuccessfully submitted");
@@ -1117,7 +1188,7 @@ public class StaffUserInterfaceController implements Initializable {
     }
 
     private PatientRegistrationForm getRegistrationForm() {
-        String pregnant = "no";
+        pregnant = "no";
         if (registerPregnantRadio.isPressed()) {
             pregnant = "yes";
         }
@@ -1474,10 +1545,14 @@ public class StaffUserInterfaceController implements Initializable {
     void menuOpenFormButtonClicked(ActionEvent event) {
         if (currentTab.equals("records")) {
             openRecordsForm();
+            if (editing) {
+                registerNameText.setDisable(true);
+            } else {
+                registerNameText.setDisable(false);
+            }
         } else {
             openDraftsForm();
         }
-
     }
 
     @FXML
@@ -1509,6 +1584,8 @@ public class StaffUserInterfaceController implements Initializable {
         cm.getItems().add(open);
         MenuItem delete = new MenuItem("Delete");
         cm.getItems().add(delete);
+        MenuItem edit = new MenuItem("Edit Patient");
+        cm.getItems().add(edit);
         if(event.getButton() == MouseButton.SECONDARY) {
             recordsTable.setContextMenu(cm);
             open.setOnAction((cmEvent) -> {
@@ -1520,6 +1597,12 @@ public class StaffUserInterfaceController implements Initializable {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+            });
+            edit.setOnAction((cmEvent) -> {
+                TreeItem<PatientRecords> record = recordsTable.getSelectionModel().getSelectedItem();
+                editing = true;
+                editForm = record.getValue().getPatient();
+                menuOpenFormButton.fire();
             });
         }
     }
@@ -1826,8 +1909,8 @@ public class StaffUserInterfaceController implements Initializable {
         visitRoomNumberText.setText(form.getValue("admissionStatusRoom"));
         visitPhysicianChoice.setValue(form.getValue("physicianName"));
         visitNotes.setText(form.getValue("notesAndObservations"));
-        if (!form.getValue("docRequestText").equals("[]")) {
-            for (String s : (form.getValue("docRequestText").substring(1, form.getValue("docRequestText").length() - 1)).split(",")) {
+        if (!form.getValue("docRequestTest").equals("[]")) {
+            for (String s : (form.getValue("docRequestTest").substring(1, form.getValue("docRequestTest").length() - 1)).split(",")) {
                 for (CheckBox c : doctorTestChecks) {
                     if (s.contains(c.getText())) {
                         c.fire();
@@ -1973,43 +2056,52 @@ public class StaffUserInterfaceController implements Initializable {
                 menuSubmitButton.toBack();
                 menuClearFormButton.toBack();
                 menuSaveDraftButton.toBack();
+                if (currentTab.equals("visit")) {
+                    submitBilling.toBack();
+                    submitBilling.setVisible(true);
+                }
                 menuSaveDraftButton.setVisible(true);
                 menuSubmitButton.setVisible(true);
                 menuClearFormButton.setVisible(true);
                 menuOpenFormButton.setVisible(false);
-                menuOnlyShowFormButton.setVisible(false);
                 menuDeleteButton.setVisible(false);
                 break;
             case "records":
                 menuOpenFormButton.toBack();
                 menuDeleteButton.toBack();
-                menuOnlyShowFormButton.toBack();
+                submitBilling.setVisible(false);
                 menuSaveDraftButton.setVisible(false);
                 menuSubmitButton.setVisible(false);
                 menuClearFormButton.setVisible(false);
                 menuOpenFormButton.setVisible(true);
-                menuOnlyShowFormButton.setVisible(true);
                 menuDeleteButton.setVisible(true);
                 break;
             case "drafts":
                 menuOpenFormButton.toBack();
                 menuDeleteButton.toBack();
+                submitBilling.setVisible(false);
                 menuSaveDraftButton.setVisible(false);
                 menuSubmitButton.setVisible(false);
                 menuClearFormButton.setVisible(false);
                 menuOpenFormButton.setVisible(true);
-                menuOnlyShowFormButton.setVisible(false);
                 menuDeleteButton.setVisible(true);
         }
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        editing = false;
+        menuOpen = false;
+        pregnant = "";
+        menu.fire();
+
         dashBoardButton.fire();
         center.setTranslateX(-176);
         Exit.setOnMouseClicked(event -> {
             System.exit(0);
         });
+
         menuSignOutButton.setOnMouseClicked(event -> {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Stage stage = new Stage();
@@ -2028,67 +2120,75 @@ public class StaffUserInterfaceController implements Initializable {
             ((Node)(event.getSource())).getScene().getWindow().hide();
         });
 
-        slider.setTranslateX(-176);
-        Menu.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            TranslateTransition cslide = new TranslateTransition();
-            cslide.setDuration(Duration.seconds(0.4));
-            cslide.setNode(center);
-
-//            TranslateTransition rslide = new TranslateTransition();
-//            rslide.setDuration(Duration.seconds(0.4));
-//            rslide.setNode(rightButtons);
-
-            slide.setNode(slider);
-
-//            rslide.setToX(0);
-//            rslide.play();
-
-            cslide.setToX(0);
-            cslide.play();
-
-            slide.setToX(0);
-            slide.play();
-
-            slider.setTranslateX(-176);
-            center.setTranslateX(176);
-            slide.setOnFinished((ActionEvent e)-> {
-                Menu.setVisible(false);
-                MenuClose.setVisible(true);
-            });
-        });
-
-        MenuClose.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(slider);
-
-            TranslateTransition cslide = new TranslateTransition();
-            cslide.setDuration(Duration.seconds(0.4));
-            cslide.setNode(center);
-
-//            TranslateTransition rslide = new TranslateTransition();
-//            rslide.setDuration(Duration.seconds(0.4));
-//            rslide.setNode(rightButtons);
-
-//            rslide.setToX(-176);
-//            rslide.play();
-
-            cslide.setToX(-176);
-            cslide.play();
-
-            slide.setToX(-176);
-            slide.play();
-//            center.setTranslateX(0);
-            slider.setTranslateX(0);
-
-            slide.setOnFinished((ActionEvent e)-> {
-                Menu.setVisible(true);
-                MenuClose.setVisible(false);
-            });
-        });
-
+//        Menu.setOnMouseClicked(event -> {
+//            Image image = new Image(String.valueOf(getClass().getResource("Images/logo.png")));
+//            ImageView view = new ImageView(image);
+//            view.setFitHeight(30);
+//            view.setFitWidth(30);
+//            Menu.setGraphic(view);
+//            TranslateTransition slide = new TranslateTransition();
+//            slide.setDuration(Duration.seconds(0.4));
+//            TranslateTransition cslide = new TranslateTransition();
+//            cslide.setDuration(Duration.seconds(0.4));
+//            cslide.setNode(center);
+//
+////            TranslateTransition rslide = new TranslateTransition();
+////            rslide.setDuration(Duration.seconds(0.4));
+////            rslide.setNode(rightButtons);
+//
+//            slide.setNode(slider);
+//
+////            rslide.setToX(0);
+////            rslide.play();
+//
+//            cslide.setToX(0);
+//            cslide.play();
+//
+//            slide.setToX(0);
+//            slide.play();
+//
+//            slider.setTranslateX(-176);
+//            center.setTranslateX(176);
+//            slide.setOnFinished((ActionEvent e)-> {
+//                Menu.setVisible(false);
+//                MenuClose.setVisible(true);
+//            });
+//        });
+//
+//        MenuClose.setOnMouseClicked(event -> {
+//            Image image = new Image(String.valueOf(getClass().getResource("Images/logo2.png")));
+//            ImageView view = new ImageView(image);
+//            view.setFitHeight(30);
+//            view.setFitWidth(30);
+//            MenuClose.setGraphic(view);
+//            TranslateTransition slide = new TranslateTransition();
+//            slide.setDuration(Duration.seconds(0.4));
+//            slide.setNode(slider);
+//
+//            TranslateTransition cslide = new TranslateTransition();
+//            cslide.setDuration(Duration.seconds(0.4));
+//            cslide.setNode(center);
+//
+////            TranslateTransition rslide = new TranslateTransition();
+////            rslide.setDuration(Duration.seconds(0.4));
+////            rslide.setNode(rightButtons);
+//
+////            rslide.setToX(-176);
+////            rslide.play();
+//
+//            cslide.setToX(-176);
+//            cslide.play();
+//
+//            slide.setToX(-176);
+//            slide.play();
+////            center.setTranslateX(0);
+//            slider.setTranslateX(0);
+//
+//            slide.setOnFinished((ActionEvent e)-> {
+//                Menu.setVisible(true);
+//                MenuClose.setVisible(false);
+//            });
+//        });
 
 
         registerEthnicity = "";
@@ -2096,7 +2196,11 @@ public class StaffUserInterfaceController implements Initializable {
         registerSex = "";
         registerSexuallyActive = "";
         db = new ConnectToDatabase();
-        db.makeJDBCConnection();
+        try {
+            db.makeJDBCConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         draftList = FXCollections.observableArrayList();
         setMenuButtonsForms("records");
         registerPregnantHbox.setVisible(false);
@@ -2224,7 +2328,71 @@ public class StaffUserInterfaceController implements Initializable {
 
     }
 
-    public void menuOnlyShowFormButtonClicked(ActionEvent actionEvent) {
+    public void menuButtonClicked(ActionEvent actionEvent) {
+        if (!menuOpen) {
+            Image image = new Image(String.valueOf(getClass().getResource("Images/logo.png")));
+            ImageView view = new ImageView(image);
+            view.setFitHeight(30);
+            view.setFitWidth(30);
+            menu.setGraphic(view);
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
 
+            TranslateTransition cslide = new TranslateTransition();
+            cslide.setDuration(Duration.seconds(0.4));
+            cslide.setNode(center);
+
+//            TranslateTransition rslide = new TranslateTransition();
+//            rslide.setDuration(Duration.seconds(0.4));
+//            rslide.setNode(rightButtons);
+
+//            rslide.setToX(-176);
+//            rslide.play();
+
+            cslide.setToX(-176);
+            cslide.play();
+
+            slide.setToX(-176);
+            slide.play();
+//            center.setTranslateX(0);
+            slider.setTranslateX(0);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                menuOpen = true;
+            });
+        } else {
+            Image image = new Image(String.valueOf(getClass().getResource("Images/logo2.png")));
+            ImageView view = new ImageView(image);
+            view.setFitHeight(30);
+            view.setFitWidth(30);
+            menu.setGraphic(view);
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            TranslateTransition cslide = new TranslateTransition();
+            cslide.setDuration(Duration.seconds(0.4));
+            cslide.setNode(center);
+
+//            TranslateTransition rslide = new TranslateTransition();
+//            rslide.setDuration(Duration.seconds(0.4));
+//            rslide.setNode(rightButtons);
+
+            slide.setNode(slider);
+
+//            rslide.setToX(0);
+//            rslide.play();
+
+            cslide.setToX(0);
+            cslide.play();
+
+            slide.setToX(0);
+            slide.play();
+
+            slider.setTranslateX(-176);
+            center.setTranslateX(176);
+            slide.setOnFinished((ActionEvent e)-> {
+                menuOpen = false;
+            });
+        }
     }
 }

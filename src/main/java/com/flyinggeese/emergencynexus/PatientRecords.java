@@ -4,13 +4,15 @@ public class PatientRecords {
     private PatientRegistrationForm patient;
     private String fullname, birthdate;
     private PatientVisitForm visit;
-    private String dateOfVisit, lastEditedBy;
+    private String dateOfVisit, lastEditedBy, totalBill;
+    CalculateBilling cb;
 
     PatientRecords() {
         fullname = "";
         birthdate = "";
         dateOfVisit = "";
         lastEditedBy = "";
+        totalBill = "";
     }
 
     PatientRecords(PatientRegistrationForm patient) {
@@ -23,6 +25,10 @@ public class PatientRecords {
         this.visit = visit;
         dateOfVisit = visit.getValue("dateOfVisit");
         lastEditedBy = visit.getValue("lasteditedby");
+        cb = new CalculateBilling(visit);
+        cb.costMedicine();
+        cb.costInjections();
+        totalBill = "$"+Integer.toString(cb.calculateBilling() + (cb.getStayPrice()*1000));
     }
 
     PatientRecords(PatientRegistrationForm patient, PatientVisitForm visit) {
@@ -32,6 +38,10 @@ public class PatientRecords {
         birthdate = patient.getValue("birthdate");
         dateOfVisit = visit.getValue("dateOfVisit");
         lastEditedBy = visit.getValue("lasteditedby");
+        cb = new CalculateBilling(visit);
+        cb.costMedicine();
+        cb.costInjections();
+        totalBill = "$"+Integer.toString(cb.calculateBilling() + (cb.getStayPrice()*1000));
     }
 
     public String getFullname() {
@@ -48,6 +58,10 @@ public class PatientRecords {
 
     public String getLastEditedBy() {
         return lastEditedBy;
+    }
+
+    public String getTotalBill() {
+        return totalBill;
     }
 
     public PatientVisitForm getVisit() {

@@ -78,7 +78,7 @@ public class PatientVisitForm {
         keys.add("injectionsGiven");
         keys.add("potentialDiagnosis");
         keys.add("notesAndObservations");
-        keys.add("docRequestText");
+        keys.add("docRequestTest");
         keys.add("docDiagnosis");
         keys.add("docDischargeInstructions");
         keys.add("docNotesAndObservations");

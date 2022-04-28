@@ -3,6 +3,10 @@
     -fx-border-width: 0px 0px 3px 0px;
 }
 
+menu:pressed {
+    -fx-background-color: transparent;
+}
+
 .sidebarItem:hover{
     -fx-background-color: #b894ed;
     -fx-border-color: WHITE;

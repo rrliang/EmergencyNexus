@@ -48,8 +48,22 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@test.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flyinggeese.emergencynexus.SysAdminUserInterfaceController">
     <children>
+        <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefWidth="704.0" spacing="10.0">
+            <ImageView fx:id="menuSignOutButton" fitHeight="22.0" fitWidth="22.0" layoutX="678.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@Images/logout.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="Exit" fitHeight="22.0" fitWidth="22.0" layoutX="678.0" layoutY="2.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@Images/exit.png" />
+                </image>
+            </ImageView>
+        </HBox>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="499.0" prefWidth="718.0" VBox.vgrow="ALWAYS">
             <children>
                 <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
@@ -68,8 +82,6 @@
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="771.0">
                                                     <children>
                                                         <Button fx:id="viewAccountsUpdateButton" layoutX="656.0" layoutY="7.0" mnemonicParsing="false" onAction="#viewAccountsUpdateClicked" prefHeight="35.0" prefWidth="106.0" text="Update" />
-                                                        <TextField fx:id="viewAccountsSearchText" layoutX="14.0" layoutY="11.0" onKeyReleased="#viewAccountsSearchBarKeyReleased" prefHeight="14.0" prefWidth="414.0" promptText="Search" />
-                                                        <Button fx:id="viewAccountsClearButton" layoutX="436.0" layoutY="11.0" mnemonicParsing="false" onAction="#viewAccountsClearButtonClicked" text="Clear" />
                                                         <Button fx:id="viewAccountsShowPasswordButton" layoutX="536.0" layoutY="7.0" mnemonicParsing="false" onAction="#viewAccountsShowPasswordClicked" prefHeight="35.0" prefWidth="120.0" text="Hide passwords" textAlignment="CENTER" wrapText="true" />
                                                         <TableView fx:id="viewAccountsTable" layoutY="44.0" onMouseClicked="#viewAccountsTableClicked" prefHeight="510.0" prefWidth="756.0">
                                                             <columns>

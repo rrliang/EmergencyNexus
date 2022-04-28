@@ -1,6 +1,8 @@
 package com.flyinggeese.emergencynexus;
 
 import javafx.scene.control.Alert;
+
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -76,7 +78,7 @@ public class UserAccounts {
         this.editText = editChoice;
     }
 
-    public void addAccountToDatabase() throws SQLException {
+    public void addAccountToDatabase() throws SQLException, IOException {
         db.makeJDBCConnection();
         String insertQuery = "INSERT INTO users (typeofaccount,fullname,companyemail,homeaddress,phonenumber,username,password) VALUES (?,?,?,?,?,?,?)";
 

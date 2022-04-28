@@ -6,16 +6,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -123,6 +129,9 @@ public class SysAdminUserInterfaceController implements Initializable {
 
     @FXML
     private TableColumn<AdminTicket, String> ticketEmailCol, ticketUsernameCol, ticketIssueCol, ticketStatusCol, ticketAdminCol;
+
+    @FXML
+    private ImageView Exit, menuSignOutButton;
 
 
     protected void setPassword(String password) {
@@ -774,10 +783,36 @@ public class SysAdminUserInterfaceController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Exit.setOnMouseClicked(event -> {
+            System.exit(0);
+        });
+
+        menuSignOutButton.setOnMouseClicked(event -> {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Stage stage = new Stage();
+            fxmlLoader.setLocation(getClass().getResource("login-screen.fxml"));
+            stage.setTitle("Login Interface");
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));
+            stage.getIcons().add(new Image(EmergencyNexus.class.getResourceAsStream("logo.png")));
+            stage.setScene(scene);
+            stage.show();
+            ((Node)(event.getSource())).getScene().getWindow().hide();
+        });
+
         draftVisibility(false);
 
         draftList = FXCollections.observableArrayList();
-        db.makeJDBCConnection();
+        try {
+            db.makeJDBCConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ObservableList<Object> accountList = FXCollections.observableArrayList();
         accountList.addAll("Admin", "Nurse", "Doctor");
         createAccountTypeOfAccountChoiceBox.setItems(accountList);

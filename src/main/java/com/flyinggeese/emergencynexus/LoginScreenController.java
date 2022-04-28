@@ -48,7 +48,7 @@ public class LoginScreenController implements Initializable {
                 Scene scene = null;
                 switch(accountType.toLowerCase()) {
                     case "doctor":
-                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface2.fxml"));
+                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface.fxml"));
                         stage.setTitle("Practitioner Interface");
                         scene = new Scene(fxmlLoader.load());
                         StaffUserInterfaceController doctorController = fxmlLoader.getController();
@@ -56,11 +56,12 @@ public class LoginScreenController implements Initializable {
                         doctorController.setUsername(loginUsername.getText());
                         break;
                     case "nurse":
-                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface2.fxml"));
+                        fxmlLoader.setLocation(getClass().getResource("staff-user-interface.fxml"));
                         stage.setTitle("Nurse Interface");
                         scene = new Scene(fxmlLoader.load());
                         StaffUserInterfaceController nurseController = fxmlLoader.getController();
                         nurseController.setAccountType("nurse");
+                        nurseController.setUsername(loginUsername.getText());
                         break;
                     case "admin":
                         fxmlLoader.setLocation(getClass().getResource("sysadmin-user-interface.fxml"));
@@ -69,9 +70,9 @@ public class LoginScreenController implements Initializable {
                         SysAdminUserInterfaceController controller = fxmlLoader.getController();
                         controller.setPassword(loginPassword.getText());
                         controller.setUsername(loginUsername.getText());
+                        scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));
                         break;
                 }
-                scene.getStylesheets().add(String.valueOf(getClass().getResource("test.css")));
                 stage.getIcons().add(new Image(EmergencyNexus.class.getResourceAsStream("logo.png")));
                 stage.setScene(scene);
                 stage.show();
